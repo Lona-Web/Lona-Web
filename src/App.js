@@ -171,6 +171,7 @@ class App extends Component<any, any> {
   }
 
   renderImageLayer(layer: LonaImageLayer) {
+    // Todo: Aspect Ratio
     return (
       <img
         style={{
@@ -183,7 +184,10 @@ class App extends Component<any, any> {
           minHeight: getPixelOrDefault(layer.parameters.height),
           minWidth: getPixelOrDefault(layer.parameters.width)
         }}
-        src={layer.parameters.image}
+        src={getOrDefault(
+          layer.parameters.image,
+          "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+        )}
       />
     );
   }
