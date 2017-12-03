@@ -1,0 +1,108 @@
+* {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serifbody,
+    html;
+  color: black;
+}
+
+.App {
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cases-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.case-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.grid-bg {
+  overflow-x: auto;
+  position: relative;
+  background-color: #e0e0e0;
+  background-image: linear-gradient(
+      0deg,
+      transparent 24%,
+      rgba(255, 255, 255, 0.55) 25%,
+      rgba(255, 255, 255, 0.55) 26%,
+      transparent 27%,
+      transparent 74%,
+      rgba(255, 255, 255, 0.55) 75%,
+      rgba(255, 255, 255, 0.55) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      rgba(255, 255, 255, 0.55) 25%,
+      rgba(255, 255, 255, 0.55) 26%,
+      transparent 27%,
+      transparent 74%,
+      rgba(255, 255, 255, 0.55) 75%,
+      rgba(255, 255, 255, 0.55) 76%,
+      transparent 77%,
+      transparent
+    );
+  background-size: 50px 50px;
+}
+
+.section {
+  padding: 10px;
+}
+
+.section-title {
+  margin: 10px;
+}
+
+.components-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.colors-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.color-container {
+  position: relative;
+  height: 145px;
+  margin: 10px;
+}
+
+.color-display {
+  height: 120px;
+  width: 240px;
+}
+
+.color-name {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.color-value {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.text-styles-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
