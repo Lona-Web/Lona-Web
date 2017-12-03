@@ -4,8 +4,9 @@ import { cloneDeep, flatten } from "lodash";
 import React, { Component } from "react";
 import "./App.css";
 import colorsData from "./data/colors.js";
-import cardComponent from "./data/card-component.js";
-import listItemComponent from "./data/listItemComponent.js";
+import cardComponent from "./data/Card.component.js";
+import listItemComponent from "./data/ListItem.component.js";
+import teamComponent from "./data/Team.component.js";
 import textStyles from "./data/textStyles.js";
 import type {
   LonaLayer,
@@ -26,8 +27,9 @@ import type {
 } from "./LonaTypes.js";
 
 const components: Array<[string, LonaComponent]> = [
+  // ["Team", teamComponent],
   ["Card", cardComponent],
-  ["List Item", listItemComponent]
+  ["ListItem", listItemComponent]
 ];
 
 class App extends Component<any, any> {
