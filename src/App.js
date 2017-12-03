@@ -27,7 +27,7 @@ import type {
 } from "./LonaTypes.js";
 
 const components: Array<[string, LonaComponent]> = [
-  // ["Team", teamComponent],
+  ["Team", teamComponent],
   ["Card", cardComponent],
   ["ListItem", listItemComponent]
 ];
@@ -94,6 +94,22 @@ class App extends Component<any, any> {
     );
   }
 
+  renderComponentCase(component: LonaComponent, lonaCase: LonaCase) {
+    const layer: LonaLayer = cloneDeep(component.rootLayer);
+    const layers = flattenLayers(layer);
+    for (var logic of component.logic) {
+      applyLogic(logic, lonaCase.value, layers);
+    }
+
+    return (
+      <div className="case-container">
+        {component.canvases.map(canvas =>
+          this.renderCanvas(component, canvas, layer)
+        )}
+      </div>
+    );
+  }
+
   renderCanvas(
     component: LonaComponent,
     canvas: LonaCanvas,
@@ -124,22 +140,6 @@ class App extends Component<any, any> {
     );
   }
 
-  renderComponentCase(component: LonaComponent, lonaCase: LonaCase) {
-    const layer: LonaLayer = cloneDeep(component.rootLayer);
-    const layers = flattenLayers(layer);
-    for (var logic of component.logic) {
-      applyLogic(logic, lonaCase, layers);
-    }
-
-    return (
-      <div className="case-container">
-        {component.canvases.map(canvas =>
-          this.renderCanvas(component, canvas, layer)
-        )}
-      </div>
-    );
-  }
-
   renderLayer(layer: LonaLayer) {
     switch (layer.type) {
       case "View":
@@ -148,6 +148,19 @@ class App extends Component<any, any> {
         return this.renderImageLayer(layer);
       case "Text":
         return this.renderTextLayer(layer);
+      case "Component": {
+        const componentWithName = components.find(t => t[0] === layer.url);
+        if (componentWithName == null) {
+          throw new Error(`Component not found : ${layer.url}`);
+        }
+        const component = componentWithName[1];
+        const componentLayer: LonaLayer = cloneDeep(component.rootLayer);
+        const layers = flattenLayers(componentLayer);
+        for (var logic of component.logic) {
+          applyLogic(logic, layer.parameters, layers);
+        }
+        return this.renderLayer(componentLayer);
+      }
       default:
         throw new Error("Layer type not supported: " + layer.type);
     }
@@ -218,6 +231,7 @@ function flattenLayers(layer: LonaLayer): LonaLayer[] {
   switch (layer.type) {
     case "Text":
     case "Image":
+    case "Component":
       return [layer];
     case "View":
       return flatten(layer.children.map(flattenLayers)).concat(layer);
@@ -226,14 +240,14 @@ function flattenLayers(layer: LonaLayer): LonaLayer[] {
   }
 }
 
-function applyLogic(logic: LonaLogic, lonaCase: LonaCase, layers: LonaLayer[]) {
+function applyLogic(logic: LonaLogic, parameters: {}, layers: LonaLayer[]) {
   switch (logic.function.name) {
     case "assign(lhs, to rhs)": {
-      applyAssignLhsToRhsLogic(logic.function, lonaCase, layers);
+      applyAssignLhsToRhsLogic(logic.function, parameters, layers);
       break;
     }
     case "if(value)": {
-      applyIfValueLogic(logic.function, logic.nodes, lonaCase, layers);
+      applyIfValueLogic(logic.function, logic.nodes, parameters, layers);
       break;
     }
     default:
@@ -244,33 +258,33 @@ function applyLogic(logic: LonaLogic, lonaCase: LonaCase, layers: LonaLayer[]) {
 function applyIfValueLogic(
   fn: LonaIfValue,
   nodes: LonaLogic[],
-  lonaCase: LonaCase,
+  parameters: {},
   layers: LonaLayer[]
 ) {
-  const value = extractValue(fn.arguments.value, lonaCase);
+  const value = extractValue(fn.arguments.value, parameters);
   if (value) {
     for (var logic of nodes) {
-      applyLogic(logic, lonaCase, layers);
+      applyLogic(logic, parameters, layers);
     }
   }
 }
 
 function applyAssignLhsToRhsLogic(
   fn: LonaAssignLhsToRhs,
-  lonaCase: LonaCase,
+  parameters: {},
   layers: LonaLayer[]
 ) {
-  const lhsValue = extractValue(fn.arguments.lhs, lonaCase);
+  const lhsValue = extractValue(fn.arguments.lhs, parameters);
   if (lhsValue != null) {
     setRhsValue(fn.arguments.rhs, layers, lhsValue);
   }
 }
 
-function extractValue(variable: LonaVariable, lonaCase: LonaCase) {
+function extractValue(variable: LonaVariable, parameters: {}) {
   switch (variable.type) {
     case "identifier": {
       if (variable.value.path[0] === "parameters") {
-        return lonaCase.value[variable.value.path[1]];
+        return parameters[variable.value.path[1]];
       }
       break;
     }

@@ -90,7 +90,18 @@ export interface ILonaLayer {
   parameters: {};
 }
 
-export type LonaLayer = LonaTextLayer | LonaViewLayer | LonaImageLayer;
+export type LonaLayer =
+  | LonaTextLayer
+  | LonaViewLayer
+  | LonaImageLayer
+  | LonaComponentLayer;
+
+export type LonaComponentLayer = {
+  type: "Component",
+  name: string,
+  url: string,
+  parameters: {}
+};
 
 export type LonaImageLayer = {
   type: "Image",
