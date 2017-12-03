@@ -1,8 +1,8 @@
-* {
+html {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serifbody,
     html;
-  color: black;
+  color: #252a2f;
 }
 
 .App {
@@ -12,15 +12,16 @@
 .App-sidebar {
   box-sizing: border-box;
   width: 220px;
-  padding: 24px 18px;
   flex: 0 0 auto;
+  padding: 24px 18px;
   background: #f25784;
   color: white;
 }
 
 .App-body {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 }
+
 
 img {
   display: block;

@@ -3,6 +3,8 @@
 import { cloneDeep, flatten } from "lodash";
 import React, { Component } from "react";
 import "./App.css";
+import Sidebar from './viewer-components/Sidebar';
+
 import colorsData from "./data/colors.js";
 import cardComponent from "./data/Card.component.js";
 import listItemComponent from "./data/ListItem.component.js";
@@ -37,7 +39,7 @@ class App extends Component<any, any> {
     return (
       <div className="App">
         <div className="App-sidebar">
-          sidebar goes here
+          <Sidebar/>
         </div>
         <div className="App-body">
           <div className="section">
