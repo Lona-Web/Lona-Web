@@ -13,7 +13,6 @@ html {
   box-sizing: border-box;
   width: 220px;
   flex: 0 0 auto;
-  padding: 24px 18px;
   background: #f25784;
   color: white;
 }
