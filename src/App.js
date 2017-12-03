@@ -36,45 +36,50 @@ class App extends Component<any, any> {
   render() {
     return (
       <div className="App">
-        <div className="section">
-          <h2 className="section-title">Components</h2>
-          <div className="components-container">
-            {components.map(component =>
-              this.renderComponent(component[0], component[1])
-            )}
-          </div>
+        <div className="App-sidebar">
+          sidebar goes here
         </div>
-        <div className="section">
-          <h2 className="section-title">Colors</h2>
-          <div className="colors-container">
-            {colorsData.colors.map(color => (
-              <div className="color-container">
+        <div className="App-body">
+          <div className="section">
+            <h2 className="section-title">Components</h2>
+            <div className="components-container">
+              {components.map(component =>
+                this.renderComponent(component[0], component[1])
+              )}
+            </div>
+          </div>
+          <div className="section">
+            <h2 className="section-title">Colors</h2>
+            <div className="colors-container">
+              {colorsData.colors.map(color => (
+                <div className="color-container">
+                  <div
+                    className="color-display"
+                    style={{ background: color.value }}
+                  />
+                  <div className="color-name">{color.name}</div>
+                  <div className="color-value">{color.value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="section">
+            <h2 className="section-title">Text Styles</h2>
+            <div className="text-styles-container">
+              {textStyles.styles.map(textStyle => (
                 <div
-                  className="color-display"
-                  style={{ background: color.value }}
-                />
-                <div className="color-name">{color.name}</div>
-                <div className="color-value">{color.value}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="section">
-          <h2 className="section-title">Text Styles</h2>
-          <div className="text-styles-container">
-            {textStyles.styles.map(textStyle => (
-              <div
-                style={{
-                  fontFamily: textStyle.fontFamily,
-                  fontWeight: textStyle.fontWeight,
-                  fontSize: textStyle.fontSize + "px",
-                  lineHeight: textStyle.lineHeight + "px",
-                  color: textStyle.color
-                }}
-              >
-                {textStyle.name}
-              </div>
-            ))}
+                  style={{
+                    fontFamily: textStyle.fontFamily,
+                    fontWeight: textStyle.fontWeight,
+                    fontSize: textStyle.fontSize + "px",
+                    lineHeight: textStyle.lineHeight + "px",
+                    color: textStyle.color
+                  }}
+                >
+                  {textStyle.name}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

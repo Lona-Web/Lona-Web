@@ -6,6 +6,20 @@
 }
 
 .App {
+  display: flex;
+}
+
+.App-sidebar {
+  box-sizing: border-box;
+  width: 220px;
+  padding: 24px 18px;
+  flex: 0 0 auto;
+  background: #f25784;
+  color: white;
+}
+
+.App-body {
+  flex: 1 0 auto;
 }
 
 img {
@@ -59,17 +73,17 @@ img {
 }
 
 .section {
-  padding: 10px;
+  padding: 18px;
 }
 
 .section-title {
-  margin: 10px;
+  margin: 0 0 12px 0;
 }
 
 .components-container {
   display: flex;
   flex-direction: column;
-  margin: 10px;
+  margin: 0 0 12px 0;
 }
 
 .colors-container {
