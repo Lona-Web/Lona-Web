@@ -2,11 +2,31 @@
   padding: 24px 18px;
 }
 
-.Sidebar-header {
-
-}
-
-.Sidebar-header img {
+.Sidebar img {
   width: auto;
   margin: 0 auto;
+}
+
+.Sidebar ul {
+  padding: 0;
+  margin: 0;
+}
+
+.Sidebar ul li {
+  list-style: none;
+  margin-bottom: 12px;
+}
+
+.Sidebar a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 150ms ease-in;
+}
+
+.Sidebar a:hover {
+  color: white;
+}
+
+.Sidebar-header {
+  margin-bottom: 24px;
 }

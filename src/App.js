@@ -39,7 +39,7 @@ class App extends Component<any, any> {
     return (
       <div className="App">
         <div className="App-sidebar">
-          <Sidebar/>
+          <Sidebar components={components}/>
         </div>
         <div className="App-body">
           <div className="section">
