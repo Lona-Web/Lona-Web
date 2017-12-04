@@ -1,6 +1,6 @@
 {
-  "javascript.validate.enable": false,
-  
-  "flow.useNPMPackagedFlow": true,
-  "editor.formatOnSave": true
+    "javascript.validate.enable": false,
+    "flow.useNPMPackagedFlow": true,
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2
 }
