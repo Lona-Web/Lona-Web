@@ -250,6 +250,7 @@ class App extends Component<any, any> {
         style={{
           ...getDisplayStyle(layer, ""),
           ...getBackgroundStyle(layer),
+          ...applyNumberOfLinesStyle(layer),
           fontFamily: textStyle.fontFamily,
           fontWeight: textStyle.fontWeight,
           fontSize: textStyle.fontSize + "px",
@@ -437,6 +438,19 @@ function getDisplayStyle(layer, fallback = "flex") {
   return {
     display: getOrDefault(layer.parameters.visible, true) ? fallback : "none"
   };
+}
+
+function applyNumberOfLinesStyle(layer: LonaTextLayer) {
+  if (layer.parameters.numberOfLines == null) {
+    return {};
+  } else {
+    return {
+      overflow: "hidden",
+      WebkitLineClamp: 2,
+      WebkitBoxOrient: "vertical",
+      display: "-webkit-box"
+    };
+  }
 }
 
 function getBackgroundStyle(layer) {
