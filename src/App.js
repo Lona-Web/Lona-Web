@@ -3,7 +3,7 @@
 import { cloneDeep, flatten } from "lodash";
 import React, { Component } from "react";
 import "./App.css";
-import Sidebar from './viewer-components/Sidebar';
+import Sidebar from "./viewer-components/Sidebar";
 
 import colorsData from "./data/colors.js";
 import cardComponent from "./data/Card.component.js";
@@ -34,12 +34,33 @@ const components: Array<[string, LonaComponent]> = [
   ["ListItem", listItemComponent]
 ];
 
+//Todo: improve it to really support Yoga aspect ratio and apply it to other layers
+class AspectRatio extends Component<any, any> {
+  render() {
+    if (this.props.aspectRatio) {
+      return (
+        <div style={{ position: "relative", width: "100%" }}>
+          <div
+            style={{
+              width: "100%",
+              paddingTop: 100 / this.props.aspectRatio + "%"
+            }}
+          />
+          {this.props.children}
+        </div>
+      );
+    } else {
+      return this.props.children;
+    }
+  }
+}
+
 class App extends Component<any, any> {
   render() {
     return (
       <div className="App">
         <div className="App-sidebar">
-          <Sidebar/>
+          <Sidebar />
         </div>
         <div className="App-body">
           <div className="section">
@@ -191,24 +212,34 @@ class App extends Component<any, any> {
   }
 
   renderImageLayer(layer: LonaImageLayer) {
-    // Todo: Aspect Ratio
+    const aspectRatioStyle = {
+      position: "absolute",
+      top: "0",
+      left: "0",
+      width: "100%",
+      height: "100%",
+      objectFit: "cover"
+    };
     return (
-      <img
-        style={{
-          ...getDisplayStyle(layer),
-          ...getSpacingStyle(layer),
-          ...getDimensionStyle(layer),
-          ...getBorderStyle(layer),
-          ...getBackgroundStyle(layer),
-          ...getDimensionAndLayoutStyle(layer),
-          minHeight: getPixelOrDefault(layer.parameters.height),
-          minWidth: getPixelOrDefault(layer.parameters.width)
-        }}
-        src={getOrDefault(
-          layer.parameters.image,
-          "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-        )}
-      />
+      <AspectRatio aspectRatio={layer.parameters.aspectRatio}>
+        <img
+          style={{
+            ...getDisplayStyle(layer),
+            ...getSpacingStyle(layer),
+            ...getDimensionStyle(layer),
+            ...getBorderStyle(layer),
+            ...getBackgroundStyle(layer),
+            ...getDimensionAndLayoutStyle(layer),
+            minHeight: getPixelOrDefault(layer.parameters.height),
+            minWidth: getPixelOrDefault(layer.parameters.width),
+            ...(layer.parameters.aspectRatio ? aspectRatioStyle : {}) // Move to Aspect Ratio component
+          }}
+          src={getOrDefault(
+            layer.parameters.image,
+            "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+          )}
+        />
+      </AspectRatio>
     );
   }
 
@@ -217,7 +248,7 @@ class App extends Component<any, any> {
     return (
       <span
         style={{
-          ...getDisplayStyle(layer),
+          ...getDisplayStyle(layer, ""),
           ...getBackgroundStyle(layer),
           fontFamily: textStyle.fontFamily,
           fontWeight: textStyle.fontWeight,
@@ -343,7 +374,7 @@ function getFontOrDefault(
   throw new Error("Text style not found");
 }
 
-function getOrDefault(value, fallback) {
+function getOrDefault<T>(value: T | void, fallback: T): T {
   return value == null ? fallback : value;
 }
 
@@ -402,9 +433,9 @@ function getDimensionAndLayoutStyle(layer) {
   };
 }
 
-function getDisplayStyle(layer) {
+function getDisplayStyle(layer, fallback = "flex") {
   return {
-    display: getOrDefault(layer.parameters.visible, true) ? "flex" : "none"
+    display: getOrDefault(layer.parameters.visible, true) ? fallback : "none"
   };
 }
 
