@@ -131,9 +131,12 @@ class App extends Component<any, any> {
 
     return (
       <div className="case-container">
-        {component.canvases.map(canvas =>
-          this.renderCanvas(component, canvas, layer)
-        )}
+        <h4>{lonaCase.name}</h4>
+        <div className="canvases-container">
+          {component.canvases.map(canvas =>
+            this.renderCanvas(component, canvas, layer)
+          )}
+        </div>
       </div>
     );
   }
@@ -144,26 +147,28 @@ class App extends Component<any, any> {
     rootLayer: LonaLayer
   ) {
     return (
-      <div
-        style={{
-          position: "relative",
-          margin: "20px",
-          height:
-            canvas.heightMode === "Exactly"
-              ? getPixelOrDefault(canvas.height)
-              : "",
-          mineHight:
-            canvas.heightMode === "At Least"
-              ? getPixelOrDefault(canvas.height)
-              : "",
-          width: getPixelOrDefault(canvas.width),
-          background: getColorOrDefault(
-            canvas.backgroundColor,
-            colorsData.colors
-          )
-        }}
-      >
-        {this.renderLayer(rootLayer)}
+      <div className="canvas-container">
+        <h5>{canvas.name}</h5>
+        <div
+          style={{
+            position: "relative",
+            height:
+              canvas.heightMode === "Exactly"
+                ? getPixelOrDefault(canvas.height)
+                : "",
+            mineHight:
+              canvas.heightMode === "At Least"
+                ? getPixelOrDefault(canvas.height)
+                : "",
+            width: getPixelOrDefault(canvas.width),
+            background: getColorOrDefault(
+              canvas.backgroundColor,
+              colorsData.colors
+            )
+          }}
+        >
+          {this.renderLayer(rootLayer)}
+        </div>
       </div>
     );
   }
