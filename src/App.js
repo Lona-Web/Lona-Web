@@ -135,9 +135,12 @@ class App extends Component<any, any> {
 
     return (
       <div className="case-container">
-        {component.canvases.map(canvas =>
-          this.renderCanvas(component, canvas, layer)
-        )}
+        <h4>{lonaCase.name}</h4>
+        <div className="canvases-container">
+          {component.canvases.map(canvas =>
+            this.renderCanvas(component, canvas, layer)
+          )}
+        </div>
       </div>
     );
   }
@@ -148,31 +151,37 @@ class App extends Component<any, any> {
     rootLayer: LonaLayer
   ) {
     return (
-      <div
-        style={{
-          position: "relative",
-          margin: "20px",
-          height:
-            canvas.heightMode === "Exactly"
-              ? getPixelOrDefault(canvas.height)
-              : "",
-          mineHight:
-            canvas.heightMode === "At Least"
-              ? getPixelOrDefault(canvas.height)
-              : "",
-          width: getPixelOrDefault(canvas.width),
-          background: getColorOrDefault(
-            canvas.backgroundColor,
-            colorsData.colors
-          )
-        }}
-      >
-        {this.renderLayer(rootLayer)}
+      <div className="canvas-container">
+        <h5>{canvas.name}</h5>
+        <div
+          style={{
+            position: "relative",
+            height:
+              canvas.heightMode === "Exactly"
+                ? getPixelOrDefault(canvas.height)
+                : "",
+            mineHight:
+              canvas.heightMode === "At Least"
+                ? getPixelOrDefault(canvas.height)
+                : "",
+            width: getPixelOrDefault(canvas.width),
+            background: getColorOrDefault(
+              canvas.backgroundColor,
+              colorsData.colors
+            )
+          }}
+        >
+          {this.renderLayer(rootLayer)}
+        </div>
       </div>
     );
   }
 
   renderLayer(layer: LonaLayer) {
+    if(layer.parameters.visible === false) {
+      return null;
+    }
+
     switch (layer.type) {
       case "View":
         return this.renderViewLayer(layer);
@@ -202,7 +211,7 @@ class App extends Component<any, any> {
     return (
       <div
         style={{
-          ...getDisplayStyle(layer),
+          display: 'flex',
           ...getSpacingStyle(layer),
           ...getDimensionStyle(layer),
           ...getBorderStyle(layer),
@@ -228,7 +237,7 @@ class App extends Component<any, any> {
       <AspectRatio aspectRatio={layer.parameters.aspectRatio}>
         <img
           style={{
-            ...getDisplayStyle(layer),
+            display: 'flex',
             ...getSpacingStyle(layer),
             ...getDimensionStyle(layer),
             ...getBorderStyle(layer),
@@ -252,7 +261,6 @@ class App extends Component<any, any> {
     return (
       <span
         style={{
-          ...getDisplayStyle(layer, ""),
           ...getBackgroundStyle(layer),
           ...applyNumberOfLinesStyle(layer),
           fontFamily: textStyle.fontFamily,
@@ -435,12 +443,6 @@ function getDimensionAndLayoutStyle(layer) {
     alignItems: getOrDefault(layer.parameters.alignItems, "flex-start"),
     alignSelf: getOrDefault(layer.parameters.alignSelf, "stretch"),
     justifyContent: getOrDefault(layer.parameters.justifyContent, "flex-start")
-  };
-}
-
-function getDisplayStyle(layer, fallback = "flex") {
-  return {
-    display: getOrDefault(layer.parameters.visible, true) ? fallback : "none"
   };
 }
 
