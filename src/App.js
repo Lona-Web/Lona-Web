@@ -169,6 +169,10 @@ class App extends Component<any, any> {
   }
 
   renderLayer(layer: LonaLayer) {
+    if(layer.parameters.visible === false) {
+      return null;
+    }
+
     switch (layer.type) {
       case "View":
         return this.renderViewLayer(layer);
@@ -198,7 +202,7 @@ class App extends Component<any, any> {
     return (
       <div
         style={{
-          ...getDisplayStyle(layer),
+          display: 'flex',
           ...getSpacingStyle(layer),
           ...getDimensionStyle(layer),
           ...getBorderStyle(layer),
@@ -224,7 +228,7 @@ class App extends Component<any, any> {
       <AspectRatio aspectRatio={layer.parameters.aspectRatio}>
         <img
           style={{
-            ...getDisplayStyle(layer),
+            display: 'flex',
             ...getSpacingStyle(layer),
             ...getDimensionStyle(layer),
             ...getBorderStyle(layer),
@@ -248,7 +252,6 @@ class App extends Component<any, any> {
     return (
       <span
         style={{
-          ...getDisplayStyle(layer, ""),
           ...getBackgroundStyle(layer),
           ...applyNumberOfLinesStyle(layer),
           fontFamily: textStyle.fontFamily,
@@ -431,12 +434,6 @@ function getDimensionAndLayoutStyle(layer) {
     alignItems: getOrDefault(layer.parameters.alignItems, "flex-start"),
     alignSelf: getOrDefault(layer.parameters.alignSelf, "stretch"),
     justifyContent: getOrDefault(layer.parameters.justifyContent, "flex-start")
-  };
-}
-
-function getDisplayStyle(layer, fallback = "flex") {
-  return {
-    display: getOrDefault(layer.parameters.visible, true) ? fallback : "none"
   };
 }
 
