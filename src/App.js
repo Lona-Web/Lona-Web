@@ -28,18 +28,12 @@ import type {
     LonaVariable
 } from './LonaTypes.js';
 
-const components: Array<[string, LonaComponent]> = [
+const components: Array<[string, LonaComponent | React.ElementType]> = [
     ['Team', teamComponent],
     ['Card', cardComponent],
-    ['ListItem', listItemComponent]
-];
-
-const navItems: Array<[string]> = [
-    'Team',
-    'Card',
-    'List Item',
-    'Colors',
-    'Typography'
+    ['ListItem', listItemComponent],
+    ['Colors', ColorComponent],
+    ['Text styles', TextStyleComponent]
 ];
 
 //Todo: improve it to really support Yoga aspect ratio and apply it to other layers
@@ -68,10 +62,7 @@ function ColorComponent() {
         <div className="colors-container">
             {colorsData.colors.map(color => (
                 <div className="color-container">
-                    <div
-                        className="color-display"
-                        style={{ background: color.value }}
-                    />
+                    <div className="color-display" style={{ background: color.value }} />
                     <div className="color-name">{color.name}</div>
                     <div className="color-value">{color.value}</div>
                 </div>
@@ -101,30 +92,32 @@ function TextStyleComponent() {
 }
 
 class App extends Component<any, any> {
-    selectComponent() {}
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedComponent: ['Team', teamComponent]
+        };
+    }
+
+    handleComponentSelected = (component) => {
+        this.setState({
+            selectedComponent: component
+        });
+    }
 
     render() {
+        const [ componentName, component ] = this.state.selectedComponent
         return (
             <div className="App">
                 <div className="App-sidebar">
-                    <Sidebar items={navItems} />
+                    <Sidebar components={components} onComponentClick={this.handleComponentSelected} />
                 </div>
                 <div className="App-body">
                     <div className="section">
-                        <h2 className="section-title">Components</h2>
+                        <h2 className="section-title">{componentName}</h2>
                         <div className="components-container">
-                            {components.map(component =>
-                                this.renderComponent(component[0], component[1])
-                            )}
+                            {this.renderComponent(componentName, component)}
                         </div>
-                    </div>
-                    <div className="section">
-                        <h2 className="section-title">Colors</h2>
-                        {ColorComponent()}
-                    </div>
-                    <div className="section">
-                        <h2 className="section-title">Text Styles</h2>
-                        {TextStyleComponent()}
                     </div>
                 </div>
             </div>
@@ -132,16 +125,16 @@ class App extends Component<any, any> {
     }
 
     renderComponent(name: string, component: LonaComponent) {
-        return (
-            <div>
-                <h3>{name}</h3>
+        let isLonaComponent = typeof component !== 'function';
+        if(isLonaComponent) {
+            return (
                 <div className="grid-bg cases-container">
-                    {component.cases.map(lonaCase =>
-                        this.renderComponentCase(component, lonaCase)
-                    )}
+                    {component.cases.map(lonaCase => this.renderComponentCase(component, lonaCase))}
                 </div>
-            </div>
-        );
+            );
+        } else {
+            return component();
+        }
     }
 
     renderComponentCase(component: LonaComponent, lonaCase: LonaCase) {
@@ -155,38 +148,23 @@ class App extends Component<any, any> {
             <div className="case-container">
                 <h4>{lonaCase.name}</h4>
                 <div className="canvases-container">
-                    {component.canvases.map(canvas =>
-                        this.renderCanvas(component, canvas, layer)
-                    )}
+                    {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
                 </div>
             </div>
         );
     }
 
-    renderCanvas(
-        component: LonaComponent,
-        canvas: LonaCanvas,
-        rootLayer: LonaLayer
-    ) {
+    renderCanvas(component: LonaComponent, canvas: LonaCanvas, rootLayer: LonaLayer) {
         return (
             <div className="canvas-container">
                 <h5>{canvas.name}</h5>
                 <div
                     style={{
                         position: 'relative',
-                        height:
-                            canvas.heightMode === 'Exactly'
-                                ? getPixelOrDefault(canvas.height)
-                                : '',
-                        mineHight:
-                            canvas.heightMode === 'At Least'
-                                ? getPixelOrDefault(canvas.height)
-                                : '',
+                        height: canvas.heightMode === 'Exactly' ? getPixelOrDefault(canvas.height) : '',
+                        mineHight: canvas.heightMode === 'At Least' ? getPixelOrDefault(canvas.height) : '',
                         width: getPixelOrDefault(canvas.width),
-                        background: getColorOrDefault(
-                            canvas.backgroundColor,
-                            colorsData.colors
-                        )
+                        background: getColorOrDefault(canvas.backgroundColor, colorsData.colors)
                     }}
                 >
                     {this.renderLayer(rootLayer)}
@@ -208,16 +186,12 @@ class App extends Component<any, any> {
             case 'Text':
                 return this.renderTextLayer(layer);
             case 'Component': {
-                const componentWithName = components.find(
-                    t => t[0] === layer.url
-                );
+                const componentWithName = components.find(t => t[0] === layer.url);
                 if (componentWithName == null) {
                     throw new Error(`Component not found : ${layer.url}`);
                 }
                 const component = componentWithName[1];
-                const componentLayer: LonaLayer = cloneDeep(
-                    component.rootLayer
-                );
+                const componentLayer: LonaLayer = cloneDeep(component.rootLayer);
                 const layers = flattenLayers(componentLayer);
                 for (var logic of component.logic) {
                     applyLogic(logic, layer.parameters, layers);
@@ -267,9 +241,7 @@ class App extends Component<any, any> {
                         ...getDimensionAndLayoutStyle(layer),
                         minHeight: getPixelOrDefault(layer.parameters.height),
                         minWidth: getPixelOrDefault(layer.parameters.width),
-                        ...(layer.parameters.aspectRatio
-                            ? aspectRatioStyle
-                            : {}) // Move to Aspect Ratio component
+                        ...(layer.parameters.aspectRatio ? aspectRatioStyle : {}) // Move to Aspect Ratio component
                     }}
                     src={getOrDefault(
                         layer.parameters.image,
@@ -330,12 +302,7 @@ function applyLogic(logic: LonaLogic, parameters: {}, layers: LonaLayer[]) {
     }
 }
 
-function applyIfValueLogic(
-    fn: LonaIfValue,
-    nodes: LonaLogic[],
-    parameters: {},
-    layers: LonaLayer[]
-) {
+function applyIfValueLogic(fn: LonaIfValue, nodes: LonaLogic[], parameters: {}, layers: LonaLayer[]) {
     const value = extractValue(fn.arguments.value, parameters);
     if (value) {
         for (var logic of nodes) {
@@ -344,11 +311,7 @@ function applyIfValueLogic(
     }
 }
 
-function applyAssignLhsToRhsLogic(
-    fn: LonaAssignLhsToRhs,
-    parameters: {},
-    layers: LonaLayer[]
-) {
+function applyAssignLhsToRhsLogic(fn: LonaAssignLhsToRhs, parameters: {}, layers: LonaLayer[]) {
     const lhsValue = extractValue(fn.arguments.lhs, parameters);
     if (lhsValue != null) {
         setRhsValue(fn.arguments.rhs, layers, lhsValue);
@@ -392,18 +355,13 @@ function getPixelOrDefault(value: number | void, fallback: string = '') {
     return value ? value + 'px' : fallback;
 }
 
-function getFontOrDefault(
-    textStyleId: string,
-    textStyles: LonaTextStyles
-): LonaTextStyle {
+function getFontOrDefault(textStyleId: string, textStyles: LonaTextStyles): LonaTextStyle {
     const result = textStyles.styles.find(style => style.id === textStyleId);
     if (result) {
         return result;
     }
 
-    const defaultStyle = textStyles.styles.find(
-        style => style.id === textStyles.defaultStyleName
-    );
+    const defaultStyle = textStyles.styles.find(style => style.id === textStyles.defaultStyleName);
     if (defaultStyle) {
         return defaultStyle;
     }
@@ -415,10 +373,7 @@ function getOrDefault<T>(value: T | void, fallback: T): T {
     return value == null ? fallback : value;
 }
 
-function getColorOrDefault(
-    colorId: string | void,
-    colors: LonaColor[]
-): string {
+function getColorOrDefault(colorId: string | void, colors: LonaColor[]): string {
     if (colorId == null) {
         return '';
     }
@@ -466,10 +421,7 @@ function getDimensionAndLayoutStyle(layer) {
         flex: getOrDefault(layer.parameters.flex, 0),
         alignItems: getOrDefault(layer.parameters.alignItems, 'flex-start'),
         alignSelf: getOrDefault(layer.parameters.alignSelf, 'stretch'),
-        justifyContent: getOrDefault(
-            layer.parameters.justifyContent,
-            'flex-start'
-        )
+        justifyContent: getOrDefault(layer.parameters.justifyContent, 'flex-start')
     };
 }
 
@@ -488,9 +440,6 @@ function applyNumberOfLinesStyle(layer: LonaTextLayer) {
 
 function getBackgroundStyle(layer) {
     return {
-        background: getColorOrDefault(
-            layer.parameters.backgroundColor,
-            colorsData.colors
-        )
+        background: getColorOrDefault(layer.parameters.backgroundColor, colorsData.colors)
     };
 }

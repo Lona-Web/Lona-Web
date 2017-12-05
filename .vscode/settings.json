@@ -5,5 +5,5 @@
     "editor.tabSize": 4,
     "editor.renderWhitespace": "all",
     "prettier.singleQuote": true,
-    "prettier.printWidth": 80
+    "prettier.printWidth": 110
 }

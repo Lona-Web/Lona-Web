@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import './Sidebar.css';
 
 type SidebarProps = {
-    items: Array<[string]>
+    components: Array<[string, LonaComponent | React.ElementType]>,
+    onComponentClick: ([string, LonaComponent | React.ElementType]) => {}
 };
 
 class Sidebar extends React.Component<SidebarProps> {
+    handleCompoenentClick = (component) => {
+        this.props.onComponentClick(component);
+    }
     render() {
         return (
             <div className="Sidebar">
@@ -14,10 +18,10 @@ class Sidebar extends React.Component<SidebarProps> {
                 </div>
                 <div className="Sidebar-body">
                     <ul>
-                        {this.props.items.map(item => {
+                        {this.props.components.map((component, i) => {
                             return (
-                                <li>
-                                    <a href="">{item}</a>
+                                <li key={i}>
+                                    <a onClick={this.handleCompoenentClick.bind(this, component)}>{component[0]}</a>
                                 </li>
                             );
                         })}
