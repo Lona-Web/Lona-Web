@@ -110,7 +110,10 @@ class App extends Component<any, any> {
         return (
             <div className="App">
                 <div className="App-sidebar">
-                    <Sidebar components={components} onComponentClick={this.handleComponentSelected} />
+                    <Sidebar
+                        components={components}
+                        onComponentClick={this.handleComponentSelected}
+                        selectedComponent={this.state.selectedComponent} />
                 </div>
                 <div className="App-body">
                     <div className="section">

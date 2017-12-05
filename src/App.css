@@ -15,6 +15,8 @@ h5 {
 .App {
     display: flex;
     max-width: 100%;
+    min-height: 100vh;
+    align-items: stretch;
 }
 
 .App-sidebar {
@@ -27,7 +29,7 @@ h5 {
 
 .App-body {
     flex: 0 1 auto;
-    max-width: calc(100vw - 220px);
+    max-width: calc(100vw);
 }
 
 img {

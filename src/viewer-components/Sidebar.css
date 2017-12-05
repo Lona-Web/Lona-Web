@@ -21,6 +21,11 @@
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   transition: color 150ms ease-in;
+  cursor: pointer;
+}
+
+.Sidebar a.is-selected {
+  color: white;
 }
 
 .Sidebar a:hover {

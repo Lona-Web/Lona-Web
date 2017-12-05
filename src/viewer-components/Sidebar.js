@@ -3,7 +3,8 @@ import './Sidebar.css';
 
 type SidebarProps = {
     components: Array<[string, LonaComponent | React.ElementType]>,
-    onComponentClick: ([string, LonaComponent | React.ElementType]) => {}
+    onComponentClick: ([string, LonaComponent | React.ElementType]) => {},
+    selectedComponent: [string, LonaComponent | React.ElementType]
 };
 
 class Sidebar extends React.Component<SidebarProps> {
@@ -19,9 +20,10 @@ class Sidebar extends React.Component<SidebarProps> {
                 <div className="Sidebar-body">
                     <ul>
                         {this.props.components.map((component, i) => {
+                            const isSelectedClass = this.props.selectedComponent[0] === component[0] ? 'is-selected': '';
                             return (
                                 <li key={i}>
-                                    <a onClick={this.handleCompoenentClick.bind(this, component)}>{component[0]}</a>
+                                    <a className={isSelectedClass} onClick={this.handleCompoenentClick.bind(this, component)}>{component[0]}</a>
                                 </li>
                             );
                         })}
