@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import './Sidebar.css';
 
-import { LonaComponent } from '../LonaTypes.js';
-
 type SidebarProps = {
-    components: Array<[string, LonaComponent]>
+    items: Array<[string]>
 };
 
 class Sidebar extends React.Component<SidebarProps> {
@@ -16,10 +14,10 @@ class Sidebar extends React.Component<SidebarProps> {
                 </div>
                 <div className="Sidebar-body">
                     <ul>
-                        {this.props.components.map(component => {
+                        {this.props.items.map(item => {
                             return (
                                 <li>
-                                    <a href="">{component[0]}</a>
+                                    <a href="">{item}</a>
                                 </li>
                             );
                         })}

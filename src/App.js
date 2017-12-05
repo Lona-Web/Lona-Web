@@ -34,6 +34,10 @@ const components: Array<[string, LonaComponent]> = [
   ["ListItem", listItemComponent]
 ];
 
+const navItems: Array<[string]> = [
+  "Team", "Card", "List Item", "Colors", "Typography"
+];
+
 //Todo: improve it to really support Yoga aspect ratio and apply it to other layers
 class AspectRatio extends Component<any, any> {
   render() {
@@ -60,7 +64,7 @@ class App extends Component<any, any> {
     return (
       <div className="App">
         <div className="App-sidebar">
-          <Sidebar components={components} />
+          <Sidebar items={navItems} />
         </div>
         <div className="App-body">
           <div className="section">
