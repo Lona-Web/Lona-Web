@@ -59,7 +59,49 @@ class AspectRatio extends Component<any, any> {
   }
 }
 
+function ColorComponent() {
+  return (
+    <div className="colors-container">
+      {colorsData.colors.map(color => (
+        <div className="color-container">
+          <div
+            className="color-display"
+            style={{ background: color.value }}
+          />
+          <div className="color-name">{color.name}</div>
+          <div className="color-value">{color.value}</div>
+        </div>
+      ))}
+    </div>
+  )
+};
+
+function TextStyleComponent() {
+  return(
+    <div className="text-styles-container">
+      {textStyles.styles.map(textStyle => (
+        <div
+          style={{
+            fontFamily: textStyle.fontFamily,
+            fontWeight: textStyle.fontWeight,
+            fontSize: textStyle.fontSize + "px",
+            lineHeight: textStyle.lineHeight + "px",
+            color: textStyle.color
+          }}
+        >
+          {textStyle.name}
+        </div>
+      ))}
+    </div>
+  )
+};
+
 class App extends Component<any, any> {
+
+  selectComponent() {
+
+  }
+
   render() {
     return (
       <div className="App">
@@ -77,36 +119,11 @@ class App extends Component<any, any> {
           </div>
           <div className="section">
             <h2 className="section-title">Colors</h2>
-            <div className="colors-container">
-              {colorsData.colors.map(color => (
-                <div className="color-container">
-                  <div
-                    className="color-display"
-                    style={{ background: color.value }}
-                  />
-                  <div className="color-name">{color.name}</div>
-                  <div className="color-value">{color.value}</div>
-                </div>
-              ))}
-            </div>
+            {ColorComponent()}
           </div>
           <div className="section">
             <h2 className="section-title">Text Styles</h2>
-            <div className="text-styles-container">
-              {textStyles.styles.map(textStyle => (
-                <div
-                  style={{
-                    fontFamily: textStyle.fontFamily,
-                    fontWeight: textStyle.fontWeight,
-                    fontSize: textStyle.fontSize + "px",
-                    lineHeight: textStyle.lineHeight + "px",
-                    color: textStyle.color
-                  }}
-                >
-                  {textStyle.name}
-                </div>
-              ))}
-            </div>
+            {TextStyleComponent()}
           </div>
         </div>
       </div>
