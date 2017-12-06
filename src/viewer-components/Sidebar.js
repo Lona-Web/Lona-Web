@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Sidebar.css';
+import logo from '../assets/icon_64x64.png';
+import logo2 from '../assets/icon_64x64@2x.png';
 
 type SidebarProps = {
   items: string,
@@ -14,8 +16,8 @@ class Sidebar extends React.Component<SidebarProps> {
         <div className="Sidebar-header">
           <img
             alt="Lona Logo"
-            src="/images/icon_64x64.png"
-            srcSet="/images/icon_64x64.png 1x, /images/icon_64x64@2x.png 2x"
+            src={logo}
+            srcSet={logo + ' ' + logo2}
           />
         </div>
         <div className="Sidebar-body">
