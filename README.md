@@ -1,6 +1,8 @@
 # lona-viewer
 
-## Todo
-- [ ] Left menu with list of components + colors + textstyles
-- [ ] Text numberOfLines prop (dotdotdot) without 
-- [ ] Aspect ratio support on all layers
+Display your [Lona](https://github.com/airbnb/Lona) components directly on the web! 
+
+[Demo](https://guillaumesalles.github.io/lona-viewer/)
+
+*Just a quick and dirty proof of concept for now! It only handle the material design sample. Lot of features are missing...*
+
