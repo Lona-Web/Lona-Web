@@ -29,7 +29,7 @@ h5 {
 
 .App-body {
     flex: 0 1 auto;
-    max-width: calc(100vw);
+    max-width: calc(100vw - 220px);
 }
 
 img {
