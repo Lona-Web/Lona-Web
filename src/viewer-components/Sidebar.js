@@ -14,11 +14,7 @@ class Sidebar extends React.Component<SidebarProps> {
     return (
       <div className="Sidebar">
         <div className="Sidebar-header">
-          <img
-            alt="Lona Logo"
-            src={logo}
-            srcSet={logo + ' ' + logo2}
-          />
+          <img alt="Lona Logo" src={logo} srcSet={logo + ' ' + logo2} />
         </div>
         <div className="Sidebar-body">
           <ul>

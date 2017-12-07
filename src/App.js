@@ -233,7 +233,7 @@ class App extends Component<any, Props> {
       objectFit: 'cover'
     };
     return (
-      <AspectRatio aspectRatio={layer.parameters.aspectRatio}>
+      <AspectRatio key={layer.name} aspectRatio={layer.parameters.aspectRatio}>
         <img
           style={{
             display: 'flex',
@@ -259,6 +259,7 @@ class App extends Component<any, Props> {
     const textStyle = getFontOrDefault(layer.parameters.font, textStyles);
     return (
       <span
+        key={layer.name}
         style={{
           ...getBackgroundStyle(layer),
           ...applyNumberOfLinesStyle(layer),
@@ -472,7 +473,7 @@ function ColorComponent() {
   return (
     <div className="colors-container">
       {colorsData.colors.map(color => (
-        <div className="color-container">
+        <div key={color.id} className="color-container">
           <div className="color-display" style={{ background: color.value }} />
           <div className="color-name">{color.name}</div>
           <div className="color-value">{color.value}</div>
@@ -487,6 +488,7 @@ function TextStyleComponent() {
     <div className="text-styles-container">
       {textStyles.styles.map(textStyle => (
         <div
+          key={textStyle.id}
           style={{
             fontFamily: textStyle.fontFamily,
             fontWeight: textStyle.fontWeight,
