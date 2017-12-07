@@ -38,6 +38,8 @@ h5 {
 .App-body {
   flex: 1 1 auto;
   max-width: calc(100vw - 220px - 220px);
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 img {
