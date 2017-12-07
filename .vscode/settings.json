@@ -1,9 +1,10 @@
 {
     "javascript.validate.enable": false,
     "flow.useNPMPackagedFlow": true,
-    "editor.formatOnSave": false,
-    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
     "editor.renderWhitespace": "all",
     "prettier.singleQuote": true,
-    "prettier.printWidth": 110
+    "prettier.printWidth": 110,
+    "prettier.tabWidth": 2
 }

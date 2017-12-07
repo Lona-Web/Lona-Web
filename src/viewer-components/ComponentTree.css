@@ -1,0 +1,30 @@
+.ComponentTree {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 18px;
+}
+
+.ComponentTree ul {
+  padding: 0;
+  margin: 0;
+}
+
+.ComponentTree ul li {
+  list-style: none;
+  margin-bottom: 8px;
+}
+
+.ComponentTree li {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 150ms ease-in;
+  cursor: pointer;
+}
+
+.ComponentTree li.is-selected {
+  color: white;
+}
+
+.ComponentTree li:hover {
+  color: white;
+}

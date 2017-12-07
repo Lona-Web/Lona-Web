@@ -4,7 +4,10 @@ import { cloneDeep, flatten } from 'lodash';
 import React, { Component } from 'react';
 import './App.css';
 import Sidebar from './viewer-components/Sidebar';
+import ComponentTree from './viewer-components/ComponentTree';
+import LayerDetails from './viewer-components/LayerDetails';
 
+import { flattenComponentLayers } from './helpers';
 import colorsData from './data/colors.js';
 import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
@@ -34,11 +37,17 @@ const components: Array<[string, LonaComponent]> = [
   ['ListItem', listItemComponent]
 ];
 
-class App extends Component<any, { selectedItem: string }> {
+type Props = {
+  selectedItem: string,
+  selectedLayer: ?string
+};
+
+class App extends Component<any, Props> {
   constructor(props: any) {
     super(props);
     this.state = {
-      selectedItem: 'Team'
+      selectedItem: 'Team',
+      selectedLayer: null
     };
   }
 
@@ -47,6 +56,16 @@ class App extends Component<any, { selectedItem: string }> {
       selectedItem: item
     });
   };
+
+  selectedComponent(): LonaComponent {
+    const component = components.find(x => x[0] === this.state.selectedItem);
+
+    if (component == null) {
+      throw new Error('Component not found');
+    }
+
+    return component[1];
+  }
 
   render() {
     return (
@@ -57,6 +76,7 @@ class App extends Component<any, { selectedItem: string }> {
             onItemClick={this.handleComponentSelected}
             selectedItem={this.state.selectedItem}
           />
+          {this.renderComponentTree()}
         </div>
         <div className="App-body">
           <div className="section">
@@ -64,7 +84,41 @@ class App extends Component<any, { selectedItem: string }> {
             <div className="components-container">{this.renderContent()}</div>
           </div>
         </div>
+        <div className="App-rightbar">{this.renderLayerDetails()}</div>
       </div>
+    );
+  }
+
+  renderLayerDetails() {
+    if (this.state.selectedItem === 'Colors' || this.state.selectedItem === 'Text Styles') {
+      return null;
+    }
+
+    const component = this.selectedComponent();
+    const layer = flattenComponentLayers(component).find(l => l.name === this.state.selectedLayer);
+
+    if (layer == null) {
+      return null;
+    }
+
+    return <LayerDetails layer={layer} />;
+  }
+
+  renderComponentTree() {
+    if (this.state.selectedItem === 'Colors' || this.state.selectedItem === 'Text Styles') {
+      return null;
+    }
+
+    return (
+      <ComponentTree
+        component={this.selectedComponent()}
+        selectedLayerName={this.state.selectedLayer}
+        onSelectLayer={layerName =>
+          this.setState({
+            selectedLayer: layerName
+          })
+        }
+      />
     );
   }
 
@@ -77,15 +131,11 @@ class App extends Component<any, { selectedItem: string }> {
       return <TextStyleComponent />;
     }
 
-    const component = components.find(x => x[0] === this.state.selectedItem);
-
-    if (component == null) {
-      throw new Error('Component not found');
-    }
+    const component = this.selectedComponent();
 
     return (
       <div className="grid-bg cases-container">
-        {component[1].cases.map(lonaCase => this.renderComponentCase(component[1], lonaCase))}
+        {component.cases.map(lonaCase => this.renderComponentCase(component, lonaCase))}
       </div>
     );
   }
