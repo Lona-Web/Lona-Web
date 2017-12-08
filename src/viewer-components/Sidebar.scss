@@ -1,9 +1,10 @@
 @import '../styles/_variables.scss';
-$sidebar-background-color: $color-foreground;
+$sidebar-background-color: $color-background;
+$sidebar-horizontal-padding: 18px;
 
 .Sidebar {
   flex: 1 0 auto;
-  padding: 24px 18px;
+  padding: 24px $sidebar-horizontal-padding;
   background-color: $sidebar-background-color;
   color: $text-color-light;
 
@@ -17,16 +18,20 @@ $sidebar-background-color: $color-foreground;
     margin: 0 0 24px 0;
     li {
       list-style: none;
-      margin-bottom: 12px;
+      margin: {
+        right: -$sidebar-horizontal-padding;
+        bottom: 0;
+        left: -$sidebar-horizontal-padding;
+      }
     }
   }
 
   a {
-    text-decoration: none;
-    transition: color 150ms ease-in;
-    cursor: pointer;
+    display: block;
+    padding: 6px $sidebar-horizontal-padding;
     &.is-selected,
     &:hover {
+      background-color: $color-foreground;
       color: $text-color-light-hover;
     }
   }

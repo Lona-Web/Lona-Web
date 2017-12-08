@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { flatten } from 'lodash';
-import './ComponentTree.css';
 
 import type { LonaComponent, LonaLayer } from '../LonaTypes.js';
 
@@ -46,10 +45,9 @@ export default class ComponentTree extends Component<Props, void> {
               <li key={item.name}>
                 <a
                   className={this.props.selectedLayerName === item.name ? 'is-selected' : ''}
-                  style={{ paddingLeft: item.depth * 15 + 'px' }}
                   onClick={() => this.props.onSelectLayer(item.name)}
                 >
-                  {item.name}
+                  <div style={{ paddingLeft: item.depth * 12 + 'px' }}>{item.name}</div>
                 </a>
               </li>
             );

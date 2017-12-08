@@ -13,9 +13,9 @@ class Sidebar extends React.Component<SidebarProps> {
   render() {
     return (
       <div className="Sidebar">
-        <div className="Sidebar-header">
+        {/* <div className="Sidebar-header">
           <img alt="Lona Logo" src={logo} srcSet={logo + ' ' + logo2} />
-        </div>
+        </div> */}
         <div className="Sidebar-body">
           <ul>
             {this.props.items.map((item, i) => {

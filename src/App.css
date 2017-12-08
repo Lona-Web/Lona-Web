@@ -15,6 +15,7 @@ body {
   display: flex;
   max-width: 100%;
   min-height: 100vh;
+  overflow: hidden;
   align-items: stretch; }
   .App-sidebar, .App-toolbar {
     width: 220px;
@@ -22,10 +23,10 @@ body {
     display: flex;
     flex-direction: column; }
   .App-toolbar {
-    width: 200px; }
+    width: 220px; }
   .App-body {
+    width: 100%;
     flex: 1 1 auto;
-    max-width: calc(100vw - 220px - 200px);
     max-height: 100vh;
     overflow-y: auto; }
 
@@ -40,7 +41,7 @@ img {
   align-items: flex-start; }
 
 .case-container {
-  margin: 18px;
+  margin: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start; }
@@ -61,16 +62,12 @@ img {
   background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.55) 25%, rgba(255, 255, 255, 0.55) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.55) 75%, rgba(255, 255, 255, 0.55) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.55) 25%, rgba(255, 255, 255, 0.55) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.55) 75%, rgba(255, 255, 255, 0.55) 76%, transparent 77%, transparent);
   background-size: 50px 50px; }
 
-.section {
-  padding: 18px; }
-
 .section-title {
   margin: 12px; }
 
 .components-container {
   display: flex;
-  flex-direction: column;
-  margin: 12px; }
+  flex-direction: column; }
 
 .colors-container {
   display: flex;

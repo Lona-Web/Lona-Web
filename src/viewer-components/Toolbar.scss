@@ -1,9 +1,33 @@
 @import '../styles/_variables.scss';
-$toolbar-background-color: $color-foreground;
 
 .Toolbar {
   flex: 1 0 auto;
-  padding: 24px 18px;
-  background-color: $toolbar-background-color;
+  background-color: $color-background;
   color: $text-color-light;
+  display: flex;
+  transition: transform 150ms $timing-bezier-swiftOut;
+  transform: translateX(calc(100% - 36px));
+  &.is-open {
+    transform: translateX(0);
+  }
+  &-menu {
+    padding-top: 24px;
+    flex: 0 0 auto;
+    width: 36px;
+    button {
+      background: $color-foreground;
+      box-shadow: $shadow-boxes-soft;
+      height: 36px;
+      width: 100%;
+      &:hover {
+        color: $text-color-light-hover;
+      }
+    }
+  }
+
+  &-body {
+    flex: 1 1 auto;
+    padding: 24px 18px;
+    background-color: $color-foreground;
+  }
 }

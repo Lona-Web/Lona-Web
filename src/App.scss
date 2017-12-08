@@ -1,9 +1,5 @@
 @import './styles/_variables.scss';
 
-$app-sidebar-width: 220px;
-$app-toolbar-width: 200px;
-$app-body-width: calc(100vw - #{$app-sidebar-width} - #{$app-toolbar-width});
-
 html {
   box-sizing: border-box;
   font-family: $text-font;
@@ -27,6 +23,7 @@ body {
   display: flex;
   max-width: 100%;
   min-height: 100vh;
+  overflow: hidden;
   align-items: stretch;
 
   &-sidebar,
@@ -42,8 +39,8 @@ body {
   }
 
   &-body {
+    width: 100%;
     flex: 1 1 auto;
-    max-width: $app-body-width;
     max-height: 100vh;
     overflow-y: auto;
   }
@@ -62,7 +59,7 @@ img {
 }
 
 .case-container {
-  margin: 18px;
+  margin: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -111,17 +108,14 @@ img {
 }
 
 .section {
-  padding: 18px;
-}
-
-.section-title {
-  margin: 12px;
+  &-title {
+    margin: 12px;
+  }
 }
 
 .components-container {
   display: flex;
   flex-direction: column;
-  margin: 12px;
 }
 
 .colors-container {

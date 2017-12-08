@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import './LayerDetails.css';
 import { flatten } from 'lodash';
 
 import type { LonaLayer } from '../LonaTypes.js';

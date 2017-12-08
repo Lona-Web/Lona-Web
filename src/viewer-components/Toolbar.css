@@ -1,5 +1,24 @@
 .Toolbar {
   flex: 1 0 auto;
-  padding: 24px 18px;
-  background-color: #2c313a;
-  color: #cccccc; }
+  background-color: #21252b;
+  color: #cccccc;
+  display: flex;
+  transition: transform 150ms cubic-bezier(0.55, 0, 0.1, 1);
+  transform: translateX(calc(100% - 36px)); }
+  .Toolbar.is-open {
+    transform: translateX(0); }
+  .Toolbar-menu {
+    padding-top: 24px;
+    flex: 0 0 auto;
+    width: 36px; }
+    .Toolbar-menu button {
+      background: #2f333d;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.07);
+      height: 36px;
+      width: 100%; }
+      .Toolbar-menu button:hover {
+        color: white; }
+  .Toolbar-body {
+    flex: 1 1 auto;
+    padding: 24px 18px;
+    background-color: #2f333d; }
