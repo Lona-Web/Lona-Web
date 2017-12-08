@@ -40,17 +40,17 @@ export default class ComponentTree extends Component<Props, void> {
     const items = flattenLayers(this.props.component.rootLayer, 0);
     return (
       <div className="ComponentTree">
-        <h4>Component Tree</h4>
         <ul>
           {items.map(item => {
             return (
-              <li
-                key={item.name}
-                className={this.props.selectedLayerName === item.name ? 'is-selected' : ''}
-                style={{ paddingLeft: item.depth * 15 + 'px' }}
-                onClick={() => this.props.onSelectLayer(item.name)}
-              >
-                {item.name}
+              <li key={item.name}>
+                <a
+                  className={this.props.selectedLayerName === item.name ? 'is-selected' : ''}
+                  style={{ paddingLeft: item.depth * 15 + 'px' }}
+                  onClick={() => this.props.onSelectLayer(item.name)}
+                >
+                  {item.name}
+                </a>
               </li>
             );
           })}

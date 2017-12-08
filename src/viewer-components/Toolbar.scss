@@ -1,0 +1,9 @@
+@import '../styles/_variables.scss';
+$toolbar-background-color: $color-foreground;
+
+.Toolbar {
+  flex: 1 0 auto;
+  padding: 24px 18px;
+  background-color: $toolbar-background-color;
+  color: $text-color-light;
+}

@@ -4,6 +4,7 @@ import { cloneDeep, flatten } from 'lodash';
 import React, { Component } from 'react';
 import './App.css';
 import Sidebar from './viewer-components/Sidebar';
+import Toolbar from './viewer-components/Toolbar';
 import ComponentTree from './viewer-components/ComponentTree';
 import LayerDetails from './viewer-components/LayerDetails';
 
@@ -75,8 +76,9 @@ class App extends Component<any, Props> {
             items={['Team', 'Card', 'ListItem', 'Colors', 'Text Styles']}
             onItemClick={this.handleComponentSelected}
             selectedItem={this.state.selectedItem}
-          />
-          {this.renderComponentTree()}
+          >
+            {this.renderComponentTree()}
+          </Sidebar>
         </div>
         <div className="App-body">
           <div className="section">
@@ -84,7 +86,9 @@ class App extends Component<any, Props> {
             <div className="components-container">{this.renderContent()}</div>
           </div>
         </div>
-        <div className="App-rightbar">{this.renderLayerDetails()}</div>
+        <div className="App-toolbar">
+          <Toolbar>{this.renderLayerDetails()}</Toolbar>
+        </div>
       </div>
     );
   }

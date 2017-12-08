@@ -31,6 +31,8 @@ class Sidebar extends React.Component<SidebarProps> {
               );
             })}
           </ul>
+
+          {this.props.children}
         </div>
       </div>
     );

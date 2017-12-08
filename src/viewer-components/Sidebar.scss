@@ -1,0 +1,37 @@
+@import '../styles/_variables.scss';
+$sidebar-background-color: $color-foreground;
+
+.Sidebar {
+  flex: 1 0 auto;
+  padding: 24px 18px;
+  background-color: $sidebar-background-color;
+  color: $text-color-light;
+
+  img {
+    width: auto;
+    margin: 0 auto;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0 0 24px 0;
+    li {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    transition: color 150ms ease-in;
+    cursor: pointer;
+    &.is-selected,
+    &:hover {
+      color: $text-color-light-hover;
+    }
+  }
+
+  &-header {
+    margin-bottom: 24px;
+  }
+}
