@@ -40,8 +40,7 @@ const components: Array<[string, LonaComponent]> = [
 
 type Props = {
   selectedItem: string,
-  selectedLayer: ?string,
-  isToolbarOpen: boolean
+  selectedLayer: ?string
 };
 
 class App extends Component<any, Props> {
@@ -59,12 +58,6 @@ class App extends Component<any, Props> {
     });
   };
 
-  handleOnToolbarToggle = () => {
-    this.setState({
-      isToolbarOpen: !this.state.isToolbarOpen
-    });
-  };
-
   selectedComponent(): LonaComponent {
     const component = components.find(x => x[0] === this.state.selectedItem);
 
@@ -76,9 +69,9 @@ class App extends Component<any, Props> {
   }
 
   render() {
-    const { selectedItem, isToolbarOpen } = this.state;
+    const { selectedItem } = this.state;
     return (
-      <div className={isToolbarOpen ? 'App is-toolbar-open' : 'App'}>
+      <div className="App">
         <div className="App-sidebar">
           <Sidebar
             items={['Team', 'Card', 'ListItem', 'Colors', 'Text Styles']}
@@ -95,9 +88,7 @@ class App extends Component<any, Props> {
           </div>
         </div>
         <div className="App-toolbar">
-          <Toolbar isOpen={isToolbarOpen} onToggle={this.handleOnToolbarToggle}>
-            {this.renderLayerDetails()}
-          </Toolbar>
+          <Toolbar>{this.renderLayerDetails()}</Toolbar>
         </div>
       </div>
     );
