@@ -5,7 +5,7 @@
   background-color: $color-background;
   color: $text-color-light;
   display: flex;
-  transition: transform 200ms $timing-bezier-swiftOut;
+  transition: transform 250ms $timing-bezier-swiftOut;
   &.is-open {
     transform: translateX(calc(-100% + #{$app-toolbar-menu-width}));
   }
@@ -28,5 +28,13 @@
     flex: 1 1 auto;
     padding: 24px 18px;
     background-color: $color-foreground;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0 0 24px 0;
+    li {
+      list-style: none;
+    }
   }
 }

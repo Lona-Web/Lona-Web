@@ -39,6 +39,7 @@ export default class ComponentTree extends Component<Props, void> {
     const items = flattenLayers(this.props.component.rootLayer, 0);
     return (
       <div className="ComponentTree">
+        <h3 className="TitleSm">Component tree</h3>
         <ul>
           {items.map(item => {
             return (

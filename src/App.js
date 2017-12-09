@@ -77,18 +77,19 @@ class App extends Component<any, Props> {
             items={['Team', 'Card', 'ListItem', 'Colors', 'Text Styles']}
             onItemClick={this.handleComponentSelected}
             selectedItem={selectedItem}
-          >
-            {this.renderComponentTree()}
-          </Sidebar>
+          />
         </div>
         <div className="App-body">
           <div className="section">
-            <h2 className="section-title">{selectedItem}</h2>
+            <h2 className="TitleLg section-title">{selectedItem}</h2>
             <div className="components-container">{this.renderContent()}</div>
           </div>
         </div>
         <div className="App-toolbar">
-          <Toolbar>{this.renderLayerDetails()}</Toolbar>
+          <Toolbar>
+            {this.renderComponentTree()}
+            {this.renderLayerDetails()}
+          </Toolbar>
         </div>
       </div>
     );

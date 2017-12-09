@@ -23,11 +23,7 @@ class Toolbar extends React.Component {
             O
           </button>
         </div>
-        <div className="Toolbar-body">
-          <div>Component tree goes here</div>
-          <div>Layer details goes here</div>
-          <div>{this.props.children}</div>
-        </div>
+        <div className="Toolbar-body">{this.props.children}</div>
       </div>
     );
   }

@@ -3,7 +3,7 @@
   background-color: #21252b;
   color: #cccccc;
   display: flex;
-  transition: transform 200ms cubic-bezier(0.55, 0, 0.1, 1); }
+  transition: transform 250ms cubic-bezier(0.55, 0, 0.1, 1); }
   .Toolbar.is-open {
     transform: translateX(calc(-100% + 36px)); }
   .Toolbar-menu {
@@ -21,3 +21,8 @@
     flex: 1 1 auto;
     padding: 24px 18px;
     background-color: #2f333d; }
+  .Toolbar ul {
+    padding: 0;
+    margin: 0 0 24px 0; }
+    .Toolbar ul li {
+      list-style: none; }
