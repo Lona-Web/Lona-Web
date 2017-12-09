@@ -40,7 +40,8 @@ const components: Array<[string, LonaComponent]> = [
 
 type Props = {
   selectedItem: string,
-  selectedLayer: ?string
+  selectedLayer: ?string,
+  isToolbarOpen: boolean
 };
 
 class App extends Component<any, Props> {
@@ -58,6 +59,12 @@ class App extends Component<any, Props> {
     });
   };
 
+  handleOnToolbarToggle = () => {
+    this.setState({
+      isToolbarOpen: !this.state.isToolbarOpen
+    });
+  };
+
   selectedComponent(): LonaComponent {
     const component = components.find(x => x[0] === this.state.selectedItem);
 
@@ -69,25 +76,28 @@ class App extends Component<any, Props> {
   }
 
   render() {
+    const { selectedItem, isToolbarOpen } = this.state;
     return (
-      <div className="App">
+      <div className={isToolbarOpen ? 'App is-toolbar-open' : 'App'}>
         <div className="App-sidebar">
           <Sidebar
             items={['Team', 'Card', 'ListItem', 'Colors', 'Text Styles']}
             onItemClick={this.handleComponentSelected}
-            selectedItem={this.state.selectedItem}
+            selectedItem={selectedItem}
           >
             {this.renderComponentTree()}
           </Sidebar>
         </div>
         <div className="App-body">
           <div className="section">
-            <h2 className="section-title">{this.state.selectedItem}</h2>
+            <h2 className="section-title">{selectedItem}</h2>
             <div className="components-container">{this.renderContent()}</div>
           </div>
         </div>
         <div className="App-toolbar">
-          <Toolbar>{this.renderLayerDetails()}</Toolbar>
+          <Toolbar isOpen={isToolbarOpen} onToggle={this.handleOnToolbarToggle}>
+            {this.renderLayerDetails()}
+          </Toolbar>
         </div>
       </div>
     );

@@ -26,8 +26,9 @@ body {
     width: 220px; }
   .App-body {
     width: 100%;
-    flex: 1 1 auto;
+    flex: 1 0 auto;
     max-height: 100vh;
+    width: calc(100vw - 220px - 36px);
     overflow-y: auto; }
 
 img {
@@ -44,7 +45,8 @@ img {
   margin: 24px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; }
+  align-items: flex-start;
+  padding-right: 220px; }
 
 .canvases-container {
   display: flex;

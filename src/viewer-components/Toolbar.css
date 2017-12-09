@@ -3,10 +3,9 @@
   background-color: #21252b;
   color: #cccccc;
   display: flex;
-  transition: transform 150ms cubic-bezier(0.55, 0, 0.1, 1);
-  transform: translateX(calc(100% - 36px)); }
+  transition: transform 200ms cubic-bezier(0.55, 0, 0.1, 1); }
   .Toolbar.is-open {
-    transform: translateX(0); }
+    transform: translateX(calc(-100% + 36px)); }
   .Toolbar-menu {
     padding-top: 24px;
     flex: 0 0 auto;
