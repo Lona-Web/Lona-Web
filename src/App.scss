@@ -3,7 +3,8 @@
 html {
   box-sizing: border-box;
   font-family: $text-font;
-  color: $text-color-dark;
+  color: $text-color-light;
+  background: $color-background;
 }
 
 body {
@@ -39,6 +40,7 @@ body {
   }
 
   &-body {
+    background-color: $color-background-2;
     width: 100%;
     flex: 1 0 auto;
     max-height: 100vh;
@@ -81,32 +83,6 @@ img {
 .grid-bg {
   overflow-x: auto;
   position: relative;
-  background-color: #f0f0f0;
-  background-image: linear-gradient(
-      0deg,
-      transparent 24%,
-      rgba(255, 255, 255, 0.55) 25%,
-      rgba(255, 255, 255, 0.55) 26%,
-      transparent 27%,
-      transparent 74%,
-      rgba(255, 255, 255, 0.55) 75%,
-      rgba(255, 255, 255, 0.55) 76%,
-      transparent 77%,
-      transparent
-    ),
-    linear-gradient(
-      90deg,
-      transparent 24%,
-      rgba(255, 255, 255, 0.55) 25%,
-      rgba(255, 255, 255, 0.55) 26%,
-      transparent 27%,
-      transparent 74%,
-      rgba(255, 255, 255, 0.55) 75%,
-      rgba(255, 255, 255, 0.55) 76%,
-      transparent 77%,
-      transparent
-    );
-  background-size: 50px 50px;
 }
 
 .section {
@@ -118,6 +94,7 @@ img {
 .components-container {
   display: flex;
   flex-direction: column;
+  background-color: $color-background-3;
 }
 
 .colors-container {
