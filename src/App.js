@@ -33,19 +33,19 @@ import type {
   LonaVariable
 } from './LonaTypes.js';
 
-const components: Array<[string, LonaComponent]> = [
+const components: Map<string, LonaComponent> = new Map([
   ['Team', teamComponent],
   ['Card', cardComponent],
   ['ListItem', listItemComponent]
-];
+]);
 
-type Props = {
+type State = {
   selectedItem: string,
   selectedLayer: ?string
 };
 
-class App extends Component<any, Props> {
-  constructor(props: any) {
+class App extends Component<void, State> {
+  constructor(props: void) {
     super(props);
     this.state = {
       selectedItem: 'Team',
@@ -60,13 +60,13 @@ class App extends Component<any, Props> {
   };
 
   selectedComponent(): LonaComponent {
-    const component = components.find(x => x[0] === this.state.selectedItem);
+    const component = components.get(this.state.selectedItem);
 
-    if (component == null) {
-      throw new Error('Component not found');
+    if (component === undefined) {
+      throw new Error(`Component not found (${this.state.selectedItem})`);
     }
 
-    return component[1];
+    return component;
   }
 
   render() {
@@ -204,11 +204,10 @@ class App extends Component<any, Props> {
   }
 
   renderCOmponentLayer(layer: LonaComponentLayer) {
-    const componentWithName = components.find(t => t[0] === layer.url);
-    if (componentWithName == null) {
+    const component = components.get(layer.url);
+    if (component === undefined) {
       throw new Error(`Component not found : ${layer.url}`);
     }
-    const component = componentWithName[1];
     const componentLayer: LonaLayer = cloneDeep(component.rootLayer);
     const layers = flattenLayers(componentLayer);
     for (var logic of component.logic) {
