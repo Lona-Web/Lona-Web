@@ -54,18 +54,28 @@ img {
   height: auto;
 }
 
+.section {
+  &-title {
+    margin: 24px;
+  }
+}
+
 .cases-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 0 24px;
 }
 
 .case-container {
-  margin: 24px;
+  box-shadow: $shadow-level-1;
+  margin-bottom: 24px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding-right: $app-toolbar-width;
+  background-color: $color-dark-level-3;
 }
 
 .canvases-container {
@@ -76,24 +86,7 @@ img {
 .canvas-container {
   display: flex;
   flex-direction: column;
-  margin: 18px;
-}
-
-.grid-bg {
-  overflow-x: auto;
-  position: relative;
-}
-
-.section {
-  &-title {
-    margin: 12px;
-  }
-}
-
-.components-container {
-  display: flex;
-  flex-direction: column;
-  background-color: $color-dark-level-3;
+  margin: 12px;
 }
 
 .colors-container {

@@ -83,7 +83,7 @@ class App extends Component<void, State> {
         <div className="App-body">
           <div className="section">
             <h2 className="TitleLg section-title">{selectedItem}</h2>
-            <div className="components-container">{this.renderContent()}</div>
+            {this.renderContent()}
           </div>
         </div>
         <div className="App-toolbar">
@@ -141,7 +141,7 @@ class App extends Component<void, State> {
     const component = this.selectedComponent();
 
     return (
-      <div className="grid-bg cases-container">
+      <div className="cases-container">
         {component.cases.map(lonaCase => this.renderComponentCase(component, lonaCase))}
       </div>
     );
