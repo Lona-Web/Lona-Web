@@ -17,6 +17,8 @@
   &-menu {
     flex: 0 0 auto;
     width: $app-toolbar-menu-width;
+    padding-top: 24px;
+    overflow: hidden;
     button {
       background: $color-foreground;
       box-shadow: $shadow-level-1;

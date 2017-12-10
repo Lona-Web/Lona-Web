@@ -11,7 +11,9 @@
     transform: translateX(calc(-100% + 36px)); }
   .Toolbar-menu {
     flex: 0 0 auto;
-    width: 36px; }
+    width: 36px;
+    padding-top: 24px;
+    overflow: hidden; }
     .Toolbar-menu button {
       background: #2f333d;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
