@@ -1,7 +1,10 @@
 .Sidebar {
+  z-index: 1;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   flex: 1 0 auto;
   padding: 24px 18px;
-  background-color: #21252b;
+  background-color: #282c34;
   color: #cccccc; }
   .Sidebar img {
     width: auto;

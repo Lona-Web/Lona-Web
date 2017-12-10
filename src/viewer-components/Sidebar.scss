@@ -1,8 +1,11 @@
 @import '../styles/_variables.scss';
-$sidebar-background-color: $color-background;
+$sidebar-background-color: $color-dark-level-3;
 $sidebar-horizontal-padding: 18px;
 
 .Sidebar {
+  z-index: 1;
+  position: relative;
+  box-shadow: $shadow-level-2;
   flex: 1 0 auto;
   padding: 24px $sidebar-horizontal-padding;
   background-color: $sidebar-background-color;

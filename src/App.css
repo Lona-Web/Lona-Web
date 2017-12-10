@@ -26,7 +26,6 @@ body {
   .App-toolbar {
     width: 256px; }
   .App-body {
-    background-color: #1c2125;
     width: 100%;
     flex: 1 0 auto;
     max-height: 100vh;
@@ -69,7 +68,7 @@ img {
 .components-container {
   display: flex;
   flex-direction: column;
-  background-color: #181c22; }
+  background-color: #282c34; }
 
 .colors-container {
   display: flex;

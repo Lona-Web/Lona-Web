@@ -4,7 +4,7 @@ html {
   box-sizing: border-box;
   font-family: $text-font;
   color: $text-color-light;
-  background: $color-background;
+  background: $color-dark-level-4;
 }
 
 body {
@@ -40,7 +40,6 @@ body {
   }
 
   &-body {
-    background-color: $color-background-2;
     width: 100%;
     flex: 1 0 auto;
     max-height: 100vh;
@@ -94,7 +93,7 @@ img {
 .components-container {
   display: flex;
   flex-direction: column;
-  background-color: $color-background-3;
+  background-color: $color-dark-level-3;
 }
 
 .colors-container {

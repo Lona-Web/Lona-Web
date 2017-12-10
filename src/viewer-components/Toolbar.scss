@@ -1,21 +1,25 @@
 @import '../styles/_variables.scss';
 
 .Toolbar {
+  z-index: 1;
+  position: relative;
+  box-shadow: $shadow-level-2;
   flex: 1 0 auto;
-  background-color: $color-background;
+  background-color: $color-dark-level-3;
   color: $text-color-light;
   display: flex;
   transition: transform 250ms $timing-bezier-swiftOut;
+
   &.is-open {
     transform: translateX(calc(-100% + #{$app-toolbar-menu-width}));
   }
+
   &-menu {
-    padding-top: 24px;
     flex: 0 0 auto;
     width: $app-toolbar-menu-width;
     button {
       background: $color-foreground;
-      box-shadow: $shadow-boxes-soft;
+      box-shadow: $shadow-level-1;
       height: 36px;
       width: 100%;
       &:hover {
