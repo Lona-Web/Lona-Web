@@ -10,6 +10,8 @@
   .Toolbar.is-open {
     transform: translateX(calc(-100% + 36px)); }
   .Toolbar-menu {
+    position: relative;
+    z-index: 1;
     flex: 0 0 auto;
     width: 36px;
     padding-top: 24px;

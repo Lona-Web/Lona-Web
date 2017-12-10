@@ -65,61 +65,61 @@ img {
   flex-direction: column;
   align-items: flex-start;
   padding: 0 24px;
-}
 
-.case-container {
-  box-shadow: $shadow-level-1;
-  margin-bottom: 24px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-right: $app-toolbar-width;
-  background-color: $color-dark-level-3;
-}
-
-.canvases-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.canvas-container {
-  display: flex;
-  flex-direction: column;
-  margin: 12px;
+  .case-container {
+    box-shadow: $shadow-level-1;
+    margin-bottom: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: $app-toolbar-width;
+    background-color: $color-dark-level-3;
+  }
 }
 
 .colors-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: 24px;
+  padding: 12px;
+  box-shadow: $shadow-level-1;
+  background-color: $color-dark-level-3;
+  .color-container {
+    position: relative;
+    height: 145px;
+    margin: 12px;
+  }
+  .color-display {
+    height: 120px;
+    width: 240px;
+  }
+  .color-name {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+  }
+  .color-value {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
 }
 
-.color-container {
-  position: relative;
-  height: 145px;
-  margin: 12px;
-}
-
-.color-display {
-  height: 120px;
-  width: 240px;
-}
-
-.color-name {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-}
-
-.color-value {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+.canvases-container {
+  display: flex;
+  flex-direction: row;
+  .canvas-container {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+  }
 }
 
 .text-styles-container {
-  display: flex;
-  flex-direction: column;
-  margin: 12px;
+  margin: 24px;
+  padding: 24px;
+  box-shadow: $shadow-level-1;
+  background-color: $color-dark-level-3;
 }

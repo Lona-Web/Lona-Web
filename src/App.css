@@ -45,51 +45,50 @@ img {
   flex-direction: column;
   align-items: flex-start;
   padding: 0 24px; }
-
-.case-container {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  margin-bottom: 24px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-right: 256px;
-  background-color: #282c34; }
-
-.canvases-container {
-  display: flex;
-  flex-direction: row; }
-
-.canvas-container {
-  display: flex;
-  flex-direction: column;
-  margin: 12px; }
+  .cases-container .case-container {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    margin-bottom: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-right: 256px;
+    background-color: #282c34; }
 
 .colors-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  margin: 24px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background-color: #282c34; }
+  .colors-container .color-container {
+    position: relative;
+    height: 145px;
+    margin: 12px; }
+  .colors-container .color-display {
+    height: 120px;
+    width: 240px; }
+  .colors-container .color-name {
+    position: absolute;
+    bottom: 0px;
+    left: 0px; }
+  .colors-container .color-value {
+    position: absolute;
+    bottom: 0px;
+    right: 0px; }
 
-.color-container {
-  position: relative;
-  height: 145px;
-  margin: 12px; }
-
-.color-display {
-  height: 120px;
-  width: 240px; }
-
-.color-name {
-  position: absolute;
-  bottom: 0px;
-  left: 0px; }
-
-.color-value {
-  position: absolute;
-  bottom: 0px;
-  right: 0px; }
+.canvases-container {
+  display: flex;
+  flex-direction: row; }
+  .canvases-container .canvas-container {
+    display: flex;
+    flex-direction: column;
+    margin: 12px; }
 
 .text-styles-container {
-  display: flex;
-  flex-direction: column;
-  margin: 12px; }
+  margin: 24px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background-color: #282c34; }
