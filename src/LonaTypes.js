@@ -162,4 +162,4 @@ export type LonaTextStyle = {|
   color: string
 |};
 
-export type LonaColor = {| name: string, id: string, value: string, comment: ?string |};
+export type LonaColor = {| name: string, id: string, value: string, comment?: string |};

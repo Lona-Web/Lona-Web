@@ -26,6 +26,7 @@ import type {
   LonaCase,
   LonaCanvas,
   LonaLogic,
+  LonaComponentLayer,
   LonaAssignLhsToRhs,
   LonaIdentifier,
   LonaIfValue,
@@ -195,21 +196,25 @@ class App extends Component<any, Props> {
       case 'Text':
         return this.renderTextLayer(layer);
       case 'Component': {
-        const componentWithName = components.find(t => t[0] === layer.url);
-        if (componentWithName == null) {
-          throw new Error(`Component not found : ${layer.url}`);
-        }
-        const component = componentWithName[1];
-        const componentLayer: LonaLayer = cloneDeep(component.rootLayer);
-        const layers = flattenLayers(componentLayer);
-        for (var logic of component.logic) {
-          applyLogic(logic, layer.parameters, layers);
-        }
-        return this.renderLayer(componentLayer);
+        return this.renderCOmponentLayer(layer);
       }
       default:
         throw new Error('Layer type not supported: ' + layer.type);
     }
+  }
+
+  renderCOmponentLayer(layer: LonaComponentLayer) {
+    const componentWithName = components.find(t => t[0] === layer.url);
+    if (componentWithName == null) {
+      throw new Error(`Component not found : ${layer.url}`);
+    }
+    const component = componentWithName[1];
+    const componentLayer: LonaLayer = cloneDeep(component.rootLayer);
+    const layers = flattenLayers(componentLayer);
+    for (var logic of component.logic) {
+      applyLogic(logic, layer.parameters, layers);
+    }
+    return this.renderLayer(componentLayer);
   }
 
   renderViewLayer(layer: LonaViewLayer) {
@@ -247,7 +252,8 @@ class App extends Component<any, Props> {
             ...getDimensionStyle(layer),
             ...getBorderStyle(layer),
             ...getBackgroundStyle(layer),
-            ...getDimensionAndLayoutStyle(layer),
+            alignSelf: getOrDefault(layer.parameters.alignSelf, 'stretch'),
+            flex: getOrDefault(layer.parameters.flex, 0),
             minHeight: getPixelOrDefault(layer.parameters.height),
             minWidth: getPixelOrDefault(layer.parameters.width),
             ...(layer.parameters.aspectRatio ? aspectRatioStyle : {}) // Move to Aspect Ratio component
