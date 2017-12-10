@@ -34,7 +34,7 @@ $sidebar-horizontal-padding: 18px;
     padding: 6px $sidebar-horizontal-padding;
     &.is-selected,
     &:hover {
-      background-color: $color-foreground;
+      background-color: $color-dark-level-1;
       color: $text-color-light-hover;
     }
   }
