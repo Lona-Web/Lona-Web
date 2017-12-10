@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Toolbar.css';
 
+import { Icon } from './index';
+
 class Toolbar extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class Toolbar extends React.Component {
               });
             }}
           >
-            O
+            <Icon name="code" />
           </button>
         </div>
         <div className="Toolbar-body">{this.props.children}</div>
