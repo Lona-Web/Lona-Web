@@ -1,11 +1,18 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
 import './Icon.css';
 
-let Icon = (props) => {
-    let sizeClass = props.size ? ' Icon--' + props.size : '';
-    return (
-        <i className={'Icon' + sizeClass}>{props.name}</i>
-    )
+type SizeEnumType = 'sm' | 'md' | 'lg' | 'xl';
+
+type IconProps = {
+  size: ?SizeEnumType,
+  name: string
+};
+
+function Icon(props: IconProps): React.Node {
+  const sizeClass = props.size ? ' Icon--' + props.size : '';
+  return <i className={'Icon' + sizeClass}>{props.name}</i>;
 }
 
 export default Icon;

@@ -1,15 +1,18 @@
+// @flow
+
 import React, { Component } from 'react';
 import './Toolbar.css';
 
 import { Icon } from './index';
 
-class Toolbar extends React.Component {
-  constructor(props) {
+class Toolbar extends React.Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       isOpen: false
     };
   }
+
   render() {
     const { isOpen } = this.state;
     return (
