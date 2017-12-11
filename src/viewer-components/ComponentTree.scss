@@ -1,0 +1,29 @@
+@import '../styles/_variables.scss';
+$component-tree-horizontal-padding: 18px;
+
+.ComponentTree {
+  a {
+    display: block;
+    display: flex;
+    flex-direction: row;
+    padding: 5px $component-tree-horizontal-padding;
+    cursor: pointer;
+
+    margin: {
+      right: -$component-tree-horizontal-padding;
+      bottom: 0;
+      left: -$component-tree-horizontal-padding;
+      top: 0;
+    }
+
+    &.is-selected,
+    &:hover {
+      background-color: $color-dark-level-0;
+      color: $text-color-light-hover;
+    }
+  }
+
+  i {
+    margin-right: 2px;
+  }
+}

@@ -2,8 +2,10 @@
 
 import React, { Component } from 'react';
 import { flatten } from 'lodash';
+import './ComponentTree.css';
 
 import type { LonaComponent, LonaLayer } from '../LonaTypes.js';
+import { Icon } from './';
 
 type Props = {
   component: LonaComponent,
@@ -13,47 +15,54 @@ type Props = {
 
 type LayerItem = {
   name: string,
-  depth: number
+  depth: number,
+  type: string
 };
 
 function flattenLayers(layer: LonaLayer, depth: number): LayerItem[] {
+  const result = [{ name: layer.name, depth, type: layer.type }];
+
   if (layer.type === 'View') {
-    return [
-      {
-        name: layer.name,
-        depth
-      }
-    ].concat(flatten(layer.children.map(child => flattenLayers(child, depth + 1))));
-  } else {
-    return [
-      {
-        name: layer.name,
-        depth
-      }
-    ];
+    return result.concat(flatten(layer.children.map(child => flattenLayers(child, depth + 1))));
   }
+
+  return result;
 }
 
 export default class ComponentTree extends Component<Props, void> {
+  renderIcon(type: string) {
+    switch (type) {
+      case 'View':
+        return <Icon name="view_day" size="sm" />;
+      case 'Image':
+        return <Icon name="image" size="sm" />;
+      case 'Text':
+        return <Icon name="font_download" size="sm" />;
+      case 'Component':
+        return <Icon name="layers" size="sm" />;
+      default:
+        return <span />;
+    }
+  }
+
   render() {
-    const items = flattenLayers(this.props.component.rootLayer, 0);
+    const items = flattenLayers(this.props.component.rootLayer, 1);
     return (
       <div className="ComponentTree">
-        <h3 className="TitleSm">Component tree</h3>
-        <ul>
-          {items.map(item => {
-            return (
-              <li key={item.name}>
-                <a
-                  className={this.props.selectedLayerName === item.name ? 'is-selected' : ''}
-                  onClick={() => this.props.onSelectLayer(item.name)}
-                >
-                  <div style={{ paddingLeft: item.depth * 12 + 'px' }}>{item.name}</div>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
+        <h3 className="TitleSm">Layers</h3>
+        {items.map(item => {
+          return (
+            <a
+              key={item.name}
+              className={this.props.selectedLayerName === item.name ? 'is-selected' : ''}
+              onClick={() => this.props.onSelectLayer(item.name)}
+              style={{ paddingLeft: item.depth * 18 + 'px' }}
+            >
+              {this.renderIcon(item.type)}
+              <span>{item.name}</span>
+            </a>
+          );
+        })}
       </div>
     );
   }
