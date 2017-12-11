@@ -40,20 +40,35 @@ img {
 .section-title {
   margin: 24px; }
 
-.cases-container {
+.Cases {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0 24px; }
-  .cases-container .case-container {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    margin-bottom: 24px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: 256px;
-    background-color: #282c34; }
+
+.Case {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-bottom: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 256px;
+  background-color: #282c34; }
+  .Case-codeButton {
+    margin-left: 6px;
+    opacity: 0.4;
+    transition: opacity 150ms ease-in; }
+    .Case-codeButton:hover {
+      opacity: 1; }
+
+.Canvases {
+  display: flex;
+  flex-direction: row; }
+
+.Canvas {
+  display: flex;
+  flex-direction: column;
+  margin: 12px; }
 
 .colors-container {
   display: flex;
@@ -78,14 +93,6 @@ img {
     position: absolute;
     bottom: 0px;
     right: 0px; }
-
-.canvases-container {
-  display: flex;
-  flex-direction: row; }
-  .canvases-container .canvas-container {
-    display: flex;
-    flex-direction: column;
-    margin: 12px; }
 
 .text-styles-container {
   margin: 24px;

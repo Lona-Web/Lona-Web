@@ -3,17 +3,14 @@
 import { cloneDeep, flatten } from 'lodash';
 import React, { Component } from 'react';
 import './App.css';
-import Sidebar from './viewer-components/Sidebar';
-import Toolbar from './viewer-components/Toolbar';
-import ComponentTree from './viewer-components/ComponentTree';
-import LayerDetails from './viewer-components/LayerDetails';
-
+import { Icon, Sidebar, Toolbar, ComponentTree, LayerDetails } from './viewer-components';
 import { flattenComponentLayers } from './helpers';
 import colorsData from './data/colors.js';
 import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
 import teamComponent from './data/Team.component.js';
 import textStyles from './data/textStyles.js';
+
 import type {
   LonaLayer,
   LonaTextLayer,
@@ -141,7 +138,7 @@ class App extends Component<void, State> {
     const component = this.selectedComponent();
 
     return (
-      <div className="cases-container">
+      <div className="Cases">
         {component.cases.map(lonaCase => this.renderComponentCase(component, lonaCase))}
       </div>
     );
@@ -155,9 +152,14 @@ class App extends Component<void, State> {
     }
 
     return (
-      <div className="case-container">
-        <h4>{lonaCase.name}</h4>
-        <div className="canvases-container">
+      <div className="Case">
+        <h4>
+          {lonaCase.name}{' '}
+          <button className="Case-codeButton">
+            <Icon name="content_copy" size="sm" />
+          </button>
+        </h4>
+        <div className="Canvases">
           {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
         </div>
       </div>
@@ -166,7 +168,7 @@ class App extends Component<void, State> {
 
   renderCanvas(component: LonaComponent, canvas: LonaCanvas, rootLayer: LonaLayer) {
     return (
-      <div className="canvas-container">
+      <div className="Canvas">
         <h5>{canvas.name}</h5>
         <div
           style={{

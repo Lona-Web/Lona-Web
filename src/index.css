@@ -427,6 +427,7 @@ button {
   border: 0;
   border-radius: 0;
   color: inherit;
-  cursor: pointer; }
+  cursor: pointer;
+  vertical-align: middle; }
   button:focus {
     outline: none; }

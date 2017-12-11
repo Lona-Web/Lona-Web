@@ -60,24 +60,45 @@ img {
   }
 }
 
-.cases-container {
+// Cases
+.Cases {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 0 24px;
+}
 
-  .case-container {
-    box-shadow: $shadow-level-1;
-    margin-bottom: 24px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding-right: $app-toolbar-width;
-    background-color: $color-dark-level-3;
+.Case {
+  box-shadow: $shadow-level-1;
+  margin-bottom: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  padding-right: $app-toolbar-width;
+  background-color: $color-dark-level-3;
+  &-codeButton {
+    margin-left: 6px;
+    opacity: 0.4;
+    transition: opacity 150ms ease-in;
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 
+// Canvases
+.Canvases {
+  display: flex;
+  flex-direction: row;
+}
+
+.Canvas {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+}
+
+// Colors
 .colors-container {
   display: flex;
   flex-direction: row;
@@ -107,16 +128,7 @@ img {
   }
 }
 
-.canvases-container {
-  display: flex;
-  flex-direction: row;
-  .canvas-container {
-    display: flex;
-    flex-direction: column;
-    margin: 12px;
-  }
-}
-
+// Text Styles
 .text-styles-container {
   margin: 24px;
   padding: 24px;
