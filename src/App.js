@@ -153,14 +153,16 @@ class App extends Component<void, State> {
 
     return (
       <div className="Case">
-        <h4>
-          {lonaCase.name}{' '}
-          <button className="Case-codeButton">
-            <Icon name="content_copy" size="sm" />
-          </button>
-        </h4>
-        <div className="Canvases">
-          {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
+        <div className="Case-wrapper">
+          <h4>
+            {lonaCase.name}{' '}
+            <button className="Case-codeButton">
+              <Icon name="content_copy" size="sm" />
+            </button>
+          </h4>
+          <div className="Canvases">
+            {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
+          </div>
         </div>
       </div>
     );
