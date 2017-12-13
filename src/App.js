@@ -15,8 +15,6 @@ import { applyLogic, flattenLayers, getPixelOrDefault, getColorOrDefault } from 
 
 import type { LonaLayer, LonaComponent, LonaCase, LonaCanvas } from './LonaTypes.js';
 
-console.log('app');
-
 const components: Map<string, LonaComponent> = new Map([
   ['Team', teamComponent],
   ['Card', cardComponent],
