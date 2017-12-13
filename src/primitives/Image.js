@@ -52,6 +52,7 @@ export default class Image extends React.Component<Props, void> {
     return (
       <AspectRatio key={layer.name} aspectRatio={layer.parameters.aspectRatio}>
         <img
+          alt={layer.name}
           style={{
             display: 'flex',
             ...getSpacingStyle(layer.parameters),

@@ -1,6 +1,5 @@
 // @flow
 
-import { cloneDeep } from 'lodash';
 import React, { Component } from 'react';
 import './App.css';
 import { Icon, Sidebar, Toolbar, ComponentTree, LayerDetails } from './viewer-components';
@@ -11,7 +10,7 @@ import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
 import teamComponent from './data/Team.component.js';
 import textStyles from './data/textStyles.js';
-import { applyLogic, flattenLayers, getPixelOrDefault, getColorOrDefault } from './helpers';
+import { applyLogics, getPixelOrDefault, getColorOrDefault } from './helpers';
 
 import type { LonaLayer, LonaComponent, LonaCase, LonaCanvas } from './LonaTypes.js';
 
@@ -130,12 +129,7 @@ class App extends Component<void, State> {
   }
 
   renderComponentCase(component: LonaComponent, lonaCase: LonaCase) {
-    const layer: LonaLayer = cloneDeep(component.rootLayer);
-    const layers = flattenLayers(layer);
-    for (var logic of component.logic) {
-      applyLogic(logic, lonaCase.value, layers);
-    }
-
+    const layer = applyLogics(component.logic, lonaCase.value, component.rootLayer);
     return (
       <div key={lonaCase.name} className="Case">
         <div className="Case-wrapper">

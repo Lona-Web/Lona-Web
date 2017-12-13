@@ -12,7 +12,6 @@ type Props = {
 };
 
 const Layer = (props: Props) => {
-  console.log('on layer');
   const { layer, colors, textStyles, components } = props;
   if (layer.parameters.visible === false) {
     return null;

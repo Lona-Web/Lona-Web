@@ -10,7 +10,6 @@ import type {
   LonaColor,
   LonaLogic,
   LonaAssignLhsToRhs,
-  LonaIdentifier,
   LonaIfValue,
   LonaVariable,
   LonaLayerParameters
@@ -98,66 +97,85 @@ export function getOrDefault<T>(value: ?T, fallback: T): T {
   return value == null ? fallback : value;
 }
 
-export function applyLogic(logic: LonaLogic, parameters: {}, layers: LonaLayer[]) {
+export function applyLogics(logics: LonaLogic[], parameters: {}, layer: LonaLayer): LonaLayer {
+  return logics.reduce((l, logic) => applyLogic(logic, parameters, l), layer);
+}
+
+export function applyLogic(logic: LonaLogic, parameters: {}, layer: LonaLayer): LonaLayer {
   switch (logic.function.name) {
     case 'assign(lhs, to rhs)': {
-      applyAssignLhsToRhsLogic(logic.function, parameters, layers);
-      break;
+      return applyAssignLhsToRhsLogic(logic.function, parameters, layer);
     }
     case 'if(value)': {
-      applyIfValueLogic(logic.function, logic.nodes, parameters, layers);
-      break;
+      return applyIfValueLogic(logic.function, logic.nodes, parameters, layer);
     }
     default:
       throw new Error(`function not supported (${logic.function.name})`);
   }
 }
 
-function applyIfValueLogic(fn: LonaIfValue, nodes: LonaLogic[], parameters: {}, layers: LonaLayer[]) {
+function applyAssignLhsToRhsLogic(fn: LonaAssignLhsToRhs, parameters: {}, layer: LonaLayer): LonaLayer {
+  const valueToAssign = extractValue(fn.arguments.lhs, parameters);
+  if (valueToAssign == null) {
+    return layer;
+  }
+
+  if (fn.arguments.rhs.type !== 'identifier' || fn.arguments.rhs.value.path[0] !== 'layers') {
+    throw new Error(`Rhs not supported (${JSON.stringify(fn.arguments.rhs)}`);
+  }
+
+  const layerName = fn.arguments.rhs.value.path[1];
+  const parameterName = fn.arguments.rhs.value.path[2];
+
+  return assignParameterToLayer(layer, layerName, parameterName, valueToAssign);
+}
+
+function assignParameterToLayer(
+  layer: LonaLayer,
+  layerName: string,
+  parameterName: string,
+  value: any
+): LonaLayer {
+  if (layer.name === layerName) {
+    return {
+      ...layer,
+      parameters: {
+        ...layer.parameters,
+        [parameterName]: value
+      }
+    };
+  }
+
+  if (layer.type === 'View') {
+    return {
+      ...layer,
+      children: layer.children.map(child => assignParameterToLayer(child, layerName, parameterName, value))
+    };
+  }
+
+  return layer;
+}
+
+function applyIfValueLogic(fn: LonaIfValue, nodes: LonaLogic[], parameters: {}, layer: LonaLayer): LonaLayer {
   const value = extractValue(fn.arguments.value, parameters);
   if (value) {
-    for (var logic of nodes) {
-      applyLogic(logic, parameters, layers);
-    }
+    return applyLogics(nodes, parameters, layer);
   }
+  return layer;
 }
 
-function applyAssignLhsToRhsLogic(fn: LonaAssignLhsToRhs, parameters: {}, layers: LonaLayer[]) {
-  const lhsValue = extractValue(fn.arguments.lhs, parameters);
-  if (lhsValue != null) {
-    setRhsValue(fn.arguments.rhs, layers, lhsValue);
-  }
-}
-
-function extractValue(variable: LonaVariable, parameters: {}) {
+function extractValue(variable: LonaVariable, parameters: {}): any {
   switch (variable.type) {
     case 'identifier': {
       if (variable.value.path[0] === 'parameters') {
         return parameters[variable.value.path[1]];
       }
-      break;
+      throw new Error(`LonaVariable not supported (${JSON.stringify(variable)})`);
     }
     case 'value': {
       return variable.value.data;
     }
+    default:
+      throw new Error(`LonaVariable not supported (${JSON.stringify(variable)})`);
   }
-
-  throw new Error(`LonaVariable not supported (${JSON.stringify(variable)})`);
-}
-
-function setRhsValue(rhs: LonaIdentifier, layers: LonaLayer[], value: any) {
-  switch (rhs.type) {
-    case 'identifier': {
-      if (rhs.value.path[0] === 'layers') {
-        const layer = layers.find(l => l.name === rhs.value.path[1]);
-        if (layer == null) {
-          throw new Error('Layer not found');
-        }
-        layer.parameters[rhs.value.path[2]] = value;
-        return;
-      }
-    }
-  }
-
-  throw new Error('Rhs not supported');
 }
