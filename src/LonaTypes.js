@@ -77,15 +77,12 @@ export type LonaComponentLayer = {|
   parameters: {}
 |};
 
-type LayerParameters = {|
-  // dimension and layout
+export type LonaLayerParameters = {|
+  visible?: boolean,
+
+  // layout
   flex?: number,
   alignSelf?: 'stretch' | 'space-between',
-  width?: number,
-  height?: number,
-  aspectRatio?: number,
-
-  visible?: boolean,
 
   // background
   backgroundColor?: string,
@@ -95,9 +92,10 @@ type LayerParameters = {|
   borderRadius?: number,
   borderWidth?: number,
 
-  // dimension and layout
+  // dimension
   width?: number,
   height?: number,
+  aspectRatio?: number,
 
   // position
   position?: 'absolute' | 'relative',

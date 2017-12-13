@@ -1,31 +1,31 @@
 export default {
   canvases: [
     {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       exportScale: 1,
       height: 100,
-      heightMode: "At Least",
-      name: "iPhone SE",
+      heightMode: 'At Least',
+      name: 'iPhone SE',
       parameters: {},
       visible: true,
       width: 320
     },
     {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       exportScale: 1,
       height: 100,
-      heightMode: "At Least",
-      name: "iPhone 7",
+      heightMode: 'At Least',
+      name: 'iPhone 7',
       parameters: {},
       visible: true,
       width: 375
     },
     {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       exportScale: 1,
       height: 100,
-      heightMode: "At Least",
-      name: "iPhone 7+",
+      heightMode: 'At Least',
+      name: 'iPhone 7+',
       parameters: {},
       visible: true,
       width: 414
@@ -33,14 +33,14 @@ export default {
   ],
   cases: [
     {
-      name: "Default",
-      type: "entry",
+      name: 'Default',
+      type: 'entry',
       value: {},
       visible: true
     }
   ],
   config: {
-    canvasLayout: "xy"
+    canvasLayout: 'xy'
   },
   logic: [],
   metadata: {},
@@ -49,61 +49,59 @@ export default {
     children: [
       {
         children: [],
-        name: "Card",
+        name: 'Card',
         parameters: {
-          body: "Want to work with us? Reach out!",
-          headline: "The Lona Team",
-          image: "https://picsum.photos/600/600?image=202"
+          body: 'Want to work with us? Reach out!',
+          headline: 'The Lona Team',
+          image: 'https://picsum.photos/600/600?image=202'
         },
-        type: "Component",
-        url: "Card"
+        type: 'Component',
+        url: 'Card'
       },
       {
         children: [],
-        name: "ListItem1",
+        name: 'ListItem1',
         parameters: {
-          image:
-            "https://pbs.twimg.com/profile_images/697293943872970754/dkgMlBJX_bigger.jpg",
-          primaryText: "Devin Abbott",
-          secondaryText: "Software Engineer @ Airbnb"
+          image: 'https://pbs.twimg.com/profile_images/697293943872970754/dkgMlBJX_bigger.jpg',
+          primaryText: 'Devin Abbott',
+          secondaryText: 'Software Engineer @ Airbnb'
         },
-        type: "Component",
-        url: "ListItem"
+        type: 'Component',
+        url: 'ListItem'
       },
       {
         children: [],
-        name: "ListItem2",
+        name: 'ListItem2',
         parameters: {
-          image:
-            "https://pbs.twimg.com/profile_images/522867498337570818/p9wlS3Q8_normal.jpeg",
-          primaryText: "Ryan Gonzalez",
-          secondaryText: "Design Technologist @ DoorDash"
+          image: 'https://pbs.twimg.com/profile_images/522867498337570818/p9wlS3Q8_normal.jpeg',
+          primaryText: 'Ryan Gonzalez',
+          secondaryText: 'Design Technologist @ DoorDash'
         },
-        type: "Component",
-        url: "ListItem"
+        type: 'Component',
+        url: 'ListItem'
       },
       {
         children: [],
-        name: "ListItem3",
+        name: 'ListItem3',
         parameters: {
           image:
-            "https://pbs.twimg.com/profile_images/1746609672/Screen_shot_2011-10-05_at_7.25.01_PM_normal.png",
-          primaryText: "Pablo Caro",
-          secondaryText: "Design Systems Lead Designer @ Airbnb"
+            'https://pbs.twimg.com/profile_images/1746609672/Screen_shot_2011-10-05_at_7.25.01_PM_normal.png',
+          primaryText: 'Pablo Caro',
+          secondaryText: 'Design Systems Lead Designer @ Airbnb'
         },
-        type: "Component",
-        url: "ListItem"
+        type: 'Component',
+        url: 'ListItem'
       }
     ],
-    name: "View",
+    name: 'View',
     parameters: {
-      alignSelf: "stretch",
+      alignSelf: 'stretch',
       flex: 0,
       marginBottom: 0,
       marginLeft: 0,
       marginRight: 0,
       marginTop: 0
     },
-    type: "View"
+    type: 'View'
   }
 };

@@ -1,34 +1,21 @@
 // @flow
 
-import { cloneDeep, flatten } from 'lodash';
+import { cloneDeep } from 'lodash';
 import React, { Component } from 'react';
 import './App.css';
 import { Icon, Sidebar, Toolbar, ComponentTree, LayerDetails } from './viewer-components';
+import { Layer } from './primitives';
 import { flattenComponentLayers } from './helpers';
 import colorsData from './data/colors.js';
 import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
 import teamComponent from './data/Team.component.js';
 import textStyles from './data/textStyles.js';
+import { applyLogic, flattenLayers, getPixelOrDefault, getColorOrDefault } from './helpers';
 
-import type {
-  LonaLayer,
-  LonaTextLayer,
-  LonaViewLayer,
-  LonaImageLayer,
-  LonaComponent,
-  LonaTextStyles,
-  LonaTextStyle,
-  LonaColor,
-  LonaCase,
-  LonaCanvas,
-  LonaLogic,
-  LonaComponentLayer,
-  LonaAssignLhsToRhs,
-  LonaIdentifier,
-  LonaIfValue,
-  LonaVariable
-} from './LonaTypes.js';
+import type { LonaLayer, LonaComponent, LonaCase, LonaCanvas } from './LonaTypes.js';
+
+console.log('app');
 
 const components: Map<string, LonaComponent> = new Map([
   ['Team', teamComponent],
@@ -152,7 +139,7 @@ class App extends Component<void, State> {
     }
 
     return (
-      <div className="Case">
+      <div key={lonaCase.name} className="Case">
         <div className="Case-wrapper">
           <h4>
             {lonaCase.name}{' '}
@@ -170,7 +157,7 @@ class App extends Component<void, State> {
 
   renderCanvas(component: LonaComponent, canvas: LonaCanvas, rootLayer: LonaLayer) {
     return (
-      <div className="Canvas">
+      <div key={canvas.name} className="Canvas">
         <h5>{canvas.name}</h5>
         <div
           style={{
@@ -181,308 +168,19 @@ class App extends Component<void, State> {
             background: getColorOrDefault(canvas.backgroundColor, colorsData.colors)
           }}
         >
-          {this.renderLayer(rootLayer)}
+          <Layer
+            layer={rootLayer}
+            colors={colorsData.colors}
+            textStyles={textStyles}
+            components={components}
+          />
         </div>
       </div>
-    );
-  }
-
-  renderLayer(layer: LonaLayer) {
-    if (layer.parameters.visible === false) {
-      return null;
-    }
-
-    switch (layer.type) {
-      case 'View':
-        return this.renderViewLayer(layer);
-      case 'Image':
-        return this.renderImageLayer(layer);
-      case 'Text':
-        return this.renderTextLayer(layer);
-      case 'Component': {
-        return this.renderCOmponentLayer(layer);
-      }
-      default:
-        throw new Error('Layer type not supported: ' + layer.type);
-    }
-  }
-
-  renderCOmponentLayer(layer: LonaComponentLayer) {
-    const component = components.get(layer.url);
-    if (component === undefined) {
-      throw new Error(`Component not found : ${layer.url}`);
-    }
-    const componentLayer: LonaLayer = cloneDeep(component.rootLayer);
-    const layers = flattenLayers(componentLayer);
-    for (var logic of component.logic) {
-      applyLogic(logic, layer.parameters, layers);
-    }
-    return this.renderLayer(componentLayer);
-  }
-
-  renderViewLayer(layer: LonaViewLayer) {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          ...getSpacingStyle(layer),
-          ...getDimensionStyle(layer),
-          ...getBorderStyle(layer),
-          ...getBackgroundStyle(layer),
-          ...getDimensionAndLayoutStyle(layer)
-        }}
-      >
-        {layer.children.map(child => this.renderLayer(child))}
-      </div>
-    );
-  }
-
-  renderImageLayer(layer: LonaImageLayer) {
-    const aspectRatioStyle = {
-      position: 'absolute',
-      top: '0',
-      left: '0',
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover'
-    };
-    return (
-      <AspectRatio key={layer.name} aspectRatio={layer.parameters.aspectRatio}>
-        <img
-          style={{
-            display: 'flex',
-            ...getSpacingStyle(layer),
-            ...getDimensionStyle(layer),
-            ...getBorderStyle(layer),
-            ...getBackgroundStyle(layer),
-            alignSelf: getOrDefault(layer.parameters.alignSelf, 'stretch'),
-            flex: getOrDefault(layer.parameters.flex, 0),
-            minHeight: getPixelOrDefault(layer.parameters.height),
-            minWidth: getPixelOrDefault(layer.parameters.width),
-            ...(layer.parameters.aspectRatio ? aspectRatioStyle : {}) // Move to Aspect Ratio component
-          }}
-          src={getOrDefault(
-            layer.parameters.image,
-            'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
-          )}
-        />
-      </AspectRatio>
-    );
-  }
-
-  renderTextLayer(layer: LonaTextLayer) {
-    const textStyle = getFontOrDefault(layer.parameters.font, textStyles);
-    return (
-      <span
-        key={layer.name}
-        style={{
-          ...getBackgroundStyle(layer),
-          ...applyNumberOfLinesStyle(layer),
-          fontFamily: textStyle.fontFamily,
-          fontWeight: textStyle.fontWeight,
-          fontSize: textStyle.fontSize + 'px',
-          lineHeight: textStyle.lineHeight + 'px',
-          color: textStyle.color
-        }}
-      >
-        {layer.parameters.text}
-      </span>
     );
   }
 }
 
 export default App;
-
-function flattenLayers(layer: LonaLayer): LonaLayer[] {
-  switch (layer.type) {
-    case 'Text':
-    case 'Image':
-    case 'Component':
-      return [layer];
-    case 'View':
-      return flatten(layer.children.map(flattenLayers)).concat(layer);
-    default:
-      throw new Error('Unkown layer type' + layer.type);
-  }
-}
-
-function applyLogic(logic: LonaLogic, parameters: {}, layers: LonaLayer[]) {
-  switch (logic.function.name) {
-    case 'assign(lhs, to rhs)': {
-      applyAssignLhsToRhsLogic(logic.function, parameters, layers);
-      break;
-    }
-    case 'if(value)': {
-      applyIfValueLogic(logic.function, logic.nodes, parameters, layers);
-      break;
-    }
-    default:
-      throw new Error(`function not supported (${logic.function.name})`);
-  }
-}
-
-function applyIfValueLogic(fn: LonaIfValue, nodes: LonaLogic[], parameters: {}, layers: LonaLayer[]) {
-  const value = extractValue(fn.arguments.value, parameters);
-  if (value) {
-    for (var logic of nodes) {
-      applyLogic(logic, parameters, layers);
-    }
-  }
-}
-
-function applyAssignLhsToRhsLogic(fn: LonaAssignLhsToRhs, parameters: {}, layers: LonaLayer[]) {
-  const lhsValue = extractValue(fn.arguments.lhs, parameters);
-  if (lhsValue != null) {
-    setRhsValue(fn.arguments.rhs, layers, lhsValue);
-  }
-}
-
-function extractValue(variable: LonaVariable, parameters: {}) {
-  switch (variable.type) {
-    case 'identifier': {
-      if (variable.value.path[0] === 'parameters') {
-        return parameters[variable.value.path[1]];
-      }
-      break;
-    }
-    case 'value': {
-      return variable.value.data;
-    }
-  }
-
-  throw new Error(`LonaVariable not supported (${JSON.stringify(variable)})`);
-}
-
-function setRhsValue(rhs: LonaIdentifier, layers: LonaLayer[], value: any) {
-  switch (rhs.type) {
-    case 'identifier': {
-      if (rhs.value.path[0] === 'layers') {
-        const layer = layers.find(l => l.name === rhs.value.path[1]);
-        if (layer == null) {
-          throw new Error('Layer not found');
-        }
-        layer.parameters[rhs.value.path[2]] = value;
-        return;
-      }
-    }
-  }
-
-  throw new Error('Rhs not supported');
-}
-
-function getPixelOrDefault(value: number | void, fallback: string = '') {
-  return value ? value + 'px' : fallback;
-}
-
-function getFontOrDefault(textStyleId: string, textStyles: LonaTextStyles): LonaTextStyle {
-  const result = textStyles.styles.find(style => style.id === textStyleId);
-  if (result) {
-    return result;
-  }
-
-  const defaultStyle = textStyles.styles.find(style => style.id === textStyles.defaultStyleName);
-  if (defaultStyle) {
-    return defaultStyle;
-  }
-
-  throw new Error('Text style not found');
-}
-
-function getOrDefault<T>(value: T | void, fallback: T): T {
-  return value == null ? fallback : value;
-}
-
-function getColorOrDefault(colorId: string | void, colors: LonaColor[]): string {
-  if (colorId == null) {
-    return '';
-  }
-
-  const result = colors.find(color => color.id === colorId);
-  if (result) {
-    return result.value;
-  }
-
-  return colorId;
-}
-
-function getSpacingStyle(layer) {
-  return {
-    paddingTop: getPixelOrDefault(layer.parameters.paddingTop),
-    paddingRight: getPixelOrDefault(layer.parameters.paddingRight),
-    paddingBottom: getPixelOrDefault(layer.parameters.paddingBottom),
-    paddingLeft: getPixelOrDefault(layer.parameters.paddingLeft),
-
-    marginTop: getPixelOrDefault(layer.parameters.marginTop),
-    marginRight: getPixelOrDefault(layer.parameters.marginRight),
-    marginBottom: getPixelOrDefault(layer.parameters.marginBottom),
-    marginLeft: getPixelOrDefault(layer.parameters.marginLeft)
-  };
-}
-
-function getDimensionStyle(layer) {
-  return {
-    height: getPixelOrDefault(layer.parameters.height),
-    width: getPixelOrDefault(layer.parameters.width)
-  };
-}
-
-function getBorderStyle(layer) {
-  return {
-    borderColor: layer.parameters.borderColor,
-    borderRadius: getPixelOrDefault(layer.parameters.borderRadius),
-    borderWidth: getPixelOrDefault(layer.parameters.borderWidth)
-  };
-}
-
-function getDimensionAndLayoutStyle(layer) {
-  return {
-    flexDirection: getOrDefault(layer.parameters.flexDirection, 'column'),
-    flex: getOrDefault(layer.parameters.flex, 0),
-    alignItems: getOrDefault(layer.parameters.alignItems, 'flex-start'),
-    alignSelf: getOrDefault(layer.parameters.alignSelf, 'stretch'),
-    justifyContent: getOrDefault(layer.parameters.justifyContent, 'flex-start')
-  };
-}
-
-function applyNumberOfLinesStyle(layer: LonaTextLayer) {
-  if (layer.parameters.numberOfLines == null) {
-    return {};
-  } else {
-    return {
-      overflow: 'hidden',
-      WebkitLineClamp: 2,
-      WebkitBoxOrient: 'vertical',
-      display: '-webkit-box'
-    };
-  }
-}
-
-function getBackgroundStyle(layer) {
-  return {
-    background: getColorOrDefault(layer.parameters.backgroundColor, colorsData.colors)
-  };
-}
-
-//Todo: improve it to really support Yoga aspect ratio and apply it to other layers
-class AspectRatio extends Component<any, any> {
-  render() {
-    if (this.props.aspectRatio) {
-      return (
-        <div style={{ position: 'relative', width: '100%' }}>
-          <div
-            style={{
-              width: '100%',
-              paddingTop: 100 / this.props.aspectRatio + '%'
-            }}
-          />
-          {this.props.children}
-        </div>
-      );
-    } else {
-      return this.props.children;
-    }
-  }
-}
 
 function ColorComponent() {
   return (
