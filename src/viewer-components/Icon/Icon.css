@@ -19,7 +19,7 @@
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga';
-  transition: all 100ms ease-in;
+  transition: all 150ms ease-in;
   /* Rules for sizing the icon. */ }
   .Icon--sm {
     font-size: 18px; }

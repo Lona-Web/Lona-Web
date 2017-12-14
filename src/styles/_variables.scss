@@ -1,4 +1,5 @@
 // Named colors
+// The higher the level the darker it is
 $color-dark-level-4: #21252b;
 $color-dark-level-3: #282c34;
 $color-dark-level-2: #2c313a;
@@ -23,7 +24,6 @@ $shadow-level-5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22)
 $timing-bezier-swiftOut: cubic-bezier(0.55, 0, 0.1, 1);
 
 // App layout
-
 $app-sidebar-width: 220px;
 $app-toolbar-width: 256px;
 $app-toolbar-menu-width: 36px;
