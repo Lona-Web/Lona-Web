@@ -2,11 +2,12 @@
 $component-tree-horizontal-padding: 18px;
 
 .ComponentTree {
+  margin-bottom: 18px;
   a {
     display: block;
     display: flex;
     flex-direction: row;
-    padding: 5px $component-tree-horizontal-padding;
+    padding: 6px $component-tree-horizontal-padding;
     cursor: pointer;
 
     margin: {
@@ -20,10 +21,14 @@ $component-tree-horizontal-padding: 18px;
     &:hover {
       background-color: $color-dark-level-0;
       color: $text-color-light-hover;
+      i {
+        opacity: 1;
+      }
     }
   }
 
   i {
-    margin-right: 2px;
+    opacity: 0.6;
+    margin-right: 6px;
   }
 }
