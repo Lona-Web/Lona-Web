@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import { getFontOrDefault, getBackgroundStyle } from '../helpers';
+import { getFontOrDefault, getBackgroundStyle } from '../../helpers';
 
-import type { LonaTextLayer, LonaTextStyles, LonaColor } from '../LonaTypes.js';
+import type { LonaTextLayer, LonaTextStyles, LonaColor } from '../../LonaTypes.js';
 
 type Props = {
   layer: LonaTextLayer,

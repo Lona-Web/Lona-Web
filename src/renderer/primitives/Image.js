@@ -8,9 +8,9 @@ import {
   getBorderStyle,
   getOrDefault,
   getPixelOrDefault
-} from '../helpers';
+} from '../../helpers';
 
-import type { LonaImageLayer, LonaColor } from '../LonaTypes.js';
+import type { LonaImageLayer, LonaColor } from '../../LonaTypes.js';
 
 type Props = {
   layer: LonaImageLayer,

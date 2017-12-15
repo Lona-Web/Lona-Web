@@ -7,10 +7,10 @@ import {
   getDimensionStyle,
   getBorderStyle,
   getOrDefault
-} from '../helpers';
+} from '../../helpers';
 import { Layer } from './';
 
-import type { LonaViewLayer, LonaTextStyles, LonaColor, LonaComponent } from '../LonaTypes.js';
+import type { LonaViewLayer, LonaTextStyles, LonaColor, LonaComponent } from '../../LonaTypes.js';
 
 type Props = {
   layer: LonaViewLayer,

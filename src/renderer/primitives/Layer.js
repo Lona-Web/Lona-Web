@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import type { LonaLayer, LonaTextStyles, LonaColor, LonaComponent } from '../LonaTypes.js';
+import type { LonaLayer, LonaTextStyles, LonaColor, LonaComponent } from '../../LonaTypes.js';
 import { View, Image, Text, ComponentLayer } from './';
 
 type Props = {

@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import { applyLogics } from '../helpers';
+import { applyLogics } from '../../helpers';
 import { Layer } from './';
 
-import type { LonaComponentLayer, LonaComponent, LonaTextStyles, LonaColor } from '../LonaTypes.js';
+import type { LonaComponentLayer, LonaComponent, LonaTextStyles, LonaColor } from '../../LonaTypes.js';
 
 type Props = {
   layer: LonaComponentLayer,

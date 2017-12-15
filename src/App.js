@@ -2,17 +2,16 @@
 
 import React, { Component } from 'react';
 import './App.css';
-import { Icon, Sidebar, Toolbar, ComponentTree, LayerDetails } from './viewer-components';
-import { Layer } from './primitives';
+import { Sidebar, Toolbar, ComponentTree, LayerDetails } from './viewer-components';
+import Case from './renderer/Case';
 import { flattenComponentLayers } from './helpers';
 import colorsData from './data/colors.js';
 import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
 import teamComponent from './data/Team.component.js';
 import textStyles from './data/textStyles.js';
-import { applyLogics, getPixelOrDefault, getColorOrDefault } from './helpers';
 
-import type { LonaLayer, LonaComponent, LonaCase, LonaCanvas } from './LonaTypes.js';
+import type { LonaComponent } from './LonaTypes.js';
 
 const components: Map<string, LonaComponent> = new Map([
   ['Team', teamComponent],
@@ -123,50 +122,15 @@ class App extends Component<void, State> {
 
     return (
       <div className="Cases">
-        {component.cases.map(lonaCase => this.renderComponentCase(component, lonaCase))}
-      </div>
-    );
-  }
-
-  renderComponentCase(component: LonaComponent, lonaCase: LonaCase) {
-    const layer = applyLogics(component.logic, lonaCase.value, component.rootLayer);
-    return (
-      <div key={lonaCase.name} className="Case">
-        <div className="Case-wrapper">
-          <h4>
-            {lonaCase.name}{' '}
-            <button className="Case-codeButton">
-              <Icon name="content_copy" size="sm" />
-            </button>
-          </h4>
-          <div className="Canvases">
-            {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderCanvas(component: LonaComponent, canvas: LonaCanvas, rootLayer: LonaLayer) {
-    return (
-      <div key={canvas.name} className="Canvas">
-        <h5>{canvas.name}</h5>
-        <div
-          style={{
-            position: 'relative',
-            height: canvas.heightMode === 'Exactly' ? getPixelOrDefault(canvas.height) : '',
-            mineHight: canvas.heightMode === 'At Least' ? getPixelOrDefault(canvas.height) : '',
-            width: getPixelOrDefault(canvas.width),
-            background: getColorOrDefault(canvas.backgroundColor, colorsData.colors)
-          }}
-        >
-          <Layer
-            layer={rootLayer}
+        {component.cases.map(lonaCase => (
+          <Case
+            component={component}
+            components={components}
             colors={colorsData.colors}
             textStyles={textStyles}
-            components={components}
+            lonaCase={lonaCase}
           />
-        </div>
+        ))}
       </div>
     );
   }
