@@ -81,15 +81,17 @@ export function getPixelOrDefault(value: ?number, fallback: string = '') {
 export function getDimensionStyle(params: LonaLayerParameters) {
   return {
     height: getPixelOrDefault(params.height),
-    width: getPixelOrDefault(params.width)
+    width: getPixelOrDefault(params.width),
+    minWidth: '0px'
   };
 }
 
-export function getBorderStyle(params: LonaLayerParameters) {
+export function getBorderStyle(params: LonaLayerParameters, colors: LonaColor[]) {
   return {
-    borderColor: params.borderColor,
-    borderRadius: getPixelOrDefault(params.borderRadius),
-    borderWidth: getPixelOrDefault(params.borderWidth)
+    borderStyle: 'solid',
+    borderWidth: getPixelOrDefault(params.borderWidth, '0px'),
+    borderColor: getColorOrDefault(params.borderColor, colors),
+    borderRadius: getPixelOrDefault(params.borderRadius, '')
   };
 }
 

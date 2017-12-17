@@ -57,7 +57,7 @@ export default class Image extends React.Component<Props, void> {
             display: 'flex',
             ...getSpacingStyle(layer.parameters),
             ...getDimensionStyle(layer.parameters),
-            ...getBorderStyle(layer.parameters),
+            ...getBorderStyle(layer.parameters, colors),
             ...getBackgroundStyle(layer.parameters, colors),
             alignSelf: getOrDefault(layer.parameters.alignSelf, 'stretch'),
             flex: getOrDefault(layer.parameters.flex, 0),

@@ -19,28 +19,27 @@ type Props = {
   components: Map<string, LonaComponent>
 };
 
-function getDimensionAndLayoutStyle(params) {
-  return {
-    flexDirection: getOrDefault(params.flexDirection, 'column'),
-    flex: getOrDefault(params.flex, 0),
-    alignItems: getOrDefault(params.alignItems, 'flex-start'),
-    alignSelf: getOrDefault(params.alignSelf, 'stretch'),
-    justifyContent: getOrDefault(params.justifyContent, 'flex-start')
-  };
-}
-
 export default class View extends React.Component<Props, void> {
   render() {
     const { layer, textStyles, colors, components } = this.props;
     return (
       <div
         style={{
+          position: 'relative',
+          boxSizing: 'border-box',
           display: 'flex',
+          flexDirection: getOrDefault(layer.parameters.flexDirection, 'column'),
+          alignItems: getOrDefault(layer.parameters.alignItems, 'stretch'),
+          flexShrink: 0,
+          alignContent: 'flex-start',
+          alignSelf: getOrDefault(layer.parameters.alignSelf, ''),
+          justifyContent: getOrDefault(layer.parameters.justifyContent, ''),
+          alignContent: 'flex-start',
+
           ...getSpacingStyle(layer.parameters),
           ...getDimensionStyle(layer.parameters),
-          ...getBorderStyle(layer.parameters),
-          ...getBackgroundStyle(layer.parameters, colors),
-          ...getDimensionAndLayoutStyle(layer.parameters)
+          ...getBorderStyle(layer.parameters, colors),
+          ...getBackgroundStyle(layer.parameters, colors)
         }}
       >
         {layer.children.map(child => (
