@@ -3,10 +3,12 @@ import type { LonaComponent, LonaCase, LonaCanvas, LonaLayer, LonaColor, LonaTex
 
 import React from 'react';
 import { applyLogics, getPixelOrDefault, getColorOrDefault } from '../helpers';
+import { getReactCodeExample } from '../codeExamples';
 import Icon from '../viewer-components/Icon/Icon';
 import { Layer } from './primitives';
 
 type Props = {
+  componentName: string,
   component: LonaComponent,
   lonaCase: LonaCase,
   colors: LonaColor[],
@@ -16,7 +18,7 @@ type Props = {
 
 export default class Case extends React.Component<Props, void> {
   render() {
-    const { component, lonaCase } = this.props;
+    const { component, lonaCase, componentName } = this.props;
     const layer = applyLogics(component.logic, lonaCase.value, component.rootLayer);
     return (
       <div key={lonaCase.name} className="Case">
@@ -27,6 +29,9 @@ export default class Case extends React.Component<Props, void> {
               <Icon name="content_copy" size="sm" />
             </button>
           </h4>
+          <pre>
+            <code>{getReactCodeExample(component, componentName, lonaCase)}</code>
+          </pre>
           <div className="Canvases">
             {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
           </div>

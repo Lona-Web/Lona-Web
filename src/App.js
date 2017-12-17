@@ -9,6 +9,7 @@ import colorsData from './data/colors.js';
 import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
 import teamComponent from './data/Team.component.js';
+import viewSandbox from './data/ViewSandbox.component.js';
 import textStyles from './data/textStyles.js';
 
 import type { LonaComponent } from './LonaTypes.js';
@@ -124,6 +125,7 @@ class App extends Component<void, State> {
       <div className="Cases">
         {component.cases.map(lonaCase => (
           <Case
+            componentName={this.state.selectedItem}
             component={component}
             components={components}
             colors={colorsData.colors}

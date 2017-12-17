@@ -9,7 +9,18 @@ export type LonaComponent = {|
   rootLayer: LonaLayer,
   logic: LonaLogic[],
   metadata: {},
-  parameters: {}
+  parameters: LonaParameter[]
+|};
+
+export type LonaParameter = {|
+  name: string,
+  type: string | LonaParameterTypeAlias
+|};
+
+export type LonaParameterTypeAlias = {|
+  alias: string,
+  name: string,
+  of: string
 |};
 
 export type LonaCanvas = {|
