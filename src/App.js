@@ -7,10 +7,12 @@ import Case from './renderer/Case';
 import { flattenComponentLayers } from './helpers';
 import { teamComponent, cardComponent, listItemComponent, colorsData, textStyles } from './data';
 
-import type { LonaComponent } from './LonaTypes.js';
+import type { LonaComponent, LonaColor, LonaTextStyles } from './LonaTypes.js';
 
 type State = {
   components: Map<string, LonaComponent>,
+  colors: LonaColor[],
+  textStyles: LonaTextStyles,
   selectedItem: string,
   selectedLayer: ?string
 };
@@ -24,6 +26,8 @@ class App extends Component<void, State> {
         ['Card', cardComponent],
         ['ListItem', listItemComponent]
       ]),
+      colors: colorsData.colors,
+      textStyles: textStyles,
       selectedItem: 'Colors',
       selectedLayer: null
     };
@@ -120,11 +124,11 @@ class App extends Component<void, State> {
 
   renderContent() {
     if (this.state.selectedItem === 'Colors') {
-      return <ColorComponent />;
+      return this.renderColors();
     }
 
     if (this.state.selectedItem === 'Text Styles') {
-      return <TextStyleComponent />;
+      return this.renderTextSyles();
     }
 
     const component = this.selectedComponent();
@@ -137,10 +141,45 @@ class App extends Component<void, State> {
             componentName={this.state.selectedItem}
             component={component}
             components={this.state.components}
-            colors={colorsData.colors}
-            textStyles={textStyles}
+            colors={this.state.colors}
+            textStyles={this.state.textStyles}
             lonaCase={lonaCase}
           />
+        ))}
+      </div>
+    );
+  }
+
+  renderColors() {
+    return (
+      <div className="colors-container">
+        {this.state.colors.map(color => (
+          <div key={color.id} className="color-container">
+            <div className="color-display" style={{ background: color.value }} />
+            <div className="color-name">{color.name}</div>
+            <div className="color-value">{color.value}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  renderTextSyles() {
+    return (
+      <div className="text-styles-container">
+        {this.state.textStyles.styles.map(textStyle => (
+          <div
+            key={textStyle.id}
+            style={{
+              fontFamily: textStyle.fontFamily,
+              fontWeight: textStyle.fontWeight,
+              fontSize: textStyle.fontSize + 'px',
+              lineHeight: textStyle.lineHeight + 'px',
+              color: textStyle.color
+            }}
+          >
+            {textStyle.name}
+          </div>
         ))}
       </div>
     );
@@ -176,39 +215,4 @@ function readFileAsText(file: File): Promise<any> {
     reader.onload = e => resolve(e);
     reader.readAsText(file);
   });
-}
-
-function ColorComponent() {
-  return (
-    <div className="colors-container">
-      {colorsData.colors.map(color => (
-        <div key={color.id} className="color-container">
-          <div className="color-display" style={{ background: color.value }} />
-          <div className="color-name">{color.name}</div>
-          <div className="color-value">{color.value}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function TextStyleComponent() {
-  return (
-    <div className="text-styles-container">
-      {textStyles.styles.map(textStyle => (
-        <div
-          key={textStyle.id}
-          style={{
-            fontFamily: textStyle.fontFamily,
-            fontWeight: textStyle.fontWeight,
-            fontSize: textStyle.fontSize + 'px',
-            lineHeight: textStyle.lineHeight + 'px',
-            color: textStyle.color
-          }}
-        >
-          {textStyle.name}
-        </div>
-      ))}
-    </div>
-  );
 }
