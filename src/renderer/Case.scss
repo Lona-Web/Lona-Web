@@ -10,6 +10,11 @@
     background-color: $color-dark-level-3;
     box-shadow: $shadow-level-1;
   }
+  &-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
   &-codeButton {
     margin-left: 6px;
     opacity: 0.4;
@@ -32,5 +37,6 @@
   }
   &-code {
     padding: 24px;
+    margin: 0;
   }
 }

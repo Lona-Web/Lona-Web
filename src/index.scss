@@ -1,6 +1,7 @@
 @import './styles/_normalize';
 @import './styles/_variables';
 @import './styles/_typography';
+@import './styles/_helpers';
 
 // A reset
 a {
@@ -19,6 +20,7 @@ button {
   color: inherit;
   cursor: pointer;
   vertical-align: middle;
+  transition: all 150ms ease-in;
   &:focus {
     outline: none;
   }

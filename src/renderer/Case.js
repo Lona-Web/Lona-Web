@@ -35,15 +35,16 @@ export default class Case extends React.Component<Props, State> {
     return (
       <div key={lonaCase.name} className="Case">
         <div className="Case-wrapper">
-          <h4>
-            {lonaCase.name}{' '}
+          <div className="Case-header">
+            <h4 className="u-mb-0">{lonaCase.name}</h4>
             <button
+              title="View code example"
               className="Case-codeButton"
               onClick={() => this.setState({ isCodeExampleVisible: !this.state.isCodeExampleVisible })}
             >
-              <Icon name="content_copy" size="sm" />
+              <Icon name="code" size="md" />
             </button>
-          </h4>
+          </div>
           <div className={this.state.isCodeExampleVisible ? 'Case-drawer is-open' : 'Case-drawer'}>
             <pre className="Case-code">
               <code>{getReactCodeExample(component, componentName, lonaCase)}</code>
