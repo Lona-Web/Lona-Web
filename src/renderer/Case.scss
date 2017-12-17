@@ -1,0 +1,36 @@
+@import '../styles/_variables.scss';
+
+.Case {
+  margin-bottom: 24px;
+  padding-right: $app-toolbar-width;
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background-color: $color-dark-level-3;
+    box-shadow: $shadow-level-1;
+  }
+  &-codeButton {
+    margin-left: 6px;
+    opacity: 0.4;
+    transition: opacity 150ms ease-in;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &-drawer {
+    background-color: $color-dark-level-4;
+    box-shadow: $shadow-inset-level-1;
+    margin: 12px -24px 12px;
+    height: auto;
+    max-height: 0px;
+    transition: max-height 600ms linear;
+    overflow: hidden;
+    &.is-open {
+      max-height: 600px;
+    }
+  }
+  &-code {
+    padding: 24px;
+  }
+}

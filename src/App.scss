@@ -68,26 +68,6 @@ img {
   padding: 0 24px;
 }
 
-.Case {
-  margin-bottom: 24px;
-  padding-right: $app-toolbar-width;
-  &-wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
-    background-color: $color-dark-level-3;
-    box-shadow: $shadow-level-1;
-  }
-  &-codeButton {
-    margin-left: 6px;
-    opacity: 0.4;
-    transition: opacity 150ms ease-in;
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
-
 // Canvases
 .Canvases {
   display: flex;

@@ -1,10 +1,11 @@
 // @flow
-import type { LonaComponent, LonaCase, LonaCanvas, LonaLayer, LonaColor, LonaTextStyles } from '../LonaTypes';
-
 import React from 'react';
+import './Case.css';
+
+import type { LonaComponent, LonaCase, LonaCanvas, LonaLayer, LonaColor, LonaTextStyles } from '../LonaTypes';
 import { applyLogics, getPixelOrDefault, getColorOrDefault } from '../helpers';
 import { getReactCodeExample } from '../codeExamples';
-import Icon from '../viewer-components/Icon/Icon';
+import { Icon } from '../viewer-components';
 import { Layer } from './primitives';
 
 type Props = {
@@ -16,7 +17,18 @@ type Props = {
   components: Map<string, LonaComponent>
 };
 
-export default class Case extends React.Component<Props, void> {
+type State = {
+  isCodeExampleVisible: boolean
+};
+
+export default class Case extends React.Component<Props, State> {
+  constructor(props: void) {
+    super(props);
+    this.state = {
+      isCodeExampleVisible: false
+    };
+  }
+
   render() {
     const { component, lonaCase, componentName } = this.props;
     const layer = applyLogics(component.logic, lonaCase.value, component.rootLayer);
@@ -25,13 +37,18 @@ export default class Case extends React.Component<Props, void> {
         <div className="Case-wrapper">
           <h4>
             {lonaCase.name}{' '}
-            <button className="Case-codeButton">
+            <button
+              className="Case-codeButton"
+              onClick={() => this.setState({ isCodeExampleVisible: !this.state.isCodeExampleVisible })}
+            >
               <Icon name="content_copy" size="sm" />
             </button>
           </h4>
-          <pre>
-            <code>{getReactCodeExample(component, componentName, lonaCase)}</code>
-          </pre>
+          <div className={this.state.isCodeExampleVisible ? 'Case-drawer is-open' : 'Case-drawer'}>
+            <pre className="Case-code">
+              <code>{getReactCodeExample(component, componentName, lonaCase)}</code>
+            </pre>
+          </div>
           <div className="Canvases">
             {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
           </div>

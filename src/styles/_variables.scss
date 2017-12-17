@@ -20,6 +20,12 @@ $shadow-level-3: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 $shadow-level-4: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 $shadow-level-5: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 
+$shadow-inset-level-1: inset 0 1px 3px rgba(0, 0, 0, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.24);
+$shadow-inset-level-2: inset 0 3px 6px rgba(0, 0, 0, 0.16), inset 0 3px 6px rgba(0, 0, 0, 0.23);
+$shadow-inset-level-3: inset 0 10px 20px rgba(0, 0, 0, 0.19), inset 0 6px 6px rgba(0, 0, 0, 0.23);
+$shadow-inset-level-4: inset 0 14px 28px rgba(0, 0, 0, 0.25), inset 0 10px 10px rgba(0, 0, 0, 0.22);
+$shadow-inset-level-5: inset 0 19px 38px rgba(0, 0, 0, 0.3), inset 0 15px 12px rgba(0, 0, 0, 0.22);
+
 // Transitions
 $timing-bezier-swiftOut: cubic-bezier(0.55, 0, 0.1, 1);
 
