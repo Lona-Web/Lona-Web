@@ -10,6 +10,11 @@
     background-color: $color-dark-level-3;
     box-shadow: $shadow-level-1;
   }
+  &-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
   &-codeButton {
     margin-left: 6px;
     opacity: 0.4;
@@ -24,13 +29,14 @@
     margin: 12px -24px 12px;
     height: auto;
     max-height: 0px;
-    transition: max-height 600ms linear;
+    transition: max-height 600ms ease-in-out;
     overflow: hidden;
     &.is-open {
-      max-height: 600px;
+      max-height: 400px;
     }
   }
   &-code {
     padding: 24px;
+    margin: 0;
   }
 }

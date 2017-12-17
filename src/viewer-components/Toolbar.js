@@ -25,7 +25,8 @@ class Toolbar extends React.Component<any, any> {
               });
             }}
           >
-            <Icon name="code" />
+            {/* <Icon name="my_location" size="sm" /> */}
+            <Icon name="menu" />
           </button>
         </div>
         <div className="Toolbar-body">{this.props.children}</div>

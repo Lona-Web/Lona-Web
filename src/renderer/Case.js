@@ -2,11 +2,23 @@
 import React from 'react';
 import './Case.css';
 
+import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
+import { atomDark as editorStyle } from 'react-syntax-highlighter/styles/prism';
+import jsx from 'react-syntax-highlighter/languages/prism/jsx';
+
 import type { LonaComponent, LonaCase, LonaCanvas, LonaLayer, LonaColor, LonaTextStyles } from '../LonaTypes';
 import { applyLogics, getPixelOrDefault, getColorOrDefault } from '../helpers';
 import { getReactCodeExample } from '../codeExamples';
 import { Icon } from '../viewer-components';
 import { Layer } from './primitives';
+
+registerLanguage('jsx', jsx);
+const editorCustomStyle = {
+  backgroundColor: 'transparent',
+  borderRadius: 0,
+  margin: 0,
+  padding: 0
+};
 
 type Props = {
   componentName: string,
@@ -35,19 +47,22 @@ export default class Case extends React.Component<Props, State> {
     return (
       <div key={lonaCase.name} className="Case">
         <div className="Case-wrapper">
-          <h4>
-            {lonaCase.name}{' '}
+          <div className="Case-header">
+            <h4 className="u-mb-0">{lonaCase.name}</h4>
             <button
+              title="View code example"
               className="Case-codeButton"
               onClick={() => this.setState({ isCodeExampleVisible: !this.state.isCodeExampleVisible })}
             >
-              <Icon name="content_copy" size="sm" />
+              <Icon name="code" size="md" />
             </button>
-          </h4>
+          </div>
           <div className={this.state.isCodeExampleVisible ? 'Case-drawer is-open' : 'Case-drawer'}>
-            <pre className="Case-code">
-              <code>{getReactCodeExample(component, componentName, lonaCase)}</code>
-            </pre>
+            <div className="Case-code">
+              <SyntaxHighlighter style={editorStyle} customStyle={editorCustomStyle} language="jsx">
+                {getReactCodeExample(component, componentName, lonaCase)}
+              </SyntaxHighlighter>
+            </div>
           </div>
           <div className="Canvases">
             {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
