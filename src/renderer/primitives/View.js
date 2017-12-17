@@ -31,7 +31,6 @@ export default class View extends React.Component<Props, void> {
           flexDirection: getOrDefault(layer.parameters.flexDirection, 'column'),
           alignItems: getOrDefault(layer.parameters.alignItems, 'stretch'),
           flexShrink: getOrDefault(layer.parameters.flex, 0),
-          alignContent: 'flex-start',
           alignSelf: getOrDefault(layer.parameters.alignSelf, ''),
           justifyContent: getOrDefault(layer.parameters.justifyContent, ''),
           alignContent: 'flex-start',
