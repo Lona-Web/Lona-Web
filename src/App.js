@@ -122,8 +122,9 @@ class App extends Component<void, State> {
 
     return (
       <div className="Cases">
-        {component.cases.map(lonaCase => (
+        {component.cases.map((lonaCase, i) => (
           <Case
+            key={i}
             componentName={this.state.selectedItem}
             component={component}
             components={components}

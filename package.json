@@ -10,7 +10,8 @@
     "node-sass-chokidar": "0.0.3",
     "react": "16.2.0",
     "react-dom": "16.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "react-syntax-highlighter": "^6.1.1"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o src/",
