@@ -9,7 +9,6 @@ import colorsData from './data/colors.js';
 import cardComponent from './data/Card.component.js';
 import listItemComponent from './data/ListItem.component.js';
 import teamComponent from './data/Team.component.js';
-//import viewSandbox from './data/ViewSandbox.component.js';
 import textStyles from './data/textStyles.js';
 
 import type { LonaComponent } from './LonaTypes.js';
