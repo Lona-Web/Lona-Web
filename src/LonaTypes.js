@@ -79,7 +79,11 @@ export type LonaValue = {|
   }
 |};
 
-export type LonaLayer = LonaTextLayer | LonaViewLayer | LonaImageLayer | LonaComponentLayer;
+export type LonaLayer =
+  | LonaTextLayer
+  | LonaViewLayer
+  | LonaImageLayer
+  | LonaComponentLayer;
 
 export type LonaComponentLayer = {|
   type: 'Component',
@@ -171,4 +175,9 @@ export type LonaTextStyle = {|
   color: string
 |};
 
-export type LonaColor = {| name: string, id: string, value: string, comment?: string |};
+export type LonaColor = {|
+  name: string,
+  id: string,
+  value: string,
+  comment?: string
+|};

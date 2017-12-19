@@ -2,11 +2,20 @@
 import React from 'react';
 import './Case.css';
 
-import SyntaxHighlighter, { registerLanguage } from 'react-syntax-highlighter/prism-light';
+import SyntaxHighlighter, {
+  registerLanguage
+} from 'react-syntax-highlighter/prism-light';
 import { atomDark as editorStyle } from 'react-syntax-highlighter/styles/prism';
 import jsx from 'react-syntax-highlighter/languages/prism/jsx';
 
-import type { LonaComponent, LonaCase, LonaCanvas, LonaLayer, LonaColor, LonaTextStyles } from '../LonaTypes';
+import type {
+  LonaComponent,
+  LonaCase,
+  LonaCanvas,
+  LonaLayer,
+  LonaColor,
+  LonaTextStyles
+} from '../LonaTypes';
 import { applyLogics, getPixelOrDefault, getColorOrDefault } from '../helpers';
 import { getReactCodeExample } from '../codeExamples';
 import { Icon } from '../viewer-components';
@@ -43,7 +52,11 @@ export default class Case extends React.Component<Props, State> {
 
   render() {
     const { component, lonaCase, componentName } = this.props;
-    const layer = applyLogics(component.logic, lonaCase.value, component.rootLayer);
+    const layer = applyLogics(
+      component.logic,
+      lonaCase.value,
+      component.rootLayer
+    );
     return (
       <div key={lonaCase.name} className="Case">
         <div className="Case-wrapper">
@@ -52,37 +65,66 @@ export default class Case extends React.Component<Props, State> {
             <button
               title="View code example"
               className="Case-codeButton"
-              onClick={() => this.setState({ isCodeExampleVisible: !this.state.isCodeExampleVisible })}
+              onClick={() =>
+                this.setState({
+                  isCodeExampleVisible: !this.state.isCodeExampleVisible
+                })
+              }
             >
               <Icon name="code" size="md" />
             </button>
           </div>
-          <div className={this.state.isCodeExampleVisible ? 'Case-drawer is-open' : 'Case-drawer'}>
+          <div
+            className={
+              this.state.isCodeExampleVisible
+                ? 'Case-drawer is-open'
+                : 'Case-drawer'
+            }
+          >
             <div className="Case-code">
-              <SyntaxHighlighter style={editorStyle} customStyle={editorCustomStyle} language="jsx">
+              <SyntaxHighlighter
+                style={editorStyle}
+                customStyle={editorCustomStyle}
+                language="jsx"
+              >
                 {getReactCodeExample(component, componentName, lonaCase)}
               </SyntaxHighlighter>
             </div>
           </div>
           <div className="Canvases">
-            {component.canvases.map(canvas => this.renderCanvas(component, canvas, layer))}
+            {component.canvases.map(canvas =>
+              this.renderCanvas(component, canvas, layer)
+            )}
           </div>
         </div>
       </div>
     );
   }
 
-  renderCanvas(component: LonaComponent, canvas: LonaCanvas, rootLayer: LonaLayer) {
+  renderCanvas(
+    component: LonaComponent,
+    canvas: LonaCanvas,
+    rootLayer: LonaLayer
+  ) {
     return (
       <div key={canvas.name} className="Canvas">
         <h5 className="TitleXs">{canvas.name}</h5>
         <div
           style={{
             position: 'relative',
-            height: canvas.heightMode === 'Exactly' ? getPixelOrDefault(canvas.height) : '',
-            mineHight: canvas.heightMode === 'At Least' ? getPixelOrDefault(canvas.height) : '',
+            height:
+              canvas.heightMode === 'Exactly'
+                ? getPixelOrDefault(canvas.height)
+                : '',
+            mineHight:
+              canvas.heightMode === 'At Least'
+                ? getPixelOrDefault(canvas.height)
+                : '',
             width: getPixelOrDefault(canvas.width),
-            background: getColorOrDefault(canvas.backgroundColor, this.props.colors)
+            background: getColorOrDefault(
+              canvas.backgroundColor,
+              this.props.colors
+            )
           }}
         >
           <Layer

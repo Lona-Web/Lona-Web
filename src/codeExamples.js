@@ -2,10 +2,18 @@
 
 import type { LonaComponent, LonaCase, LonaParameter } from './LonaTypes.js';
 
-export function getReactCodeExample(component: LonaComponent, name: string, lonaCase: LonaCase): string {
+export function getReactCodeExample(
+  component: LonaComponent,
+  name: string,
+  lonaCase: LonaCase
+): string {
   let str = `<${name} `;
   for (let prop in lonaCase.value) {
-    str += `\n\  ${jsxAssignment(prop, getParameterType(component, prop), lonaCase.value[prop])}`;
+    str += `\n\  ${jsxAssignment(
+      prop,
+      getParameterType(component, prop),
+      lonaCase.value[prop]
+    )}`;
   }
   str += '/>';
   return str;

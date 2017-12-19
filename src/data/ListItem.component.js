@@ -2,9 +2,9 @@ export default {
   metadata: {},
   cases: [
     {
-      name: "Default",
+      name: 'Default',
       value: {},
-      type: "entry",
+      type: 'entry',
       visible: true
     }
   ],
@@ -12,13 +12,13 @@ export default {
     children: [
       {
         children: [],
-        name: "Image",
-        type: "Image",
+        name: 'Image',
+        type: 'Image',
         parameters: {
           height: 44,
           borderRadius: 22,
           marginTop: 4,
-          backgroundColor: "grey200",
+          backgroundColor: 'grey200',
           width: 44
         }
       },
@@ -26,25 +26,25 @@ export default {
         children: [
           {
             children: [],
-            name: "Primary Text",
-            type: "Text",
+            name: 'Primary Text',
+            type: 'Text',
             parameters: {
-              text: "Two-line item",
-              font: "subheading1"
+              text: 'Two-line item',
+              font: 'subheading1'
             }
           },
           {
             children: [],
-            name: "Secondary Text",
-            type: "Text",
+            name: 'Secondary Text',
+            type: 'Text',
             parameters: {
-              text: "Secondary text",
-              font: "body1"
+              text: 'Secondary text',
+              font: 'body1'
             }
           }
         ],
-        name: "View 1",
-        type: "View",
+        name: 'View 1',
+        type: 'View',
         parameters: {
           flex: 1,
           marginLeft: 16,
@@ -52,12 +52,12 @@ export default {
         }
       }
     ],
-    name: "View",
-    type: "View",
+    name: 'View',
+    type: 'View',
     parameters: {
       flex: 0,
-      alignSelf: "stretch",
-      flexDirection: "row",
+      alignSelf: 'stretch',
+      flexDirection: 'row',
       paddingTop: 16,
       paddingBottom: 16,
       paddingLeft: 16,
@@ -67,20 +67,20 @@ export default {
   logic: [
     {
       function: {
-        name: "assign(lhs, to rhs)",
+        name: 'assign(lhs, to rhs)',
         arguments: {
           rhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              type: "String",
-              path: ["layers", "Primary Text", "text"]
+              type: 'String',
+              path: ['layers', 'Primary Text', 'text']
             }
           },
           lhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              type: "String",
-              path: ["parameters", "primaryText"]
+              type: 'String',
+              path: ['parameters', 'primaryText']
             }
           }
         }
@@ -89,20 +89,20 @@ export default {
     },
     {
       function: {
-        name: "assign(lhs, to rhs)",
+        name: 'assign(lhs, to rhs)',
         arguments: {
           rhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              type: "String",
-              path: ["layers", "Secondary Text", "text"]
+              type: 'String',
+              path: ['layers', 'Secondary Text', 'text']
             }
           },
           lhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              type: "String",
-              path: ["parameters", "secondaryText"]
+              type: 'String',
+              path: ['parameters', 'secondaryText']
             }
           }
         }
@@ -111,28 +111,28 @@ export default {
     },
     {
       function: {
-        name: "assign(lhs, to rhs)",
+        name: 'assign(lhs, to rhs)',
         arguments: {
           rhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
               type: {
-                name: "Named",
-                of: "String",
-                alias: "URL"
+                name: 'Named',
+                of: 'String',
+                alias: 'URL'
               },
-              path: ["layers", "Image", "image"]
+              path: ['layers', 'Image', 'image']
             }
           },
           lhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
               type: {
-                name: "Named",
-                of: "String",
-                alias: "URL"
+                name: 'Named',
+                of: 'String',
+                alias: 'URL'
               },
-              path: ["parameters", "image"]
+              path: ['parameters', 'image']
             }
           }
         }
@@ -142,51 +142,51 @@ export default {
   ],
   parameters: [
     {
-      type: "String",
-      name: "primaryText"
+      type: 'String',
+      name: 'primaryText'
     },
     {
-      type: "String",
-      name: "secondaryText"
+      type: 'String',
+      name: 'secondaryText'
     },
     {
-      type: "URL",
-      name: "image"
+      type: 'URL',
+      name: 'image'
     }
   ],
   canvases: [
     {
-      name: "iPhone SE",
+      name: 'iPhone SE',
       height: 0,
-      heightMode: "At Least",
+      heightMode: 'At Least',
       exportScale: 1,
-      backgroundColor: "white",
+      backgroundColor: 'white',
       width: 320,
       parameters: {},
       visible: true
     },
     {
-      name: "iPhone 7",
+      name: 'iPhone 7',
       height: 0,
-      heightMode: "At Least",
+      heightMode: 'At Least',
       exportScale: 1,
-      backgroundColor: "white",
+      backgroundColor: 'white',
       width: 375,
       parameters: {},
       visible: true
     },
     {
-      name: "iPhone 7+",
+      name: 'iPhone 7+',
       height: 0,
-      heightMode: "At Least",
+      heightMode: 'At Least',
       exportScale: 1,
-      backgroundColor: "white",
+      backgroundColor: 'white',
       width: 414,
       parameters: {},
       visible: true
     }
   ],
   config: {
-    canvasLayout: "xy"
+    canvasLayout: 'xy'
   }
 };

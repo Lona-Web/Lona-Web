@@ -17,7 +17,9 @@ class Sidebar extends React.Component<SidebarProps> {
               return (
                 <li key={item.id}>
                   <a
-                    className={this.props.selectedItem === item.id ? 'is-selected' : ''}
+                    className={
+                      this.props.selectedItem === item.id ? 'is-selected' : ''
+                    }
                     onClick={() => this.props.onItemClick(item.id)}
                   >
                     {item.name}

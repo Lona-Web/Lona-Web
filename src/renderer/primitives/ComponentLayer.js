@@ -4,7 +4,12 @@ import React from 'react';
 import { applyLogics } from '../../helpers';
 import { Layer } from './';
 
-import type { LonaComponentLayer, LonaComponent, LonaTextStyles, LonaColor } from '../../LonaTypes.js';
+import type {
+  LonaComponentLayer,
+  LonaComponent,
+  LonaTextStyles,
+  LonaColor
+} from '../../LonaTypes.js';
 
 type Props = {
   layer: LonaComponentLayer,
@@ -20,9 +25,18 @@ export default class View extends React.Component<Props, void> {
     if (component === undefined) {
       throw new Error(`Component not found : ${layer.url}`);
     }
-    const layerWithLogicApplied = applyLogics(component.logic, layer.parameters, component.rootLayer);
+    const layerWithLogicApplied = applyLogics(
+      component.logic,
+      layer.parameters,
+      component.rootLayer
+    );
     return (
-      <Layer layer={layerWithLogicApplied} textStyles={textStyles} colors={colors} components={components} />
+      <Layer
+        layer={layerWithLogicApplied}
+        textStyles={textStyles}
+        colors={colors}
+        components={components}
+      />
     );
   }
 }

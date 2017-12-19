@@ -1,31 +1,31 @@
 export default {
   canvases: [
     {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       exportScale: 1,
       height: 100,
-      heightMode: "At Least",
-      name: "iPhone SE",
+      heightMode: 'At Least',
+      name: 'iPhone SE',
       parameters: {},
       visible: true,
       width: 320
     },
     {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       exportScale: 1,
       height: 100,
-      heightMode: "At Least",
-      name: "iPhone 7",
+      heightMode: 'At Least',
+      name: 'iPhone 7',
       parameters: {},
       visible: true,
       width: 375
     },
     {
-      backgroundColor: "white",
+      backgroundColor: 'white',
       exportScale: 1,
       height: 100,
-      heightMode: "At Least",
-      name: "iPhone 7+",
+      heightMode: 'At Least',
+      name: 'iPhone 7+',
       parameters: {},
       visible: true,
       width: 414
@@ -33,53 +33,53 @@ export default {
   ],
   cases: [
     {
-      name: "Headline only",
-      type: "entry",
+      name: 'Headline only',
+      type: 'entry',
       value: {
-        headline: "Headline Only",
-        image: "https://picsum.photos/600/600?image=20"
+        headline: 'Headline Only',
+        image: 'https://picsum.photos/600/600?image=20'
       },
       visible: true
     },
     {
-      name: "All content",
-      type: "entry",
+      name: 'All content',
+      type: 'entry',
       value: {
         body:
           "Located two hours south of Sydney in the Souther Highlands of New South Wales, this destination is truly one you won't want to miss.",
-        headline: "Kangaroo Valley Safari",
-        image: "https://picsum.photos/600/600?image=10"
+        headline: 'Kangaroo Valley Safari',
+        image: 'https://picsum.photos/600/600?image=10'
       },
       visible: true
     }
   ],
   config: {
-    canvasLayout: "xy"
+    canvasLayout: 'xy'
   },
   logic: [
     {
       function: {
         arguments: {
           lhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["parameters", "image"],
-              type: "String"
+              path: ['parameters', 'image'],
+              type: 'String'
             }
           },
           rhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["layers", "Image", "image"],
+              path: ['layers', 'Image', 'image'],
               type: {
-                alias: "URL",
-                name: "Named",
-                of: "String"
+                alias: 'URL',
+                name: 'Named',
+                of: 'String'
               }
             }
           }
         },
-        name: "assign(lhs, to rhs)"
+        name: 'assign(lhs, to rhs)'
       },
       nodes: []
     },
@@ -87,21 +87,21 @@ export default {
       function: {
         arguments: {
           lhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["parameters", "headline"],
-              type: "String"
+              path: ['parameters', 'headline'],
+              type: 'String'
             }
           },
           rhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["layers", "Headline", "text"],
-              type: "String"
+              path: ['layers', 'Headline', 'text'],
+              type: 'String'
             }
           }
         },
-        name: "assign(lhs, to rhs)"
+        name: 'assign(lhs, to rhs)'
       },
       nodes: []
     },
@@ -109,21 +109,21 @@ export default {
       function: {
         arguments: {
           lhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["parameters", "body"],
-              type: "String"
+              path: ['parameters', 'body'],
+              type: 'String'
             }
           },
           rhs: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["layers", "Body", "text"],
-              type: "String"
+              path: ['layers', 'Body', 'text'],
+              type: 'String'
             }
           }
         },
-        name: "assign(lhs, to rhs)"
+        name: 'assign(lhs, to rhs)'
       },
       nodes: []
     },
@@ -131,42 +131,42 @@ export default {
       function: {
         arguments: {
           lhs: {
-            type: "value",
+            type: 'value',
             value: {
               data: 20,
-              type: "Number"
+              type: 'Number'
             }
           },
           value: {
-            type: "identifier",
+            type: 'identifier',
             value: {
-              path: ["parameters", "body"],
-              type: "String"
+              path: ['parameters', 'body'],
+              type: 'String'
             }
           }
         },
-        name: "if(value)"
+        name: 'if(value)'
       },
       nodes: [
         {
           function: {
             arguments: {
               lhs: {
-                type: "value",
+                type: 'value',
                 value: {
                   data: true,
-                  type: "Boolean"
+                  type: 'Boolean'
                 }
               },
               rhs: {
-                type: "identifier",
+                type: 'identifier',
                 value: {
-                  path: ["layers", "Body", "visible"],
-                  type: "Boolean"
+                  path: ['layers', 'Body', 'visible'],
+                  type: 'Boolean'
                 }
               }
             },
-            name: "assign(lhs, to rhs)"
+            name: 'assign(lhs, to rhs)'
           },
           nodes: []
         }
@@ -176,78 +176,78 @@ export default {
   metadata: {},
   parameters: [
     {
-      name: "image",
+      name: 'image',
       type: {
-        alias: "URL",
-        name: "Named",
-        of: "String"
+        alias: 'URL',
+        name: 'Named',
+        of: 'String'
       }
     },
     {
-      name: "headline",
-      type: "String"
+      name: 'headline',
+      type: 'String'
     },
     {
-      name: "body",
-      type: "String"
+      name: 'body',
+      type: 'String'
     }
   ],
   rootLayer: {
     children: [
       {
         children: [],
-        name: "Image",
+        name: 'Image',
         parameters: {
-          alignSelf: "stretch",
+          alignSelf: 'stretch',
           aspectRatio: 2,
-          backgroundColor: "#D8D8D8",
-          image: ""
+          backgroundColor: '#D8D8D8',
+          image: ''
         },
-        type: "Image"
+        type: 'Image'
       },
       {
         children: [
           {
             children: [],
-            name: "Headline",
+            name: 'Headline',
             parameters: {
-              font: "headline",
+              font: 'headline',
               paddingBottom: 0,
               paddingLeft: 0,
               paddingRight: 0,
               paddingTop: 0,
-              text: "Headline"
+              text: 'Headline'
             },
-            type: "Text"
+            type: 'Text'
           },
           {
             children: [],
-            name: "Body",
+            name: 'Body',
             parameters: {
-              font: "body2",
+              font: 'body2',
               numberOfLines: 2,
-              text: "Body",
+              text: 'Body',
               visible: false
             },
-            type: "Text"
+            type: 'Text'
           }
         ],
-        name: "Description",
+        name: 'Description',
         parameters: {
-          alignSelf: "stretch",
+          alignSelf: 'stretch',
           paddingBottom: 16,
           paddingLeft: 16,
           paddingRight: 16,
           paddingTop: 20
         },
-        type: "View"
+        type: 'View'
       }
     ],
-    name: "View",
+    name: 'View',
     parameters: {
-      alignSelf: "stretch",
+      alignSelf: 'stretch',
       flex: 0
     },
-    type: "View"
+    type: 'View'
   }
 };

@@ -23,7 +23,9 @@ function flattenLayers(layer: LonaLayer, depth: number): LayerItem[] {
   const result = [{ name: layer.name, depth, type: layer.type }];
 
   if (layer.type === 'View') {
-    return result.concat(flatten(layer.children.map(child => flattenLayers(child, depth + 1))));
+    return result.concat(
+      flatten(layer.children.map(child => flattenLayers(child, depth + 1)))
+    );
   }
 
   return result;
@@ -54,7 +56,9 @@ export default class ComponentTree extends Component<Props, void> {
           return (
             <a
               key={item.name}
-              className={this.props.selectedLayerName === item.name ? 'is-selected' : ''}
+              className={
+                this.props.selectedLayerName === item.name ? 'is-selected' : ''
+              }
               onClick={() => this.props.onSelectLayer(item.name)}
               style={{ paddingLeft: item.depth * 18 + 'px' }}
             >

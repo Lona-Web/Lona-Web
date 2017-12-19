@@ -62,7 +62,8 @@ export default {
         children: [],
         name: 'ListItem1',
         parameters: {
-          image: 'https://pbs.twimg.com/profile_images/697293943872970754/dkgMlBJX_bigger.jpg',
+          image:
+            'https://pbs.twimg.com/profile_images/697293943872970754/dkgMlBJX_bigger.jpg',
           primaryText: 'Devin Abbott',
           secondaryText: 'Software Engineer @ Airbnb'
         },
@@ -73,7 +74,8 @@ export default {
         children: [],
         name: 'ListItem2',
         parameters: {
-          image: 'https://pbs.twimg.com/profile_images/522867498337570818/p9wlS3Q8_normal.jpeg',
+          image:
+            'https://pbs.twimg.com/profile_images/522867498337570818/p9wlS3Q8_normal.jpeg',
           primaryText: 'Ryan Gonzalez',
           secondaryText: 'Design Technologist @ DoorDash'
         },

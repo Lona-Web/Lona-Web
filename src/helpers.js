@@ -17,7 +17,9 @@ import type {
 
 export function flattenLayers(layer: LonaLayer): LonaLayer[] {
   if (layer.type === 'View') {
-    return [layer].concat(flatten(layer.children.map(child => flattenLayers(child))));
+    return [layer].concat(
+      flatten(layer.children.map(child => flattenLayers(child)))
+    );
   } else {
     return [layer];
   }
@@ -27,13 +29,18 @@ export function flattenComponentLayers(component: LonaComponent) {
   return flattenLayers(component.rootLayer);
 }
 
-export function getFontOrDefault(textStyleId: string, textStyles: LonaTextStyles): LonaTextStyle {
+export function getFontOrDefault(
+  textStyleId: string,
+  textStyles: LonaTextStyles
+): LonaTextStyle {
   const result = textStyles.styles.find(style => style.id === textStyleId);
   if (result) {
     return result;
   }
 
-  const defaultStyle = textStyles.styles.find(style => style.id === textStyles.defaultStyleName);
+  const defaultStyle = textStyles.styles.find(
+    style => style.id === textStyles.defaultStyleName
+  );
   if (defaultStyle) {
     return defaultStyle;
   }
@@ -41,13 +48,19 @@ export function getFontOrDefault(textStyleId: string, textStyles: LonaTextStyles
   throw new Error('Text style not found');
 }
 
-export function getBackgroundStyle(params: LonaLayerParameters, colors: LonaColor[]) {
+export function getBackgroundStyle(
+  params: LonaLayerParameters,
+  colors: LonaColor[]
+) {
   return {
     background: getColorOrDefault(params.backgroundColor, colors)
   };
 }
 
-export function getColorOrDefault(colorId: ?string, colors: LonaColor[]): string {
+export function getColorOrDefault(
+  colorId: ?string,
+  colors: LonaColor[]
+): string {
   if (colorId == null) {
     return '';
   }
@@ -86,7 +99,10 @@ export function getDimensionStyle(params: LonaLayerParameters) {
   };
 }
 
-export function getBorderStyle(params: LonaLayerParameters, colors: LonaColor[]) {
+export function getBorderStyle(
+  params: LonaLayerParameters,
+  colors: LonaColor[]
+) {
   return {
     borderStyle: 'solid',
     borderWidth: getPixelOrDefault(params.borderWidth, '0px'),
@@ -99,11 +115,19 @@ export function getOrDefault<T>(value: ?T, fallback: T): T {
   return value == null ? fallback : value;
 }
 
-export function applyLogics(logics: LonaLogic[], parameters: {}, layer: LonaLayer): LonaLayer {
+export function applyLogics(
+  logics: LonaLogic[],
+  parameters: {},
+  layer: LonaLayer
+): LonaLayer {
   return logics.reduce((l, logic) => applyLogic(logic, parameters, l), layer);
 }
 
-export function applyLogic(logic: LonaLogic, parameters: {}, layer: LonaLayer): LonaLayer {
+export function applyLogic(
+  logic: LonaLogic,
+  parameters: {},
+  layer: LonaLayer
+): LonaLayer {
   switch (logic.function.name) {
     case 'assign(lhs, to rhs)': {
       return applyAssignLhsToRhsLogic(logic.function, parameters, layer);
@@ -118,13 +142,20 @@ export function applyLogic(logic: LonaLogic, parameters: {}, layer: LonaLayer): 
   }
 }
 
-function applyAssignLhsToRhsLogic(fn: LonaAssignLhsToRhs, parameters: {}, layer: LonaLayer): LonaLayer {
+function applyAssignLhsToRhsLogic(
+  fn: LonaAssignLhsToRhs,
+  parameters: {},
+  layer: LonaLayer
+): LonaLayer {
   const valueToAssign = extractValue(fn.arguments.lhs, parameters);
   if (valueToAssign == null) {
     return layer;
   }
 
-  if (fn.arguments.rhs.type !== 'identifier' || fn.arguments.rhs.value.path[0] !== 'layers') {
+  if (
+    fn.arguments.rhs.type !== 'identifier' ||
+    fn.arguments.rhs.value.path[0] !== 'layers'
+  ) {
     throw new Error(`Rhs not supported (${JSON.stringify(fn.arguments.rhs)}`);
   }
 
@@ -153,14 +184,21 @@ function assignParameterToLayer(
   if (layer.type === 'View') {
     return {
       ...layer,
-      children: layer.children.map(child => assignParameterToLayer(child, layerName, parameterName, value))
+      children: layer.children.map(child =>
+        assignParameterToLayer(child, layerName, parameterName, value)
+      )
     };
   }
 
   return layer;
 }
 
-function applyIfValueLogic(fn: LonaIfValue, nodes: LonaLogic[], parameters: {}, layer: LonaLayer): LonaLayer {
+function applyIfValueLogic(
+  fn: LonaIfValue,
+  nodes: LonaLogic[],
+  parameters: {},
+  layer: LonaLayer
+): LonaLayer {
   const value = extractValue(fn.arguments.value, parameters);
   if (value) {
     return applyLogics(nodes, parameters, layer);
@@ -174,12 +212,16 @@ function extractValue(variable: LonaVariable, parameters: {}): any {
       if (variable.value.path[0] === 'parameters') {
         return parameters[variable.value.path[1]];
       }
-      throw new Error(`LonaVariable not supported (${JSON.stringify(variable)})`);
+      throw new Error(
+        `LonaVariable not supported (${JSON.stringify(variable)})`
+      );
     }
     case 'value': {
       return variable.value.data;
     }
     default:
-      throw new Error(`LonaVariable not supported (${JSON.stringify(variable)})`);
+      throw new Error(
+        `LonaVariable not supported (${JSON.stringify(variable)})`
+      );
   }
 }
