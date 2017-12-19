@@ -34,13 +34,13 @@ class App extends Component<void, State> {
     super(props);
     this.state = {
       components: new Map([
-        ['./Team.component', teamComponent],
-        ['./Card.component', cardComponent],
-        ['./ListItem.component', listItemComponent]
+        ['./screen/Team.component', teamComponent],
+        ['./components/Card.component', cardComponent],
+        ['./components/ListItem.component', listItemComponent]
       ]),
       colors: colorsData.colors,
       textStyles: textStyles,
-      selectedItem: './Card.component',
+      selectedItem: './components/Card.component',
       selectedLayer: null
     };
   }
