@@ -17,11 +17,9 @@ import {
   colorsData,
   textStyles
 } from './data';
+import { colorsPath, textStylesPath } from './constants';
 
 import type { LonaComponent, LonaColor, LonaTextStyles } from './LonaTypes.js';
-
-const colorsPath = './colors.json';
-const textStylesPath = './textStyles.json';
 
 type State = {
   components: Map<string, LonaComponent>,
@@ -36,13 +34,13 @@ class App extends Component<void, State> {
     super(props);
     this.state = {
       components: new Map([
-        ['Team', teamComponent],
-        ['Card', cardComponent],
-        ['ListItem', listItemComponent]
+        ['./Team.component', teamComponent],
+        ['./Card.component', cardComponent],
+        ['./ListItem.component', listItemComponent]
       ]),
       colors: colorsData.colors,
       textStyles: textStyles,
-      selectedItem: 'Team',
+      selectedItem: './Card.component',
       selectedLayer: null
     };
   }
@@ -69,7 +67,7 @@ class App extends Component<void, State> {
       <div className="App">
         <div className="App-sidebar">
           <Sidebar
-            items={this.getSidebarItems()}
+            componentsPaths={Array.from(this.state.components.keys())}
             onItemClick={this.handleComponentSelected}
             selectedItem={selectedItem}
           />
@@ -97,15 +95,6 @@ class App extends Component<void, State> {
         </div>
       </div>
     );
-  }
-
-  getSidebarItems(): Array<{ id: string, name: string }> {
-    return Array.from(this.state.components.keys())
-      .map(key => ({ id: key, name: getNameFromComponentPath(key) }))
-      .concat([
-        { id: colorsPath, name: 'Colors' },
-        { id: textStylesPath, name: 'Text Styles' }
-      ]);
   }
 
   renderLayerDetails() {
