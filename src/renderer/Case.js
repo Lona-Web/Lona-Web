@@ -48,7 +48,7 @@ export default class Case extends React.Component<Props, State> {
       <div key={lonaCase.name} className="Case">
         <div className="Case-wrapper">
           <div className="Case-header">
-            <h4 className="u-mb-0">{lonaCase.name}</h4>
+            <h4 className="TitleSm u-mb-0">{lonaCase.name}</h4>
             <button
               title="View code example"
               className="Case-codeButton"
@@ -75,7 +75,7 @@ export default class Case extends React.Component<Props, State> {
   renderCanvas(component: LonaComponent, canvas: LonaCanvas, rootLayer: LonaLayer) {
     return (
       <div key={canvas.name} className="Canvas">
-        <h5>{canvas.name}</h5>
+        <h5 className="TitleXs">{canvas.name}</h5>
         <div
           style={{
             position: 'relative',

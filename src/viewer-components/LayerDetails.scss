@@ -1,0 +1,41 @@
+@import '../styles/_variables.scss';
+.LayerDetails {
+  &-params {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &-param {
+    margin-bottom: 12px;
+    max-width: 50%;
+
+    &-label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 12px;
+      line-height: 18px;
+      text-transform: uppercase;
+    }
+
+    &-input {
+      width: 100%;
+      padding: 6px;
+      line-height: 18px;
+      background: $color-dark-level-4;
+      border: $color-dark-level-4;
+      box-shadow: $shadow-inset-level-1;
+      border-radius: 2px;
+      font-size: 14px;
+      color: $text-color-light;
+    }
+
+    &:nth-child(odd){
+      padding-right: 6px;
+    }
+
+    &:nth-child(even) {
+      padding-left: 6px;
+    }
+  }
+}

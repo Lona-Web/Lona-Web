@@ -31,6 +31,6 @@ $timing-bezier-swiftOut: cubic-bezier(0.55, 0, 0.1, 1);
 
 // App layout
 $app-sidebar-width: 220px;
-$app-toolbar-width: 256px;
+$app-toolbar-width: 300px;
 $app-toolbar-menu-width: 36px;
 $app-body-width: calc(100vw - #{$app-sidebar-width} - #{$app-toolbar-width});
