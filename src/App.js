@@ -2,12 +2,26 @@
 
 import React, { Component } from 'react';
 import './App.css';
-import { Sidebar, Toolbar, ComponentTree, LayerDetails } from './viewer-components';
+import {
+  Sidebar,
+  Toolbar,
+  ComponentTree,
+  LayerDetails
+} from './viewer-components';
 import Case from './renderer/Case';
 import { flattenComponentLayers } from './helpers';
-import { teamComponent, cardComponent, listItemComponent, colorsData, textStyles } from './data';
+import {
+  teamComponent,
+  cardComponent,
+  listItemComponent,
+  colorsData,
+  textStyles
+} from './data';
 
 import type { LonaComponent, LonaColor, LonaTextStyles } from './LonaTypes.js';
+
+const colorsPath = './colors.json';
+const textStylesPath = './textStyles.json';
 
 type State = {
   components: Map<string, LonaComponent>,
@@ -28,7 +42,7 @@ class App extends Component<void, State> {
       ]),
       colors: colorsData.colors,
       textStyles: textStyles,
-      selectedItem: 'Colors',
+      selectedItem: 'Team',
       selectedLayer: null
     };
   }
@@ -50,7 +64,7 @@ class App extends Component<void, State> {
   }
 
   render() {
-    const { selectedItem, components } = this.state;
+    const { selectedItem } = this.state;
     return (
       <div className="App">
         <div className="App-sidebar">
@@ -63,13 +77,15 @@ class App extends Component<void, State> {
             type="file"
             multiple={true}
             webkitdirectory="true"
-            directory={true}
+            directory="true"
             onChange={this.onImportWorkspace}
           />
         </div>
         <div className="App-body">
           <div className="section">
-            <h2 className="TitleLg section-title">{getNameFromComponentPath(selectedItem)}</h2>
+            <h2 className="TitleLg section-title">
+              {getNameFromComponentPath(selectedItem)}
+            </h2>
             {this.renderContent()}
           </div>
         </div>
@@ -83,19 +99,27 @@ class App extends Component<void, State> {
     );
   }
 
-  getSidebarItems() {
+  getSidebarItems(): Array<{ id: string, name: string }> {
     return Array.from(this.state.components.keys())
       .map(key => ({ id: key, name: getNameFromComponentPath(key) }))
-      .concat([{ id: 'Colors', name: 'Colors' }, { id: 'Text Styles', name: 'Text Styles' }]);
+      .concat([
+        { id: colorsPath, name: 'Colors' },
+        { id: textStylesPath, name: 'Text Styles' }
+      ]);
   }
 
   renderLayerDetails() {
-    if (this.state.selectedItem === 'Colors' || this.state.selectedItem === 'Text Styles') {
+    if (
+      this.state.selectedItem === colorsPath ||
+      this.state.selectedItem === textStylesPath
+    ) {
       return null;
     }
 
     const component = this.selectedComponent();
-    const layer = flattenComponentLayers(component).find(l => l.name === this.state.selectedLayer);
+    const layer = flattenComponentLayers(component).find(
+      l => l.name === this.state.selectedLayer
+    );
 
     if (layer == null) {
       return null;
@@ -105,7 +129,10 @@ class App extends Component<void, State> {
   }
 
   renderComponentTree() {
-    if (this.state.selectedItem === 'Colors' || this.state.selectedItem === 'Text Styles') {
+    if (
+      this.state.selectedItem === colorsPath ||
+      this.state.selectedItem === textStylesPath
+    ) {
       return null;
     }
 
@@ -123,11 +150,11 @@ class App extends Component<void, State> {
   }
 
   renderContent() {
-    if (this.state.selectedItem === 'Colors') {
+    if (this.state.selectedItem === colorsPath) {
       return this.renderColors();
     }
 
-    if (this.state.selectedItem === 'Text Styles') {
+    if (this.state.selectedItem === textStylesPath) {
       return this.renderTextSyles();
     }
 
@@ -138,7 +165,7 @@ class App extends Component<void, State> {
         {component.cases.map((lonaCase, i) => (
           <Case
             key={i}
-            componentName={this.state.selectedItem}
+            componentName={getNameFromComponentPath(this.state.selectedItem)}
             component={component}
             components={this.state.components}
             colors={this.state.colors}
@@ -155,7 +182,10 @@ class App extends Component<void, State> {
       <div className="colors-container">
         {this.state.colors.map(color => (
           <div key={color.id} className="color-container">
-            <div className="color-display" style={{ background: color.value }} />
+            <div
+              className="color-display"
+              style={{ background: color.value }}
+            />
             <div className="color-name">{color.name}</div>
             <div className="color-value">{color.value}</div>
           </div>
@@ -185,24 +215,53 @@ class App extends Component<void, State> {
     );
   }
 
-  onImportWorkspace = (event: any) => {
-    const files = Array.from(event.target.files).filter(file => file.name.endsWith('.component'));
-    const promises = files.map(readFileAsText);
-    Promise.all(promises).then(events => {
-      const components = events.map((e, i) => {
-        const component = JSON.parse(e.target.result);
-        return [getPathFromWebkitRelativePath(files[i].webkitRelativePath), component];
-      });
-      this.setState({ components: new Map(components) });
+  onImportWorkspace = async (event: any) => {
+    const files = Array.from(event.target.files);
+    const colorsFile = files.find(file => file.name === 'colors.json');
+    if (colorsFile == null) {
+      throw new Error('Workspace should contains colors.json');
+    }
+    const textStylesFile = files.find(file => file.name === 'textStyles.json');
+    if (textStylesFile == null) {
+      throw new Error('Workspace should contains textStyles.json');
+    }
+    const components = await Promise.all(
+      files
+        .filter(file => file.name.endsWith('.component'))
+        .map(importComponent)
+    );
+    this.setState({
+      components: new Map(components),
+      selectedItem: components[0][0], // Select first path of first component
+      colors: await importColors(colorsFile),
+      textStyles: await importTextStyles(textStylesFile)
     });
   };
 }
 
 export default App;
 
+async function importComponent(file: any): Promise<any> {
+  const result = await readFileAsText(file);
+  return [
+    getPathFromWebkitRelativePath(file.webkitRelativePath),
+    JSON.parse(result.target.result)
+  ];
+}
+
+async function importColors(file: File): Promise<LonaColor[]> {
+  const result = await readFileAsText(file);
+  return JSON.parse(result.target.result).colors;
+}
+
+async function importTextStyles(file: File): Promise<LonaTextStyles> {
+  const result = await readFileAsText(file);
+  return JSON.parse(result.target.result);
+}
+
 function getNameFromComponentPath(path: string): string {
   const paths = path.split('/');
-  return paths[paths.length - 1].replace('.component', '');
+  return paths[paths.length - 1].replace('.component', '').replace('.json', '');
 }
 
 function getPathFromWebkitRelativePath(webkitRelativePath: string): string {
