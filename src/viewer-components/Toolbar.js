@@ -9,7 +9,7 @@ class Toolbar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: true
     };
   }
 

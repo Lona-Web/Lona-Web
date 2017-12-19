@@ -1,9 +1,12 @@
 @import '../styles/_variables.scss';
 .LayerDetails {
-  &-params {
-    display: flex;
-    flex-wrap: wrap;
+  &-group {
     width: 100%;
+    margin-bottom: 24px;
+    &-body {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   &-param {
