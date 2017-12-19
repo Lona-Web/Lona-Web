@@ -133,7 +133,7 @@ export type LonaLayerParameters = {|
 export type LonaImageLayer = {|
   type: 'Image',
   name: string,
-  parameters: LayerParameters & {|
+  parameters: LonaLayerParameters & {|
     image?: string
   |}
 |};
@@ -141,7 +141,7 @@ export type LonaImageLayer = {|
 export type LonaTextLayer = {|
   type: 'Text',
   name: string,
-  parameters: LayerParameters & {|
+  parameters: LonaLayerParameters & {|
     text: string,
     font: string,
     numberOfLines: number
@@ -152,7 +152,7 @@ export type LonaViewLayer = {|
   type: 'View',
   name: string,
   children: LonaLayer[],
-  parameters: LayerParameters & {
+  parameters: LonaLayerParameters & {
     flexDirection?: 'row' | 'column',
     alignItems?: 'flex-start' | 'center' | 'flex-end',
     justifyContent?: 'flex-start' | 'center' | 'flex-end',
