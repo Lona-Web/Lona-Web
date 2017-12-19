@@ -111,6 +111,8 @@ export function applyLogic(logic: LonaLogic, parameters: {}, layer: LonaLayer): 
     case 'if(value)': {
       return applyIfValueLogic(logic.function, logic.nodes, parameters, layer);
     }
+    case 'none()':
+      return layer;
     default:
       throw new Error(`function not supported (${logic.function.name})`);
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import './Sidebar.css';
 
 type SidebarProps = {
-  items: string,
+  items: Array<{ id: string, name: string }>,
   onItemClick: (item: string) => {},
   selectedItem: string
 };
@@ -13,14 +13,14 @@ class Sidebar extends React.Component<SidebarProps> {
       <div className="Sidebar">
         <div className="Sidebar-body">
           <ul>
-            {this.props.items.map((item, i) => {
+            {this.props.items.map(item => {
               return (
-                <li key={i}>
+                <li key={item.id}>
                   <a
-                    className={this.props.selectedItem === item ? 'is-selected' : ''}
-                    onClick={() => this.props.onItemClick(item)}
+                    className={this.props.selectedItem === item.id ? 'is-selected' : ''}
+                    onClick={() => this.props.onItemClick(item.id)}
                   >
-                    {item}
+                    {item.name}
                   </a>
                 </li>
               );
