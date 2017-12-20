@@ -81,7 +81,9 @@ class Sidebar extends React.Component<SidebarProps, void> {
     return (
       <div className="Sidebar">
         <div className="Sidebar-body">
-          <ul>{items.map(item => this.renderItem(item))}</ul>
+          <div className="TreeList">
+            <ul>{items.map(item => this.renderItem(item))}</ul>
+          </div>
         </div>
       </div>
     );
