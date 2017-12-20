@@ -16,28 +16,38 @@ $sidebar-horizontal-padding: 18px;
     margin: 0 auto;
   }
 
-  ul {
+   ul {
     padding: 0;
     margin: 0;
     li {
       list-style: none;
       margin: {
         right: -$sidebar-horizontal-padding;
-        bottom: 0;
+        bottom: 3px;
         left: -$sidebar-horizontal-padding;
       }
-      ul {
-        padding: 6px 36px;
+
+      li {
+        margin: 0;
+        a {
+          padding: 0 ($sidebar-horizontal-padding * 2 + 6px);
+        }
       }
+
       div {
-        padding: 6px 18px;
+        padding: 0 $sidebar-horizontal-padding;
+        line-height: 30px;
+        .Icon {
+          margin-right: 6px;
+        }
       }
     }
   }
 
   a {
     display: block;
-    padding: 6px $sidebar-horizontal-padding;
+    padding: 0 $sidebar-horizontal-padding;
+    line-height: 30px;
     &.is-selected,
     &:hover {
       background-color: $color-dark-level-1;

@@ -38,6 +38,10 @@
   &--xl {
     font-size: 48px;
   }
+  &--inline {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 /* Rules for using icons as black on a light background. */
