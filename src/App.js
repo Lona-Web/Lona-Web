@@ -18,16 +18,18 @@ import {
   textStyles
 } from './data';
 import { colorsPath, textStylesPath } from './constants';
+import VisualCues from './VisualCues';
 
 import type { LonaComponent, LonaColor, LonaTextStyles } from './LonaTypes.js';
 
-type State = {
+type State = {|
   components: Map<string, LonaComponent>,
   colors: LonaColor[],
   textStyles: LonaTextStyles,
   selectedItem: string,
-  selectedLayer: ?string
-};
+  selectedLayer: ?string,
+  hoveredLayer: ?string
+|};
 
 class App extends Component<void, State> {
   constructor(props: void) {
@@ -41,13 +43,15 @@ class App extends Component<void, State> {
       colors: colorsData.colors,
       textStyles: textStyles,
       selectedItem: './components/Card.component',
-      selectedLayer: null
+      selectedLayer: null,
+      hoveredLayer: null
     };
   }
 
   handleComponentSelected = (item: string) => {
     this.setState({
-      selectedItem: item
+      selectedItem: item,
+      selectedLayer: null
     });
   };
 
@@ -93,6 +97,10 @@ class App extends Component<void, State> {
             {this.renderLayerDetails()}
           </Toolbar>
         </div>
+        <VisualCues
+          hoveredLayer={this.state.hoveredLayer}
+          selectedLayer={this.state.selectedLayer}
+        />
       </div>
     );
   }
@@ -129,6 +137,11 @@ class App extends Component<void, State> {
       <ComponentTree
         component={this.selectedComponent()}
         selectedLayerName={this.state.selectedLayer}
+        onHoverLayer={layerName =>
+          this.setState({
+            hoveredLayer: layerName
+          })
+        }
         onSelectLayer={layerName =>
           this.setState({
             selectedLayer: layerName

@@ -10,7 +10,8 @@ import { Icon } from './';
 type Props = {
   component: LonaComponent,
   selectedLayerName: ?string,
-  onSelectLayer: (layerName: string) => void
+  onSelectLayer: (layerName: string) => void,
+  onHoverLayer: (layerName: ?string) => void
 };
 
 type LayerItem = {
@@ -52,21 +53,26 @@ export default class ComponentTree extends Component<Props, void> {
     return (
       <div className="ComponentTree">
         <h3 className="TitleSm">Layers</h3>
-        {items.map(item => {
-          return (
-            <a
-              key={item.name}
-              className={
-                this.props.selectedLayerName === item.name ? 'is-selected' : ''
-              }
-              onClick={() => this.props.onSelectLayer(item.name)}
-              style={{ paddingLeft: item.depth * 18 + 'px' }}
-            >
-              {this.renderIcon(item.type)}
-              <span>{item.name}</span>
-            </a>
-          );
-        })}
+        <div onMouseLeave={() => this.props.onHoverLayer(null)}>
+          {items.map(item => {
+            return (
+              <a
+                key={item.name}
+                className={
+                  this.props.selectedLayerName === item.name
+                    ? 'is-selected'
+                    : ''
+                }
+                onMouseOver={() => this.props.onHoverLayer(item.name)}
+                onClick={() => this.props.onSelectLayer(item.name)}
+                style={{ paddingLeft: item.depth * 18 + 'px' }}
+              >
+                {this.renderIcon(item.type)}
+                <span>{item.name}</span>
+              </a>
+            );
+          })}
+        </div>
       </div>
     );
   }

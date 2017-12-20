@@ -29,6 +29,7 @@ export default class View extends React.Component<Props, void> {
     const { layer, textStyles, colors, components } = this.props;
     return (
       <div
+        lonaid={layer.name}
         style={{
           position: 'relative',
           boxSizing: 'border-box',
