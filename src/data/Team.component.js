@@ -56,7 +56,7 @@ export default {
           image: 'https://picsum.photos/600/600?image=202'
         },
         type: 'Component',
-        url: 'Card'
+        url: './components/Card.component'
       },
       {
         children: [],
@@ -68,7 +68,7 @@ export default {
           secondaryText: 'Software Engineer @ Airbnb'
         },
         type: 'Component',
-        url: 'ListItem'
+        url: './components/ListItem.component'
       },
       {
         children: [],
@@ -80,7 +80,7 @@ export default {
           secondaryText: 'Design Technologist @ DoorDash'
         },
         type: 'Component',
-        url: 'ListItem'
+        url: './components/ListItem.component'
       },
       {
         children: [],
@@ -92,7 +92,7 @@ export default {
           secondaryText: 'Design Systems Lead Designer @ Airbnb'
         },
         type: 'Component',
-        url: 'ListItem'
+        url: './components/ListItem.component'
       }
     ],
     name: 'View',
