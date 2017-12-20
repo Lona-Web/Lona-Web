@@ -64,11 +64,19 @@ const layerParametersGroups = [
 export default class LayerDetails extends Component<Props, void> {
   render() {
     const { name } = this.props.layer;
+    const { parameters } = this.props.layer;
 
     return (
       <div className="LayerDetails">
         <h4 className="TitleXs">{name}</h4>
+
         {layerParametersGroups.map((group, i) => {
+          const hasNoValueInGroupParams = group.parameters.every(
+            key => !parameters[key]
+          );
+
+          if (hasNoValueInGroupParams) return false;
+
           return (
             <div key={i} className="LayerDetails-group">
               <h5 className="TitleXs LayerDetails-group-label">
@@ -86,6 +94,7 @@ export default class LayerDetails extends Component<Props, void> {
 
   renderGroup(group: Group) {
     const { parameters } = this.props.layer;
+
     return group.parameters.map((key, f) => {
       return (
         <div key={f} className="LayerDetails-param">
