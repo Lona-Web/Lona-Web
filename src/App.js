@@ -91,6 +91,10 @@ class App extends Component<void, State> {
             </h2>
             {this.renderContent()}
           </div>
+          <VisualCues
+            hoveredLayer={this.state.hoveredLayer}
+            selectedLayer={this.state.selectedLayer}
+          />
         </div>
         <div className="App-toolbar">
           <Toolbar>
@@ -98,10 +102,6 @@ class App extends Component<void, State> {
             {this.renderLayerDetails()}
           </Toolbar>
         </div>
-        <VisualCues
-          hoveredLayer={this.state.hoveredLayer}
-          selectedLayer={this.state.selectedLayer}
-        />
       </div>
     );
   }

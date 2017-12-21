@@ -25,10 +25,15 @@ function layerNameToOverlays(layerName: ?string): Overlay[] {
 }
 
 function elementToOverlays(elem: Element): Overlay {
+  const visualCuesRoot = document.querySelector('#visual-cues');
+  if (visualCuesRoot == null) {
+    throw new Error('visual-cues element not found');
+  }
+  const offset = visualCuesRoot.getBoundingClientRect();
   const boundRect = elem.getBoundingClientRect();
   return {
-    top: boundRect.top,
-    left: boundRect.left,
+    top: boundRect.top - offset.top,
+    left: boundRect.left - offset.left,
     height: boundRect.height,
     width: boundRect.width
   };
@@ -38,11 +43,16 @@ export default class VisualCues extends React.Component<Props, void> {
   render() {
     return (
       <div
+        id="visual-cues"
         style={{
           position: 'absolute',
           height: '100%',
           width: '100%',
-          pointerEvents: 'none'
+          pointerEvents: 'none',
+          top: '0',
+          bottom: '0',
+          left: '0',
+          right: '0'
         }}
       >
         {layerNameToOverlays(this.props.selectedLayer).map((overlay, i) => (
