@@ -37,7 +37,14 @@ function elementToOverlays(elem: Element): Overlay {
 export default class VisualCues extends React.Component<Props, void> {
   render() {
     return (
-      <div style={{ position: 'absolute', height: '100%', width: '100%' }}>
+      <div
+        style={{
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          pointerEvents: 'none'
+        }}
+      >
         {layerNameToOverlays(this.props.selectedLayer).map((overlay, i) => (
           <div
             key={'selected-layer' + i}
