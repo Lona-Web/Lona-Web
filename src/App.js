@@ -76,6 +76,7 @@ class App extends Component<void, State> {
             selectedItem={selectedItem}
           />
           <input
+            style={{ display: 'none' }}
             type="file"
             multiple={true}
             webkitdirectory="true"

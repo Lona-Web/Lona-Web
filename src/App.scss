@@ -33,6 +33,7 @@ body {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
+    height: 100vh;
   }
 
   &-toolbar {
@@ -42,7 +43,7 @@ body {
   &-body {
     width: 100%;
     flex: 1 0 auto;
-    min-height: 100vh;
+    height: 100vh;
     width: calc(100vw - #{$app-sidebar-width} - #{$app-toolbar-menu-width});
     overflow-y: auto;
   }
