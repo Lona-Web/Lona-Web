@@ -14,6 +14,7 @@ $toolbar-horizontal-padding: 18px;
 
   &.is-open {
     transform: translateX(calc(-100% + #{$app-toolbar-menu-width}));
+    height: 100vh;
   }
 
   &-menu {
@@ -40,6 +41,7 @@ $toolbar-horizontal-padding: 18px;
     padding: 24px $toolbar-horizontal-padding;
     background-color: $color-dark-level-2;
     box-shadow: $shadow-level-1;
+    overflow-y: auto;
   }
 
   ul {
