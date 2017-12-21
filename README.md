@@ -9,10 +9,6 @@ _Just a quick and dirty proof of concept for now! It only handle the material de
 ## Todo
 
 * Finish layer props
-* Fix sidebars heights
-* Fix scroll + visual cues
-* Fix code examples
-* Components tree style
 
 ### TODO for layer properties
 
