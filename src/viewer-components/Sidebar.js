@@ -57,16 +57,26 @@ function addLeaf(
 export function makeTree(paths: string[]): Array<Item | Folder> {
   const result = [];
 
-  return paths.reduce(
-    (result, path) => {
+  return paths
+    .reduce((result, path) => {
       const subPaths = path.split('/').slice(1); // remove the '.' prefix
       return addLeaf(subPaths, path, result);
-    },
-    [
+    }, [])
+    .concat([
       { key: colorsPath, name: 'Colors', type: 'Item' },
       { key: textStylesPath, name: 'Text Styles', type: 'Item' }
-    ]
-  );
+    ]);
+}
+
+function itemKeyToIcon(key) {
+  switch (key) {
+    case colorsPath:
+      return 'color_lens';
+    case textStylesPath:
+      return 'font_download';
+    default:
+      return 'layers';
+  }
 }
 
 type SidebarProps = {
@@ -98,10 +108,10 @@ class Sidebar extends React.Component<SidebarProps, void> {
   renderFolder(folder: Folder) {
     return (
       <li key={folder.name}>
-        <div>
+        <div className="TreeList-folder">
+          <Icon name="folder" size="sm" display="inline" />
+          <span className="TreeList-folder-name">{folder.name}</span>
           <Icon name="keyboard_arrow_down" size="sm" display="inline" />
-          {/*keyboard_arrow_down */}
-          {folder.name}
         </div>
         <ul>{folder.children.map(item => this.renderItem(item))}</ul>
       </li>
@@ -115,6 +125,7 @@ class Sidebar extends React.Component<SidebarProps, void> {
           className={this.props.selectedItem === item.key ? 'is-selected' : ''}
           onClick={() => this.props.onItemClick(item.key)}
         >
+          <Icon name={itemKeyToIcon(item.key)} size="sm" display="inline" />
           {item.name}
         </a>
       </li>

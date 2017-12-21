@@ -21,9 +21,7 @@ $sidebar-horizontal-padding: 18px;
   }
 }
 
-
 .TreeList {
-
   ul {
     padding: 0;
     margin: 0;
@@ -43,21 +41,34 @@ $sidebar-horizontal-padding: 18px;
       div {
         padding: 0 $sidebar-horizontal-padding;
         line-height: 30px;
-        .Icon {
-          margin-right: 6px;
-        }
       }
     }
   }
 
   a {
-    display: block;
+    display: flex;
     padding: 0 $sidebar-horizontal-padding;
     line-height: 30px;
+    align-items: center;
     &.is-selected,
     &:hover {
       background-color: $color-dark-level-1;
       color: $text-color-light-hover;
+    }
+
+    .Icon {
+      margin-right: 6px;
+    }
+  }
+
+  &-folder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &-name {
+      flex-grow: 1;
+      margin-left: 6px;
     }
   }
 }
