@@ -7,12 +7,14 @@ type SizeEnumType = 'sm' | 'md' | 'lg' | 'xl';
 
 type IconProps = {
   size: ?SizeEnumType,
-  name: string
+  name: string,
+  display: ?'inline'
 };
 
 function Icon(props: IconProps): React.Node {
   const sizeClass = props.size ? ' Icon--' + props.size : '';
-  return <i className={'Icon' + sizeClass}>{props.name}</i>;
+  const displayClass = props.display ? ' Icon--' + props.display : '';
+  return <i className={'Icon' + sizeClass + displayClass}>{props.name}</i>;
 }
 
 export default Icon;

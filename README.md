@@ -6,9 +6,17 @@ Display your [Lona](https://github.com/airbnb/Lona) components directly on the w
 
 _Just a quick and dirty proof of concept for now! It only handle the material design sample. Lot of features are missing..._
 
+## Todo
+
+* Finish layer props
+* Fix sidebars heights
+* Fix scroll + visual cues
+* Fix code examples
+* Components tree style
+
 ### TODO for layer properties
 
-* Find a way to group
+* Display components parameters
 * Display color as a colored square
 * image as square thumbnail + clickable icon
 * text as textbox

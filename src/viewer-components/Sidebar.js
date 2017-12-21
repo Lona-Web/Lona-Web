@@ -3,6 +3,7 @@
 import React from 'react';
 import './Sidebar.css';
 import { colorsPath, textStylesPath } from '../constants';
+import { Icon } from './';
 
 type Folder = {
   type: 'Folder',
@@ -80,7 +81,9 @@ class Sidebar extends React.Component<SidebarProps, void> {
     return (
       <div className="Sidebar">
         <div className="Sidebar-body">
-          <ul>{items.map(item => this.renderItem(item))}</ul>
+          <div className="TreeList">
+            <ul>{items.map(item => this.renderItem(item))}</ul>
+          </div>
         </div>
       </div>
     );
@@ -95,7 +98,11 @@ class Sidebar extends React.Component<SidebarProps, void> {
   renderFolder(folder: Folder) {
     return (
       <li key={folder.name}>
-        <div>{folder.name}</div>
+        <div>
+          <Icon name="keyboard_arrow_down" size="sm" display="inline" />
+          {/*keyboard_arrow_down */}
+          {folder.name}
+        </div>
         <ul>{folder.children.map(item => this.renderItem(item))}</ul>
       </li>
     );
