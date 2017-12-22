@@ -1,4 +1,17 @@
 @import '../styles/_variables.scss';
+
+@mixin LayerDetailsValue() {
+  width: 100%;
+  padding: 6px;
+  line-height: 18px;
+  background: $color-dark-level-4;
+  border: $color-dark-level-4;
+  box-shadow: $shadow-inset-level-1;
+  border-radius: 2px;
+  font-size: 14px;
+  color: $text-color-light;
+}
+
 .LayerDetails {
   &-group {
     width: 100%;
@@ -10,8 +23,10 @@
   }
 
   &-param {
-    margin-bottom: 12px;
+    flex: 1 1 auto;
+
     max-width: 50%;
+    margin-bottom: 12px;
 
     &-label {
       display: block;
@@ -22,15 +37,18 @@
     }
 
     &-input {
-      width: 100%;
-      padding: 6px;
-      line-height: 18px;
-      background: $color-dark-level-4;
-      border: $color-dark-level-4;
-      box-shadow: $shadow-inset-level-1;
-      border-radius: 2px;
-      font-size: 14px;
-      color: $text-color-light;
+      @include LayerDetailsValue;
+    }
+
+    &-color {
+      @include LayerDetailsValue;
+      display: flex;
+      &-body {
+        width: 18px;
+        height: 18px;
+        border: $border-style-light;
+        margin-right: 6px;
+      }
     }
 
     &:nth-child(odd){
@@ -39,6 +57,11 @@
 
     &:nth-child(even) {
       padding-left: 6px;
+    }
+
+    &:nth-child(odd):last-child {
+      max-width: none;
+      padding-right: 0;
     }
   }
 }

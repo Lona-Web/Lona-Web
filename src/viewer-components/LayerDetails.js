@@ -77,7 +77,7 @@ export default class LayerDetails extends Component<Props, void> {
 
     return (
       <div className="LayerDetails">
-        <h4 className="TitleXs">{name}</h4>
+        {/* <h4 className="TitleXs">{name}</h4> */}
 
         {layerParametersGroups.map((group: Group, i: number) => {
           const hasValueInGroup = group.parameters.some(key => parameters[key]);
@@ -92,7 +92,7 @@ export default class LayerDetails extends Component<Props, void> {
 
   renderGroup(group: Group, key: number = 0) {
     return (
-      <div key={key} className="LayerDetails-group">
+      <div key={key} className={`LayerDetails-group ${group.label}`}>
         <h5 className="TitleXs LayerDetails-group-label">{group.label}</h5>
         <div className="LayerDetails-group-body">
           {group.parameters.map((paramKey, f) => this.renderParam(paramKey, f))}
@@ -103,15 +103,32 @@ export default class LayerDetails extends Component<Props, void> {
 
   renderParam(paramKey: string, key: number = 0) {
     const { parameters } = this.props.layer;
+    const value = parameters[paramKey];
+    let paramTemplate = (
+      <input
+        className="LayerDetails-param-input"
+        type="text"
+        value={value}
+        readOnly
+      />
+    );
+
+    if (paramKey === 'backgroundColor') {
+      paramTemplate = (
+        <div className="LayerDetails-param-color">
+          <div
+            className="LayerDetails-param-color-body"
+            style={{ backgroundColor: value }}
+          />
+          {value}
+        </div>
+      );
+    }
+
     return (
-      <div key={key} className="LayerDetails-param">
+      <div key={key} className={`LayerDetails-param ${paramKey}`}>
         <label className="LayerDetails-param-label">{paramKey}</label>
-        <input
-          className="LayerDetails-param-input"
-          type="text"
-          value={parameters[paramKey] ? parameters[paramKey] : ''}
-          readOnly
-        />
+        {paramTemplate}
       </div>
     );
   }
