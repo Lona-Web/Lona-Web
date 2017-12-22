@@ -10,7 +10,7 @@ type Props = {
 
 type Group = {
   label: string,
-  parameters: string[]
+  parameters: Array<string>
 };
 
 const layerParametersGroups = [
@@ -64,49 +64,55 @@ const layerParametersGroups = [
 export default class LayerDetails extends Component<Props, void> {
   render() {
     const { name } = this.props.layer;
-    const { parameters } = this.props.layer;
+    const { type, parameters } = this.props.layer;
+
+    let componentGroup = null;
+    if (type === 'Component') {
+      const componentParamsGroup = {
+        label: 'Parameters',
+        parameters: Object.keys({ ...parameters })
+      };
+      componentGroup = this.renderGroup(componentParamsGroup);
+    }
 
     return (
       <div className="LayerDetails">
         <h4 className="TitleXs">{name}</h4>
 
-        {layerParametersGroups.map((group, i) => {
-          const hasNoValueInGroupParams = group.parameters.every(
-            key => !parameters[key]
-          );
-
-          if (hasNoValueInGroupParams) return false;
-
-          return (
-            <div key={i} className="LayerDetails-group">
-              <h5 className="TitleXs LayerDetails-group-label">
-                {group.label}
-              </h5>
-              <div className="LayerDetails-group-body">
-                {this.renderGroup(group)}
-              </div>
-            </div>
-          );
+        {layerParametersGroups.map((group: Group, i: number) => {
+          const hasValueInGroup = group.parameters.some(key => parameters[key]);
+          if (hasValueInGroup) return this.renderGroup(group, i);
+          else return false;
         })}
+
+        {componentGroup}
       </div>
     );
   }
 
-  renderGroup(group: Group) {
-    const { parameters } = this.props.layer;
-
-    return group.parameters.map((key, f) => {
-      return (
-        <div key={f} className="LayerDetails-param">
-          <label className="LayerDetails-param-label">{key}</label>
-          <input
-            className="LayerDetails-param-input"
-            type="text"
-            value={parameters[key] ? parameters[key] : ''}
-            readOnly
-          />
+  renderGroup(group: Group, key: number = 0) {
+    return (
+      <div key={key} className="LayerDetails-group">
+        <h5 className="TitleXs LayerDetails-group-label">{group.label}</h5>
+        <div className="LayerDetails-group-body">
+          {group.parameters.map((paramKey, f) => this.renderParam(paramKey, f))}
         </div>
-      );
-    });
+      </div>
+    );
+  }
+
+  renderParam(paramKey: string, key: number = 0) {
+    const { parameters } = this.props.layer;
+    return (
+      <div key={key} className="LayerDetails-param">
+        <label className="LayerDetails-param-label">{paramKey}</label>
+        <input
+          className="LayerDetails-param-input"
+          type="text"
+          value={parameters[paramKey] ? parameters[paramKey] : ''}
+          readOnly
+        />
+      </div>
+    );
   }
 }
