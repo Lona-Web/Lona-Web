@@ -120,6 +120,7 @@ export default class LayerDetails extends Component<Props, void> {
             className="LayerDetails-param-color-body"
             style={{ backgroundColor: value }}
           />
+          {/* TODO: Color can be hex or 'grey200' */}
           {value}
         </div>
       );
