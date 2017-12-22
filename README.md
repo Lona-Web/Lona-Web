@@ -8,11 +8,8 @@ _Just a quick and dirty proof of concept for now! It only handle the material de
 
 ## Todo
 
-* Finish layer props
+### Todo for layer params
 
-### TODO for layer properties
-
-* Display components parameters
 * Display color as a colored square
 * image as square thumbnail + clickable icon
 * text as textbox
