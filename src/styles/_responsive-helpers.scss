@@ -1,0 +1,15 @@
+@import '_variables';
+
+@each $name, $size in $breakpoints {
+  .u-hidden-#{$name}-up {
+      @include breakpoint-gt($name) {
+          display: none !important;
+      }
+  }
+
+  .u-hidden-#{$name}-down {
+      @include breakpoint-lte($name) {
+          display: none !important;
+      }
+  }
+}

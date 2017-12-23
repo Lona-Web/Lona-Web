@@ -1,13 +1,20 @@
 @import './styles/_normalize';
 @import './styles/_variables';
-@import './styles/_typography';
+@import './styles/_mixins';
 @import './styles/_helpers';
+@import './styles/_responsive-helpers';
+@import './styles/_typography';
 
 // A reset
 a {
   cursor: pointer;
   text-decoration: none;
   transition: all 150ms ease-in;
+
+  &:hover,
+  &:focus {
+    color: $text-color-light-hover;
+  }
 }
 
 // Button reset
@@ -21,7 +28,10 @@ button {
   cursor: pointer;
   vertical-align: middle;
   transition: all 150ms ease-in;
+
+  &:hover,
   &:focus {
     outline: none;
+    color: $text-color-light-hover;
   }
 }

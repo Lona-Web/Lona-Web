@@ -1,0 +1,52 @@
+@import '_variables';
+
+// ==========================================================================
+// Breakpoints
+// From https://github.com/digitaledgeit/sass-breakpoints
+// ==========================================================================
+
+@mixin breakpoint-lt($to) {
+  @media (max-width: map-get($breakpoints, $to) - 1px){
+     @content;
+ }
+}
+
+@mixin breakpoint-lte($to) {
+  @media (max-width: map-get($breakpoints, $to)){
+     @content;
+ }
+}
+
+@mixin breakpoint-gt($from) {
+  @media (min-width: map-get($breakpoints, $from) + 1){
+     @content;
+ }
+}
+
+@mixin breakpoint-gte($from) {
+  @media (min-width: map-get($breakpoints, $from)){
+     @content;
+ }
+}
+
+@mixin breakpoint-between($from, $to) {
+  @media (min-width: map-get($breakpoints, $from) + 1) and (max-width: map-get($breakpoints, $to) - 1){
+     @content;
+ }
+}
+
+@mixin breakpoint($from, $to: null) {
+ @if ($from and $to) {
+      @media (min-width: map-get($breakpoints, $from)) and (max-width: map-get($breakpoints, $to) - 1){
+         @content;
+     }
+ }
+ @else if ($from) {
+      @include breakpoint-lte($from) {
+         @content;
+     }
+ }
+ @else {
+      @content;
+ }
+}

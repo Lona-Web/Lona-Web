@@ -9,7 +9,7 @@ class Toolbar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isOpen: true
+      isOpen: false
     };
   }
 
@@ -25,8 +25,8 @@ class Toolbar extends React.Component<any, any> {
               });
             }}
           >
-            {/* <Icon name="my_location" size="sm" /> */}
-            <Icon name="menu" />
+            <Icon name="my_location" size="sm" />
+            {/* <Icon name="menu" /> */}
           </button>
         </div>
         <div className="Toolbar-body">{this.props.children}</div>

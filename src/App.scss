@@ -56,9 +56,11 @@ img {
   height: auto;
 }
 
-.section {
+.Section {
   &-title {
     margin: 24px;
+    display: flex;
+    align-items: center;
   }
 }
 

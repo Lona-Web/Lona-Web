@@ -6,7 +6,8 @@ import {
   Sidebar,
   Toolbar,
   ComponentTree,
-  LayerDetails
+  LayerDetails,
+  Icon
 } from './viewer-components';
 import Case from './renderer/Case';
 import { flattenComponentLayers } from './helpers';
@@ -85,8 +86,11 @@ class App extends Component<void, State> {
           />
         </div>
         <div className="App-body">
-          <div className="section">
-            <h2 className="TitleLg section-title">
+          <div className="Section">
+            <h2 className="TitleLg Section-title">
+              <button className="u-hidden-md-up u-mr-1">
+                <Icon name="menu" className="allo" />
+              </button>
               {getNameFromComponentPath(selectedItem)}
             </h2>
             {this.renderContent()}
