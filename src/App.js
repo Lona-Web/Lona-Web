@@ -47,14 +47,15 @@ class App extends Component<void, State> {
       selectedItem: './components/Card.component',
       selectedLayer: null,
       hoveredLayer: null,
-      mobileSidebarOpen: true
+      mobileSidebarOpen: false
     };
   }
 
   handleComponentSelected = (item: string) => {
     this.setState({
       selectedItem: item,
-      selectedLayer: null
+      selectedLayer: null,
+      mobileSidebarOpen: false
     });
   };
 
