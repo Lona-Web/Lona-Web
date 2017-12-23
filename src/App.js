@@ -29,7 +29,8 @@ type State = {|
   textStyles: LonaTextStyles,
   selectedItem: string,
   selectedLayer: ?string,
-  hoveredLayer: ?string
+  hoveredLayer: ?string,
+  mobileSidebarOpen: boolean
 |};
 
 class App extends Component<void, State> {
@@ -45,7 +46,8 @@ class App extends Component<void, State> {
       textStyles: textStyles,
       selectedItem: './components/Card.component',
       selectedLayer: null,
-      hoveredLayer: null
+      hoveredLayer: null,
+      mobileSidebarOpen: true
     };
   }
 
@@ -53,6 +55,12 @@ class App extends Component<void, State> {
     this.setState({
       selectedItem: item,
       selectedLayer: null
+    });
+  };
+
+  handleMenuToggle = () => {
+    this.setState({
+      mobileSidebarOpen: !this.state.mobileSidebarOpen
     });
   };
 
@@ -67,9 +75,9 @@ class App extends Component<void, State> {
   }
 
   render() {
-    const { selectedItem } = this.state;
+    const { selectedItem, mobileSidebarOpen } = this.state;
     return (
-      <div className="App">
+      <div className={mobileSidebarOpen ? 'App is-sidebar-open' : 'App'}>
         <div className="App-sidebar">
           <Sidebar
             componentsPaths={Array.from(this.state.components.keys())}
@@ -88,9 +96,7 @@ class App extends Component<void, State> {
         <div className="App-body">
           <div className="Section">
             <h2 className="TitleLg Section-title">
-              <button className="u-hidden-md-up u-mr-1">
-                <Icon name="menu" className="allo" />
-              </button>
+              {this.renderMobileMenuButton()}
               {getNameFromComponentPath(selectedItem)}
             </h2>
             {this.renderContent()}
@@ -98,6 +104,10 @@ class App extends Component<void, State> {
           <VisualCues
             hoveredLayer={this.state.hoveredLayer}
             selectedLayer={this.state.selectedLayer}
+          />
+          <div
+            className="App-body-menuOverlay"
+            onClick={this.handleMenuToggle}
           />
         </div>
         <div className="App-toolbar">
@@ -219,6 +229,17 @@ class App extends Component<void, State> {
           </div>
         ))}
       </div>
+    );
+  }
+
+  renderMobileMenuButton() {
+    return (
+      <button
+        onClick={this.handleMenuToggle}
+        className="u-hidden-md-up App-body-menuButton"
+      >
+        <Icon name="menu" />
+      </button>
     );
   }
 

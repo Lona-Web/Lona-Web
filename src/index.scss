@@ -5,6 +5,12 @@
 @import './styles/_responsive-helpers';
 @import './styles/_typography';
 
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 // A reset
 a {
   cursor: pointer;

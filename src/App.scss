@@ -1,4 +1,5 @@
 @import './styles/_variables.scss';
+@import './styles/_mixins.scss';
 
 html {
   font-family: $text-font;
@@ -42,19 +43,26 @@ body {
 
   &-body {
     position: relative;
-    width: 100%;
     flex: 1 0 auto;
     height: 100vh;
     width: calc(100vw - #{$app-sidebar-width} - #{$app-toolbar-menu-width});
     overflow-y: auto;
+
+    &-menuButton {
+      z-index: 101;
+      position: relative;
+      margin-right: 6px;
+      margin-bottom: 2px;
+    }
+
+    &-menuOverlay {
+      display: none;
+    }
   }
 }
 
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+
+
 
 .Section {
   &-title {
@@ -120,4 +128,43 @@ img {
   padding: 24px;
   box-shadow: $shadow-level-1;
   background-color: $color-dark-level-3;
+}
+
+
+@include breakpoint-lt(md) {
+  .App {
+    &-sidebar {
+      z-index: 1;
+      position: fixed;
+      transform: translateX(-#{$app-sidebar-width});
+      transition: transform 200ms $timing-bezier-swiftOut;
+    }
+    &-body {
+      width: 100%;
+      transition: transform 200ms $timing-bezier-swiftOut;
+      &-menuOverlay {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        background: $color-dark-level-4;
+        opacity: 0;
+        transition: opacity 350ms ease-in;
+      }
+    }
+    &.is-sidebar-open {
+      .App-sidebar {
+        transform: translateX(0)
+      }
+      .App-body {
+        transform: translateX(#{$app-sidebar-width});
+        &-menuOverlay {
+          right: 0;
+          opacity: 0.8;
+        }
+      }
+    }
+  }
 }
