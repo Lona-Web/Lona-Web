@@ -138,9 +138,8 @@ export default class LayerDetails extends Component<Props, void> {
                 {displayBoxModelValue('paddingLeft', 'left')}
                 {displayBoxModelValue('paddingBottom', 'bottom')}
                 <div className="BoxModel-content">
-                  <div className="BoxModel-title">Content</div>
                   {displayBoxModelValue('width')}
-                  <div className="BoxModel-separator">*</div>
+                  <div className="BoxModel-separator">x</div>
                   {displayBoxModelValue('height')}
                 </div>
               </div>

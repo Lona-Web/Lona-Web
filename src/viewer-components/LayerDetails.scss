@@ -81,7 +81,6 @@
     position: relative;
     padding: 24px;
     background: $color-dark-level-4;
-    border: 1px solid $color-dark-level-0;
     box-shadow: $shadow-inset-level-1;
     border-radius: 2px;
   }
@@ -95,17 +94,13 @@
   &-content {
     position: relative;
     display: flex;
-    padding: 24px;
-    height: 60px;
+    padding: 18px;
+    height: 36px;
     background: $color-dark-level-4;
     border: 1px solid $color-dark-level-0;
     border-radius: 2px;
     align-items: center;
     justify-content: center;
-    .BoxModel-title {
-      left: 50%;
-      transform: translateX(-50%);
-    }
     .BoxModel-value {
       position: static;
     }
@@ -115,7 +110,7 @@
     position: absolute;
     top: 6px;
     left: 24px;
-    color: $text-color-light;
+    opacity: 0.6;
   }
 
   &-separator {
@@ -152,5 +147,4 @@
       transform: translateY(-50%);
     }
   }
-
 }
