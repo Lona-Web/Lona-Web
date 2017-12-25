@@ -71,3 +71,58 @@
     }
   }
 }
+
+
+.BoxModel {
+  width: 100%;
+  &-margin {
+    position: relative;
+    padding: 21px;
+    background: blue;
+  }
+  &-padding {
+    position: relative;
+    padding: 21px;
+    background: green;
+  }
+  &-content {
+    display: flex;
+    padding: 18px;
+    height: 48px;
+    background: red;
+    align-items: center;
+    justify-content: center;
+    .BoxModel-value {
+      position: static;
+    }
+  }
+
+  &-value {
+    position: absolute;
+    width: 18px;
+    padding: 3px;
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    &--top {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &--right {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+    }
+    &--bottom {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &--left {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+  }
+}

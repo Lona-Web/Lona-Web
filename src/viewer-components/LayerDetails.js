@@ -22,27 +22,11 @@ const layerParametersGroups = [
     parameters: ['font', 'numberOfLines', 'text']
   },
   {
-    label: 'Layout',
-    parameters: [
-      'visible',
-      'flex',
-      'alignSelf',
-      'flexDirection',
-      'alignItems',
-      'justifyContent',
-      'itemSpacing'
-    ]
-  },
-  {
-    label: 'Dimensions',
-    parameters: ['width', 'height', 'aspectRatio']
-  },
-  {
     label: 'Position',
     parameters: ['position', 'top', 'right', 'left', 'bottom']
   },
   {
-    label: 'Spacing',
+    label: 'Box',
     parameters: [
       'marginTop',
       'marginRight',
@@ -51,16 +35,31 @@ const layerParametersGroups = [
       'paddingTop',
       'paddingRight',
       'paddingLeft',
-      'paddingBottom'
+      'paddingBottom',
+      'width',
+      'height'
     ]
   },
   {
-    label: 'Background',
-    parameters: ['backgroundColor']
+    label: 'Layout',
+    parameters: [
+      'visible',
+      'flex',
+      'alignSelf',
+      'flexDirection',
+      'alignItems',
+      'justifyContent',
+      'itemSpacing',
+      'aspectRatio'
+    ]
   },
   {
     label: 'Borders',
     parameters: ['borderColor', 'borderRadius', 'borderWidth']
+  },
+  {
+    label: 'Background',
+    parameters: ['backgroundColor']
   }
 ];
 
@@ -81,8 +80,15 @@ export default class LayerDetails extends Component<Props, void> {
       <div className="LayerDetails">
         {layerParametersGroups.map((group: Group, i: number) => {
           const hasValueInGroup = group.parameters.some(key => parameters[key]);
-          if (hasValueInGroup) return this.renderGroup(group, i);
-          else return false;
+          if (hasValueInGroup) {
+            if (group.label === 'Box') {
+              return this.renderBoxGroup(group, i);
+            } else {
+              return this.renderGroup(group, i);
+            }
+          } else {
+            return false;
+          }
         })}
         {componentGroup}
       </div>
@@ -91,10 +97,50 @@ export default class LayerDetails extends Component<Props, void> {
 
   renderGroup(group: Group, key: number = 0) {
     return (
-      <div key={key} className={`LayerDetails-group ${group.label}`}>
+      <div key={key} className={`LayerDetails-group`}>
         <h5 className="TitleXs LayerDetails-group-label">{group.label}</h5>
         <div className="LayerDetails-group-body">
           {group.parameters.map((paramKey, f) => this.renderParam(paramKey, f))}
+        </div>
+      </div>
+    );
+  }
+
+  renderBoxGroup(group: Group, key: number = 0) {
+    const { parameters } = this.props.layer;
+
+    const displayBoxModelValue = (paramKey: string, pos: ?string) => {
+      return (
+        <div
+          className={`BoxModel-value ${pos ? 'BoxModel-value--' + pos : ''}`}
+        >
+          {parameters[paramKey] ? parameters[paramKey] : '-'}
+        </div>
+      );
+    };
+
+    return (
+      <div key={key} className="LayerDetails-group">
+        <h5 className="TitleXs LayerDetails-group-label">{group.label}</h5>
+        <div className="LayerDetails-group-body">
+          <div className="BoxModel">
+            <div className="BoxModel-margin">
+              {displayBoxModelValue('marginTop', 'top')}
+              {displayBoxModelValue('marginRight', 'right')}
+              {displayBoxModelValue('marginLeft', 'left')}
+              {displayBoxModelValue('marginBottom', 'bottom')}
+              <div className="BoxModel-padding">
+                {displayBoxModelValue('paddingTop', 'top')}
+                {displayBoxModelValue('paddingRight', 'right')}
+                {displayBoxModelValue('paddingLeft', 'left')}
+                {displayBoxModelValue('paddingBottom', 'bottom')}
+                <div className="BoxModel-content">
+                  {displayBoxModelValue('width')}
+                  {displayBoxModelValue('height')}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );

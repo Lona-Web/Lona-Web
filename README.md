@@ -10,5 +10,5 @@ _Just a quick and dirty proof of concept for now! It only handle the material de
 
 ### Todo for layer params
 
-* image as square thumbnail + clickable icon
-* text as textbox
+* make box model
+* image as square thumbnail + clickable link icon
