@@ -75,54 +75,82 @@
 
 .BoxModel {
   width: 100%;
+  font-size: 12px;
+  line-height: 12px;
   &-margin {
     position: relative;
-    padding: 21px;
-    background: blue;
+    padding: 24px;
+    background: $color-dark-level-4;
+    border: 1px solid $color-dark-level-0;
+    box-shadow: $shadow-inset-level-1;
+    border-radius: 2px;
   }
   &-padding {
     position: relative;
-    padding: 21px;
-    background: green;
+    padding: 24px;
+    background: $color-dark-level-4;
+    border: 1px solid $color-dark-level-0;
+    border-radius: 2px;
   }
   &-content {
+    position: relative;
     display: flex;
-    padding: 18px;
-    height: 48px;
-    background: red;
+    padding: 24px;
+    height: 60px;
+    background: $color-dark-level-4;
+    border: 1px solid $color-dark-level-0;
+    border-radius: 2px;
     align-items: center;
     justify-content: center;
+    .BoxModel-title {
+      left: 50%;
+      transform: translateX(-50%);
+    }
     .BoxModel-value {
       position: static;
     }
   }
 
+  &-title {
+    position: absolute;
+    top: 6px;
+    left: 24px;
+    color: $text-color-light;
+  }
+
+  &-separator {
+    opacity: 0.4;
+  }
+
   &-value {
     position: absolute;
     width: 18px;
-    padding: 3px;
-    font-size: 12px;
-    line-height: 12px;
     text-align: center;
+    opacity: 0.2;
+    transition: opacity 150ms ease-in;
+    &.is-active {
+      opacity: 1;
+    }
     &--top {
-      top: 0;
+      top: 6px;
       left: 50%;
       transform: translateX(-50%);
     }
     &--right {
       top: 50%;
-      right: 0;
+      right: 3px;
       transform: translateY(-50%);
     }
     &--bottom {
-      bottom: 0;
+      bottom: 6px;
       left: 50%;
       transform: translateX(-50%);
     }
     &--left {
       top: 50%;
-      left: 0;
+      left: 3px;
       transform: translateY(-50%);
     }
   }
+
 }

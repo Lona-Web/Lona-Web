@@ -110,11 +110,12 @@ export default class LayerDetails extends Component<Props, void> {
     const { parameters } = this.props.layer;
 
     const displayBoxModelValue = (paramKey: string, pos: ?string) => {
+      const isActive = parameters[paramKey];
+      const activeClass = isActive ? 'is-active' : '';
+      const posClass = pos ? 'BoxModel-value--' + pos : '';
       return (
-        <div
-          className={`BoxModel-value ${pos ? 'BoxModel-value--' + pos : ''}`}
-        >
-          {parameters[paramKey] ? parameters[paramKey] : '-'}
+        <div className={`BoxModel-value ${posClass} ${activeClass}`}>
+          {isActive ? parameters[paramKey] : '-'}
         </div>
       );
     };
@@ -125,17 +126,21 @@ export default class LayerDetails extends Component<Props, void> {
         <div className="LayerDetails-group-body">
           <div className="BoxModel">
             <div className="BoxModel-margin">
+              <div className="BoxModel-title">Margin</div>
               {displayBoxModelValue('marginTop', 'top')}
               {displayBoxModelValue('marginRight', 'right')}
               {displayBoxModelValue('marginLeft', 'left')}
               {displayBoxModelValue('marginBottom', 'bottom')}
               <div className="BoxModel-padding">
+                <div className="BoxModel-title">Padding</div>
                 {displayBoxModelValue('paddingTop', 'top')}
                 {displayBoxModelValue('paddingRight', 'right')}
                 {displayBoxModelValue('paddingLeft', 'left')}
                 {displayBoxModelValue('paddingBottom', 'bottom')}
                 <div className="BoxModel-content">
+                  <div className="BoxModel-title">Content</div>
                   {displayBoxModelValue('width')}
+                  <div className="BoxModel-separator">*</div>
                   {displayBoxModelValue('height')}
                 </div>
               </div>
