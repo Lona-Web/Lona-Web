@@ -10,6 +10,5 @@ _Just a quick and dirty proof of concept for now! It only handle the material de
 
 ### Todo for layer params
 
-* Display color as a colored square
 * image as square thumbnail + clickable icon
 * text as textbox
