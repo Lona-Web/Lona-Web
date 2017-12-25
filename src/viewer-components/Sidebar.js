@@ -5,16 +5,16 @@ import './Sidebar.css';
 import { colorsPath, textStylesPath } from '../constants';
 import { Icon } from './';
 
-type Folder = {
-  type: 'Folder',
-  name: string,
-  children: Array<Item | Folder>
-};
-
 type Item = {
   type: 'Item',
   name: string,
   key: string
+};
+
+type Folder = {
+  type: 'Folder',
+  name: string,
+  children: Array<Item | Folder>
 };
 
 function addLeaf(
@@ -55,8 +55,6 @@ function addLeaf(
 }
 
 export function makeTree(paths: string[]): Array<Item | Folder> {
-  const result = [];
-
   return paths
     .reduce((result, path) => {
       const subPaths = path.split('/').slice(1); // remove the '.' prefix
