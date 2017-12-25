@@ -2,10 +2,13 @@
 
 import React, { Component } from 'react';
 import './LayerDetails.css';
-import type { LonaLayer } from '../LonaTypes.js';
+import type { LonaLayer, LonaColor } from '../LonaTypes.js';
+
+import { getColorOrDefault } from '../helpers';
 
 type Props = {
-  layer: LonaLayer
+  layer: LonaLayer,
+  colors: LonaColor[]
 };
 
 type Group = {
@@ -103,8 +106,28 @@ export default class LayerDetails extends Component<Props, void> {
 
   renderParam(paramKey: string, key: number = 0) {
     const { parameters } = this.props.layer;
+    const { colors } = this.props;
     const value = parameters[paramKey];
-    let paramTemplate = (
+
+    let paramTemplate = null;
+
+    if (paramKey === 'backgroundColor') {
+      const color = getColorOrDefault(value, colors);
+      paramTemplate = this.getColorTemplate(value, color);
+    } else {
+      paramTemplate = this.getDefaultTemplate(value);
+    }
+
+    return (
+      <div key={key} className={`LayerDetails-param ${paramKey}`}>
+        <label className="LayerDetails-param-label">{paramKey}</label>
+        {paramTemplate}
+      </div>
+    );
+  }
+
+  getDefaultTemplate(value: string) {
+    return (
       <input
         className="LayerDetails-param-input"
         type="text"
@@ -112,24 +135,15 @@ export default class LayerDetails extends Component<Props, void> {
         readOnly
       />
     );
-
-    if (paramKey === 'backgroundColor') {
-      paramTemplate = (
-        <div className="LayerDetails-param-color">
-          <div
-            className="LayerDetails-param-color-body"
-            style={{ backgroundColor: value }}
-          />
-          {/* TODO: Color can be hex or 'grey200' */}
-          {value}
-        </div>
-      );
-    }
-
+  }
+  getColorTemplate(value: string, color: string) {
     return (
-      <div key={key} className={`LayerDetails-param ${paramKey}`}>
-        <label className="LayerDetails-param-label">{paramKey}</label>
-        {paramTemplate}
+      <div className="LayerDetails-param-color">
+        <div
+          className="LayerDetails-param-color-body"
+          style={{ backgroundColor: color }}
+        />
+        {value}
       </div>
     );
   }

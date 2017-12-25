@@ -138,7 +138,7 @@ class App extends Component<void, State> {
       return null;
     }
 
-    return <LayerDetails layer={layer} />;
+    return <LayerDetails layer={layer} colors={this.state.colors} />;
   }
 
   renderComponentTree() {
