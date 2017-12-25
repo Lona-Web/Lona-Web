@@ -106,7 +106,6 @@ export default class LayerDetails extends Component<Props, void> {
     const value = parameters[paramKey];
 
     let paramTemplate = null;
-    console.log(parameters);
 
     if (paramKey === 'backgroundColor') {
       const color = getColorOrDefault(value, colors);
