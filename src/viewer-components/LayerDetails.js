@@ -19,7 +19,7 @@ type Group = {
 const layerParametersGroups = [
   {
     label: 'Text',
-    parameters: ['text', 'font', 'numberOfLines']
+    parameters: ['font', 'numberOfLines', 'text']
   },
   {
     label: 'Layout',
@@ -66,7 +66,6 @@ const layerParametersGroups = [
 
 export default class LayerDetails extends Component<Props, void> {
   render() {
-    const { name } = this.props.layer;
     const { type, parameters } = this.props.layer;
 
     let componentGroup = null;
@@ -80,14 +79,11 @@ export default class LayerDetails extends Component<Props, void> {
 
     return (
       <div className="LayerDetails">
-        {/* <h4 className="TitleXs">{name}</h4> */}
-
         {layerParametersGroups.map((group: Group, i: number) => {
           const hasValueInGroup = group.parameters.some(key => parameters[key]);
           if (hasValueInGroup) return this.renderGroup(group, i);
           else return false;
         })}
-
         {componentGroup}
       </div>
     );
@@ -110,12 +106,15 @@ export default class LayerDetails extends Component<Props, void> {
     const value = parameters[paramKey];
 
     let paramTemplate = null;
+    console.log(parameters);
 
     if (paramKey === 'backgroundColor') {
       const color = getColorOrDefault(value, colors);
-      paramTemplate = this.getColorTemplate(value, color);
+      paramTemplate = this.getColorParamTemplate(value, color);
+    } else if (paramKey === 'text') {
+      paramTemplate = this.getTextParamTemplate(value);
     } else {
-      paramTemplate = this.getDefaultTemplate(value);
+      paramTemplate = this.getDefaultParamTemplate(value);
     }
 
     return (
@@ -126,7 +125,7 @@ export default class LayerDetails extends Component<Props, void> {
     );
   }
 
-  getDefaultTemplate(value: string) {
+  getDefaultParamTemplate(value: string) {
     return (
       <input
         className="LayerDetails-param-input"
@@ -136,7 +135,8 @@ export default class LayerDetails extends Component<Props, void> {
       />
     );
   }
-  getColorTemplate(value: string, color: string) {
+
+  getColorParamTemplate(value: string, color: string) {
     return (
       <div className="LayerDetails-param-color">
         <div
@@ -145,6 +145,12 @@ export default class LayerDetails extends Component<Props, void> {
         />
         {value}
       </div>
+    );
+  }
+
+  getTextParamTemplate(value: string) {
+    return (
+      <textarea className="LayerDetails-param-text" readOnly value={value} />
     );
   }
 }

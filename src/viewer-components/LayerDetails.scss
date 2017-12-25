@@ -1,6 +1,6 @@
 @import '../styles/_variables.scss';
 
-@mixin LayerDetailsValue() {
+@mixin LayerDetailsParamsBase() {
   width: 100%;
   padding: 6px;
   line-height: 18px;
@@ -37,11 +37,17 @@
     }
 
     &-input {
-      @include LayerDetailsValue;
+      @include LayerDetailsParamsBase;
+    }
+
+    &-text {
+      @include LayerDetailsParamsBase;
+      height: 54px;
+      resize: none;
     }
 
     &-color {
-      @include LayerDetailsValue;
+      @include LayerDetailsParamsBase;
       display: flex;
       &-body {
         width: 18px;
