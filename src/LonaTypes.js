@@ -181,3 +181,17 @@ export type LonaColor = {|
   value: string,
   comment?: string
 |};
+
+export type LonaShadows = {|
+  defaultShadowName: string,
+  shadows: LonaShadow[]
+|};
+
+export type LonaShadow = {|
+  id: string,
+  name: string,
+  color: string,
+  x: number,
+  y: number,
+  blur: number
+|};
