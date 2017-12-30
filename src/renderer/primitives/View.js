@@ -29,7 +29,7 @@ export default class View extends React.Component<Props, void> {
     const { layer, textStyles, colors, components } = this.props;
     return (
       <div
-        lonaid={layer.name}
+        layerid={layer.id}
         style={{
           position: 'relative',
           boxSizing: 'border-box',
@@ -49,7 +49,7 @@ export default class View extends React.Component<Props, void> {
       >
         {layer.children.map(child => (
           <Layer
-            key={child.name}
+            key={child.id}
             layer={child}
             colors={colors}
             textStyles={textStyles}

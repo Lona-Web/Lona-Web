@@ -87,6 +87,7 @@ export type LonaLayer =
 
 export type LonaComponentLayer = {|
   type: 'Component',
+  id: string,
   name: string,
   url: string,
   parameters: {}
@@ -132,6 +133,7 @@ export type LonaLayerParameters = {|
 
 export type LonaImageLayer = {|
   type: 'Image',
+  id: string,
   name: string,
   parameters: LonaLayerParameters & {|
     image?: string
@@ -140,6 +142,7 @@ export type LonaImageLayer = {|
 
 export type LonaTextLayer = {|
   type: 'Text',
+  id: string,
   name: string,
   parameters: LonaLayerParameters & {|
     text: string,
@@ -150,6 +153,7 @@ export type LonaTextLayer = {|
 
 export type LonaViewLayer = {|
   type: 'View',
+  id: string,
   name: string,
   children: LonaLayer[],
   parameters: LonaLayerParameters & {

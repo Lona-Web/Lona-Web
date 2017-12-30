@@ -10,7 +10,7 @@ import {
   Icon
 } from './viewer-components';
 import Case from './renderer/Case';
-import { flattenComponentLayers } from './helpers';
+import { flattenComponentLayers, generateLayerIdsIfMissing } from './helpers';
 import {
   teamComponent,
   cardComponent,
@@ -33,22 +33,27 @@ type State = {|
   mobileSidebarOpen: boolean
 |};
 
+const defaultState = {
+  components: new Map([
+    ['./screen/Team.component', generateLayerIdsIfMissing(teamComponent)],
+    ['./components/Card.component', generateLayerIdsIfMissing(cardComponent)],
+    [
+      './components/ListItem.component',
+      generateLayerIdsIfMissing(listItemComponent)
+    ]
+  ]),
+  colors: colorsData.colors,
+  textStyles: textStyles,
+  selectedItem: './components/Card.component',
+  selectedLayer: null,
+  hoveredLayer: null,
+  mobileSidebarOpen: false
+};
+
 class App extends Component<void, State> {
   constructor(props: void) {
     super(props);
-    this.state = {
-      components: new Map([
-        ['./screen/Team.component', teamComponent],
-        ['./components/Card.component', cardComponent],
-        ['./components/ListItem.component', listItemComponent]
-      ]),
-      colors: colorsData.colors,
-      textStyles: textStyles,
-      selectedItem: './components/Card.component',
-      selectedLayer: null,
-      hoveredLayer: null,
-      mobileSidebarOpen: false
-    };
+    this.state = defaultState;
   }
 
   handleComponentSelected = (item: string) => {
@@ -131,7 +136,7 @@ class App extends Component<void, State> {
 
     const component = this.selectedComponent();
     const layer = flattenComponentLayers(component).find(
-      l => l.name === this.state.selectedLayer
+      l => l.id === this.state.selectedLayer
     );
 
     if (layer == null) {
@@ -152,15 +157,15 @@ class App extends Component<void, State> {
     return (
       <ComponentTree
         component={this.selectedComponent()}
-        selectedLayerName={this.state.selectedLayer}
-        onHoverLayer={layerName =>
+        selectedLayerId={this.state.selectedLayer}
+        onHoverLayer={layerId =>
           this.setState({
-            hoveredLayer: layerName
+            hoveredLayer: layerId
           })
         }
-        onSelectLayer={layerName =>
+        onSelectLayer={layerId =>
           this.setState({
-            selectedLayer: layerName
+            selectedLayer: layerId
           })
         }
       />

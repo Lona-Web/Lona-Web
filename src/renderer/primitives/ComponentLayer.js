@@ -30,6 +30,8 @@ export default class View extends React.Component<Props, void> {
       layer.parameters,
       component.rootLayer
     );
+    // Hack to make visual cues visible when component layer is selected
+    layerWithLogicApplied.id = layer.id;
     return (
       <Layer
         layer={layerWithLogicApplied}

@@ -34,8 +34,8 @@ export default class Text extends React.Component<Props, void> {
     const textStyle = getFontOrDefault(layer.parameters.font, textStyles);
     return (
       <span
-        lonaid={layer.name}
-        key={layer.name}
+        layerId={layer.id}
+        key={layer.id}
         style={{
           ...getBackgroundStyle(layer.parameters, colors),
           ...applyNumberOfLinesStyle(layer.parameters.numberOfLines),

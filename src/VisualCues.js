@@ -14,12 +14,12 @@ type Overlay = {
   width: number
 };
 
-function layerNameToOverlays(layerName: ?string): Overlay[] {
-  if (layerName == null) {
+function layerIdToOverlays(layerId: ?string): Overlay[] {
+  if (layerId == null) {
     return [];
   }
 
-  return Array.from(document.querySelectorAll(`[lonaid="${layerName}"]`)).map(
+  return Array.from(document.querySelectorAll(`[layerid="${layerId}"]`)).map(
     elementToOverlays
   );
 }
@@ -55,7 +55,7 @@ export default class VisualCues extends React.Component<Props, void> {
           right: '0'
         }}
       >
-        {layerNameToOverlays(this.props.selectedLayer).map((overlay, i) => (
+        {layerIdToOverlays(this.props.selectedLayer).map((overlay, i) => (
           <div
             key={'selected-layer' + i}
             style={{
@@ -68,7 +68,7 @@ export default class VisualCues extends React.Component<Props, void> {
             }}
           />
         ))}
-        {layerNameToOverlays(this.props.hoveredLayer).map((overlay, i) => (
+        {layerIdToOverlays(this.props.hoveredLayer).map((overlay, i) => (
           <div
             key={'hovered-layer' + i}
             style={{

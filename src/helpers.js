@@ -25,7 +25,7 @@ export function flattenLayers(layer: LonaLayer): LonaLayer[] {
   }
 }
 
-export function flattenComponentLayers(component: LonaComponent) {
+export function flattenComponentLayers(component: LonaComponent): LonaLayer[] {
   return flattenLayers(component.rootLayer);
 }
 
@@ -224,4 +224,24 @@ function extractValue(variable: LonaVariable, parameters: {}): any {
         `LonaVariable not supported (${JSON.stringify(variable)})`
       );
   }
+}
+
+function uuidv4(): string {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+// Lona layer will have ids in a future version
+export function generateLayerIdsIfMissing(
+  component: LonaComponent
+): LonaComponent {
+  for (let layer of flattenComponentLayers(component)) {
+    if (layer.id == null) {
+      layer.id = uuidv4();
+    }
+  }
+  return component;
 }

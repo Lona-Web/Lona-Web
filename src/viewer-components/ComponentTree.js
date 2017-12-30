@@ -9,19 +9,20 @@ import { Icon } from './';
 
 type Props = {
   component: LonaComponent,
-  selectedLayerName: ?string,
-  onSelectLayer: (layerName: string) => void,
-  onHoverLayer: (layerName: ?string) => void
+  selectedLayerId: ?string,
+  onSelectLayer: (layerId: string) => void,
+  onHoverLayer: (layerId: ?string) => void
 };
 
 type LayerItem = {
+  id: string,
   name: string,
   depth: number,
   type: string
 };
 
 function flattenLayers(layer: LonaLayer, depth: number): LayerItem[] {
-  const result = [{ name: layer.name, depth, type: layer.type }];
+  const result = [{ id: layer.id, name: layer.name, depth, type: layer.type }];
 
   if (layer.type === 'View') {
     return result.concat(
@@ -57,14 +58,12 @@ export default class ComponentTree extends Component<Props, void> {
           {items.map(item => {
             return (
               <a
-                key={item.name}
+                key={item.id}
                 className={
-                  this.props.selectedLayerName === item.name
-                    ? 'is-selected'
-                    : ''
+                  this.props.selectedLayerId === item.id ? 'is-selected' : ''
                 }
-                onMouseOver={() => this.props.onHoverLayer(item.name)}
-                onClick={() => this.props.onSelectLayer(item.name)}
+                onMouseOver={() => this.props.onHoverLayer(item.id)}
+                onClick={() => this.props.onSelectLayer(item.id)}
                 style={{ paddingLeft: item.depth * 18 + 'px' }}
               >
                 {this.renderIcon(item.type)}

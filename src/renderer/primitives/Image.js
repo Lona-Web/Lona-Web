@@ -50,9 +50,9 @@ export default class Image extends React.Component<Props, void> {
       objectFit: 'cover'
     };
     return (
-      <AspectRatio key={layer.name} aspectRatio={layer.parameters.aspectRatio}>
+      <AspectRatio key={layer.id} aspectRatio={layer.parameters.aspectRatio}>
         <img
-          lonaid={layer.name}
+          layerid={layer.id}
           alt={layer.name}
           style={{
             display: 'flex',
