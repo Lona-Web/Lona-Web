@@ -92,9 +92,9 @@ export default class Case extends React.Component<Props, State> {
             </div>
           </div>
           <div className="Canvases">
-            {component.canvases.map(canvas =>
-              this.renderCanvas(component, canvas, layer)
-            )}
+            {component.canvases
+              .filter(canvas => canvas.visible)
+              .map(canvas => this.renderCanvas(component, canvas, layer))}
           </div>
         </div>
       </div>
