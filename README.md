@@ -1,13 +1,5 @@
-# Lona-Web
+# [Lona-Web](https://lona-web.github.io/Lona-Web/)
 
-Display your [Lona](https://github.com/airbnb/Lona) components directly on the web!
+A style for your [Lona](https://github.com/airbnb/Lona) components.
 
-[Demo](https://lona-web.github.io/Lona-Web/)
-
-_Just a quick and dirty proof of concept for now! It only handle the material design sample. Lot of features are missing..._
-
-## Todo
-
-### Todo for layer params
-
-* image as square thumbnail + clickable link icon
+_It only handle the material design sample from the Lona repository. You will be able to upload your own workspace when the Lona component spec is mature enough..._
